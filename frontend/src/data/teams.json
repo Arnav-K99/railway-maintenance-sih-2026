@@ -1,0 +1,392 @@
+[
+  {
+    "team_id": "TEAM-001",
+    "department": "Track / Civil Engineering",
+    "team_name": "Track Gang",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 8,
+    "availability_percent": 90
+  },
+  {
+    "team_id": "TEAM-002",
+    "department": "Track / Civil Engineering",
+    "team_name": "Track Gang",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 8,
+    "availability_percent": 90
+  },
+  {
+    "team_id": "TEAM-003",
+    "department": "Track / Civil Engineering",
+    "team_name": "Track Gang",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 8,
+    "availability_percent": 100
+  },
+  {
+    "team_id": "TEAM-004",
+    "department": "Track / Civil Engineering",
+    "team_name": "Tamping Team",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 10,
+    "availability_percent": 100
+  },
+  {
+    "team_id": "TEAM-005",
+    "department": "Track / Civil Engineering",
+    "team_name": "Tamping Team",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 10,
+    "availability_percent": 90
+  },
+  {
+    "team_id": "TEAM-006",
+    "department": "Track / Civil Engineering",
+    "team_name": "Tamping Team",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 10,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-007",
+    "department": "Track / Civil Engineering",
+    "team_name": "Bridge Team",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 7,
+    "availability_percent": 90
+  },
+  {
+    "team_id": "TEAM-008",
+    "department": "Track / Civil Engineering",
+    "team_name": "Bridge Team",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 7,
+    "availability_percent": 100
+  },
+  {
+    "team_id": "TEAM-009",
+    "department": "Track / Civil Engineering",
+    "team_name": "Bridge Team",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 7,
+    "availability_percent": 85
+  },
+  {
+    "team_id": "TEAM-010",
+    "department": "Track / Civil Engineering",
+    "team_name": "Turnout Team",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 6,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-011",
+    "department": "Track / Civil Engineering",
+    "team_name": "Turnout Team",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 6,
+    "availability_percent": 85
+  },
+  {
+    "team_id": "TEAM-012",
+    "department": "Track / Civil Engineering",
+    "team_name": "Turnout Team",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 6,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-013",
+    "department": "Electrical / TRD",
+    "team_name": "OHE Team",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 6,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-014",
+    "department": "Electrical / TRD",
+    "team_name": "OHE Team",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 6,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-015",
+    "department": "Electrical / TRD",
+    "team_name": "OHE Team",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 6,
+    "availability_percent": 100
+  },
+  {
+    "team_id": "TEAM-016",
+    "department": "Electrical / TRD",
+    "team_name": "TRD Substation Team",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 5,
+    "availability_percent": 85
+  },
+  {
+    "team_id": "TEAM-017",
+    "department": "Electrical / TRD",
+    "team_name": "TRD Substation Team",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 5,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-018",
+    "department": "Electrical / TRD",
+    "team_name": "TRD Substation Team",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 5,
+    "availability_percent": 100
+  },
+  {
+    "team_id": "TEAM-019",
+    "department": "Electrical / TRD",
+    "team_name": "Electrical Inspection Team",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 4,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-020",
+    "department": "Electrical / TRD",
+    "team_name": "Electrical Inspection Team",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 4,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-021",
+    "department": "Electrical / TRD",
+    "team_name": "Electrical Inspection Team",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 4,
+    "availability_percent": 100
+  },
+  {
+    "team_id": "TEAM-022",
+    "department": "Signal & Telecommunications (S&T)",
+    "team_name": "Signal Team",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 5,
+    "availability_percent": 85
+  },
+  {
+    "team_id": "TEAM-023",
+    "department": "Signal & Telecommunications (S&T)",
+    "team_name": "Signal Team",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 5,
+    "availability_percent": 90
+  },
+  {
+    "team_id": "TEAM-024",
+    "department": "Signal & Telecommunications (S&T)",
+    "team_name": "Signal Team",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 5,
+    "availability_percent": 90
+  },
+  {
+    "team_id": "TEAM-025",
+    "department": "Signal & Telecommunications (S&T)",
+    "team_name": "Telecom Team",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 4,
+    "availability_percent": 90
+  },
+  {
+    "team_id": "TEAM-026",
+    "department": "Signal & Telecommunications (S&T)",
+    "team_name": "Telecom Team",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 4,
+    "availability_percent": 85
+  },
+  {
+    "team_id": "TEAM-027",
+    "department": "Signal & Telecommunications (S&T)",
+    "team_name": "Telecom Team",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 4,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-028",
+    "department": "Signal & Telecommunications (S&T)",
+    "team_name": "Relay Team",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 4,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-029",
+    "department": "Signal & Telecommunications (S&T)",
+    "team_name": "Relay Team",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 4,
+    "availability_percent": 100
+  },
+  {
+    "team_id": "TEAM-030",
+    "department": "Signal & Telecommunications (S&T)",
+    "team_name": "Relay Team",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 4,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-031",
+    "department": "Mechanical / Rolling Stock",
+    "team_name": "Brake Team",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 6,
+    "availability_percent": 85
+  },
+  {
+    "team_id": "TEAM-032",
+    "department": "Mechanical / Rolling Stock",
+    "team_name": "Brake Team",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 6,
+    "availability_percent": 90
+  },
+  {
+    "team_id": "TEAM-033",
+    "department": "Mechanical / Rolling Stock",
+    "team_name": "Brake Team",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 6,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-034",
+    "department": "Mechanical / Rolling Stock",
+    "team_name": "Wheelset Team",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 7,
+    "availability_percent": 100
+  },
+  {
+    "team_id": "TEAM-035",
+    "department": "Mechanical / Rolling Stock",
+    "team_name": "Wheelset Team",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 7,
+    "availability_percent": 90
+  },
+  {
+    "team_id": "TEAM-036",
+    "department": "Mechanical / Rolling Stock",
+    "team_name": "Wheelset Team",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 7,
+    "availability_percent": 100
+  },
+  {
+    "team_id": "TEAM-037",
+    "department": "Mechanical / Rolling Stock",
+    "team_name": "Mechanical Inspection Team",
+    "shift": "Night Shift (00:00 - 08:00)",
+    "shift_start_minute": 0,
+    "shift_end_minute": 480,
+    "crew_size": 5,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-038",
+    "department": "Mechanical / Rolling Stock",
+    "team_name": "Mechanical Inspection Team",
+    "shift": "Day Shift (08:00 - 16:00)",
+    "shift_start_minute": 480,
+    "shift_end_minute": 960,
+    "crew_size": 5,
+    "availability_percent": 95
+  },
+  {
+    "team_id": "TEAM-039",
+    "department": "Mechanical / Rolling Stock",
+    "team_name": "Mechanical Inspection Team",
+    "shift": "Evening Shift (16:00 - 24:00)",
+    "shift_start_minute": 960,
+    "shift_end_minute": 1440,
+    "crew_size": 5,
+    "availability_percent": 95
+  }
+]

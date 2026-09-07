@@ -1,0 +1,201 @@
+section_id,corridor_id,corridor_name,section_name,region,section_length_km,electrified,track_type,maximum_speed_kmph
+SEC-0001,COR-001,Delhi–Agra,Delhi–Agra Section 1,Northern,12.2,Yes,Quadruple Line,130
+SEC-0002,COR-001,Delhi–Agra,Delhi–Agra Section 2,Northern,4.3,No,Quadruple Line,130
+SEC-0003,COR-001,Delhi–Agra,Delhi–Agra Section 3,Northern,4.7,Yes,Double Line,140
+SEC-0004,COR-001,Delhi–Agra,Delhi–Agra Section 4,Northern,10.7,Yes,Double Line,110
+SEC-0005,COR-001,Delhi–Agra,Delhi–Agra Section 5,Northern,9.6,Yes,Quadruple Line,120
+SEC-0006,COR-001,Delhi–Agra,Delhi–Agra Section 6,Northern,12.0,Yes,Single Line,130
+SEC-0007,COR-001,Delhi–Agra,Delhi–Agra Section 7,Northern,12.2,Yes,Double Line,100
+SEC-0008,COR-001,Delhi–Agra,Delhi–Agra Section 8,Northern,5.0,Yes,Quadruple Line,140
+SEC-0009,COR-001,Delhi–Agra,Delhi–Agra Section 9,Northern,7.0,Yes,Double Line,110
+SEC-0010,COR-001,Delhi–Agra,Delhi–Agra Section 10,Northern,4.7,Yes,Double Line,130
+SEC-0011,COR-002,Agra–Jhansi,Agra–Jhansi Section 1,Western,8.3,Yes,Quadruple Line,110
+SEC-0012,COR-002,Agra–Jhansi,Agra–Jhansi Section 2,Western,12.9,Yes,Double Line,110
+SEC-0013,COR-002,Agra–Jhansi,Agra–Jhansi Section 3,Western,11.1,Yes,Double Line,100
+SEC-0014,COR-002,Agra–Jhansi,Agra–Jhansi Section 4,Western,12.3,Yes,Quadruple Line,130
+SEC-0015,COR-002,Agra–Jhansi,Agra–Jhansi Section 5,Western,8.5,Yes,Double Line,100
+SEC-0016,COR-002,Agra–Jhansi,Agra–Jhansi Section 6,Western,11.0,Yes,Double Line,130
+SEC-0017,COR-002,Agra–Jhansi,Agra–Jhansi Section 7,Western,10.6,Yes,Double Line,110
+SEC-0018,COR-002,Agra–Jhansi,Agra–Jhansi Section 8,Western,3.6,Yes,Double Line,120
+SEC-0019,COR-002,Agra–Jhansi,Agra–Jhansi Section 9,Western,13.1,Yes,Double Line,110
+SEC-0020,COR-002,Agra–Jhansi,Agra–Jhansi Section 10,Western,6.6,Yes,Double Line,130
+SEC-0021,COR-003,Delhi–Ambala,Delhi–Ambala Section 1,Central,10.9,Yes,Quadruple Line,110
+SEC-0022,COR-003,Delhi–Ambala,Delhi–Ambala Section 2,Central,3.5,Yes,Quadruple Line,120
+SEC-0023,COR-003,Delhi–Ambala,Delhi–Ambala Section 3,Central,5.1,Yes,Double Line,130
+SEC-0024,COR-003,Delhi–Ambala,Delhi–Ambala Section 4,Central,8.4,Yes,Double Line,120
+SEC-0025,COR-003,Delhi–Ambala,Delhi–Ambala Section 5,Central,7.4,Yes,Double Line,140
+SEC-0026,COR-003,Delhi–Ambala,Delhi–Ambala Section 6,Central,13.7,Yes,Double Line,140
+SEC-0027,COR-003,Delhi–Ambala,Delhi–Ambala Section 7,Central,12.2,Yes,Double Line,110
+SEC-0028,COR-003,Delhi–Ambala,Delhi–Ambala Section 8,Central,4.3,Yes,Double Line,110
+SEC-0029,COR-003,Delhi–Ambala,Delhi–Ambala Section 9,Central,6.7,Yes,Double Line,130
+SEC-0030,COR-003,Delhi–Ambala,Delhi–Ambala Section 10,Central,12.0,Yes,Double Line,120
+SEC-0031,COR-004,Mumbai–Surat,Mumbai–Surat Section 1,Eastern,10.0,Yes,Double Line,120
+SEC-0032,COR-004,Mumbai–Surat,Mumbai–Surat Section 2,Eastern,3.7,Yes,Double Line,100
+SEC-0033,COR-004,Mumbai–Surat,Mumbai–Surat Section 3,Eastern,4.4,Yes,Double Line,140
+SEC-0034,COR-004,Mumbai–Surat,Mumbai–Surat Section 4,Eastern,9.9,Yes,Double Line,100
+SEC-0035,COR-004,Mumbai–Surat,Mumbai–Surat Section 5,Eastern,14.3,Yes,Quadruple Line,100
+SEC-0036,COR-004,Mumbai–Surat,Mumbai–Surat Section 6,Eastern,8.8,Yes,Single Line,120
+SEC-0037,COR-004,Mumbai–Surat,Mumbai–Surat Section 7,Eastern,8.7,Yes,Double Line,120
+SEC-0038,COR-004,Mumbai–Surat,Mumbai–Surat Section 8,Eastern,8.3,Yes,Quadruple Line,130
+SEC-0039,COR-004,Mumbai–Surat,Mumbai–Surat Section 9,Eastern,4.8,Yes,Double Line,130
+SEC-0040,COR-004,Mumbai–Surat,Mumbai–Surat Section 10,Eastern,6.5,Yes,Quadruple Line,130
+SEC-0041,COR-005,Surat–Vadodara,Surat–Vadodara Section 1,Southern,4.4,Yes,Double Line,100
+SEC-0042,COR-005,Surat–Vadodara,Surat–Vadodara Section 2,Southern,9.6,Yes,Quadruple Line,130
+SEC-0043,COR-005,Surat–Vadodara,Surat–Vadodara Section 3,Southern,6.9,No,Double Line,120
+SEC-0044,COR-005,Surat–Vadodara,Surat–Vadodara Section 4,Southern,6.2,Yes,Double Line,100
+SEC-0045,COR-005,Surat–Vadodara,Surat–Vadodara Section 5,Southern,8.2,No,Single Line,130
+SEC-0046,COR-005,Surat–Vadodara,Surat–Vadodara Section 6,Southern,13.5,Yes,Double Line,110
+SEC-0047,COR-005,Surat–Vadodara,Surat–Vadodara Section 7,Southern,12.2,Yes,Double Line,100
+SEC-0048,COR-005,Surat–Vadodara,Surat–Vadodara Section 8,Southern,11.9,Yes,Single Line,110
+SEC-0049,COR-005,Surat–Vadodara,Surat–Vadodara Section 9,Southern,4.6,Yes,Double Line,110
+SEC-0050,COR-005,Surat–Vadodara,Surat–Vadodara Section 10,Southern,10.2,Yes,Double Line,110
+SEC-0051,COR-006,Vadodara–Ahmedabad,Vadodara–Ahmedabad Section 1,North Central,12.2,No,Double Line,100
+SEC-0052,COR-006,Vadodara–Ahmedabad,Vadodara–Ahmedabad Section 2,North Central,3.4,Yes,Double Line,130
+SEC-0053,COR-006,Vadodara–Ahmedabad,Vadodara–Ahmedabad Section 3,North Central,4.6,Yes,Quadruple Line,120
+SEC-0054,COR-006,Vadodara–Ahmedabad,Vadodara–Ahmedabad Section 4,North Central,5.5,Yes,Quadruple Line,130
+SEC-0055,COR-006,Vadodara–Ahmedabad,Vadodara–Ahmedabad Section 5,North Central,4.7,Yes,Single Line,120
+SEC-0056,COR-006,Vadodara–Ahmedabad,Vadodara–Ahmedabad Section 6,North Central,6.7,Yes,Double Line,140
+SEC-0057,COR-006,Vadodara–Ahmedabad,Vadodara–Ahmedabad Section 7,North Central,6.5,Yes,Double Line,120
+SEC-0058,COR-006,Vadodara–Ahmedabad,Vadodara–Ahmedabad Section 8,North Central,10.6,Yes,Double Line,120
+SEC-0059,COR-006,Vadodara–Ahmedabad,Vadodara–Ahmedabad Section 9,North Central,14.4,Yes,Single Line,130
+SEC-0060,COR-006,Vadodara–Ahmedabad,Vadodara–Ahmedabad Section 10,North Central,8.6,Yes,Double Line,100
+SEC-0061,COR-007,Mumbai–Pune,Mumbai–Pune Section 1,South Central,12.8,Yes,Double Line,120
+SEC-0062,COR-007,Mumbai–Pune,Mumbai–Pune Section 2,South Central,10.2,Yes,Double Line,120
+SEC-0063,COR-007,Mumbai–Pune,Mumbai–Pune Section 3,South Central,7.5,Yes,Double Line,130
+SEC-0064,COR-007,Mumbai–Pune,Mumbai–Pune Section 4,South Central,8.5,Yes,Double Line,130
+SEC-0065,COR-007,Mumbai–Pune,Mumbai–Pune Section 5,South Central,12.7,Yes,Double Line,120
+SEC-0066,COR-007,Mumbai–Pune,Mumbai–Pune Section 6,South Central,4.9,Yes,Double Line,100
+SEC-0067,COR-007,Mumbai–Pune,Mumbai–Pune Section 7,South Central,13.9,Yes,Double Line,110
+SEC-0068,COR-007,Mumbai–Pune,Mumbai–Pune Section 8,South Central,4.5,Yes,Double Line,110
+SEC-0069,COR-007,Mumbai–Pune,Mumbai–Pune Section 9,South Central,3.8,Yes,Quadruple Line,120
+SEC-0070,COR-007,Mumbai–Pune,Mumbai–Pune Section 10,South Central,6.9,Yes,Quadruple Line,130
+SEC-0071,COR-008,Bhopal–Itarsi,Bhopal–Itarsi Section 1,Northern,3.7,Yes,Double Line,110
+SEC-0072,COR-008,Bhopal–Itarsi,Bhopal–Itarsi Section 2,Northern,9.8,Yes,Double Line,120
+SEC-0073,COR-008,Bhopal–Itarsi,Bhopal–Itarsi Section 3,Northern,9.3,Yes,Quadruple Line,100
+SEC-0074,COR-008,Bhopal–Itarsi,Bhopal–Itarsi Section 4,Northern,13.9,Yes,Quadruple Line,140
+SEC-0075,COR-008,Bhopal–Itarsi,Bhopal–Itarsi Section 5,Northern,14.6,Yes,Quadruple Line,120
+SEC-0076,COR-008,Bhopal–Itarsi,Bhopal–Itarsi Section 6,Northern,12.2,Yes,Double Line,120
+SEC-0077,COR-008,Bhopal–Itarsi,Bhopal–Itarsi Section 7,Northern,13.1,Yes,Double Line,120
+SEC-0078,COR-008,Bhopal–Itarsi,Bhopal–Itarsi Section 8,Northern,6.3,Yes,Double Line,120
+SEC-0079,COR-008,Bhopal–Itarsi,Bhopal–Itarsi Section 9,Northern,5.9,Yes,Double Line,110
+SEC-0080,COR-008,Bhopal–Itarsi,Bhopal–Itarsi Section 10,Northern,7.6,Yes,Double Line,140
+SEC-0081,COR-009,Itarsi–Nagpur,Itarsi–Nagpur Section 1,Western,13.8,Yes,Double Line,120
+SEC-0082,COR-009,Itarsi–Nagpur,Itarsi–Nagpur Section 2,Western,13.0,Yes,Quadruple Line,120
+SEC-0083,COR-009,Itarsi–Nagpur,Itarsi–Nagpur Section 3,Western,10.5,Yes,Quadruple Line,110
+SEC-0084,COR-009,Itarsi–Nagpur,Itarsi–Nagpur Section 4,Western,11.3,Yes,Double Line,120
+SEC-0085,COR-009,Itarsi–Nagpur,Itarsi–Nagpur Section 5,Western,4.3,Yes,Double Line,140
+SEC-0086,COR-009,Itarsi–Nagpur,Itarsi–Nagpur Section 6,Western,4.8,No,Quadruple Line,120
+SEC-0087,COR-009,Itarsi–Nagpur,Itarsi–Nagpur Section 7,Western,12.3,Yes,Single Line,110
+SEC-0088,COR-009,Itarsi–Nagpur,Itarsi–Nagpur Section 8,Western,10.0,Yes,Double Line,110
+SEC-0089,COR-009,Itarsi–Nagpur,Itarsi–Nagpur Section 9,Western,9.8,Yes,Double Line,120
+SEC-0090,COR-009,Itarsi–Nagpur,Itarsi–Nagpur Section 10,Western,12.1,Yes,Double Line,120
+SEC-0091,COR-010,Howrah–Dhanbad,Howrah–Dhanbad Section 1,Central,14.0,Yes,Double Line,100
+SEC-0092,COR-010,Howrah–Dhanbad,Howrah–Dhanbad Section 2,Central,10.8,Yes,Quadruple Line,130
+SEC-0093,COR-010,Howrah–Dhanbad,Howrah–Dhanbad Section 3,Central,7.1,Yes,Quadruple Line,110
+SEC-0094,COR-010,Howrah–Dhanbad,Howrah–Dhanbad Section 4,Central,7.4,Yes,Double Line,100
+SEC-0095,COR-010,Howrah–Dhanbad,Howrah–Dhanbad Section 5,Central,14.1,Yes,Double Line,130
+SEC-0096,COR-010,Howrah–Dhanbad,Howrah–Dhanbad Section 6,Central,9.6,Yes,Quadruple Line,120
+SEC-0097,COR-010,Howrah–Dhanbad,Howrah–Dhanbad Section 7,Central,7.6,No,Quadruple Line,140
+SEC-0098,COR-010,Howrah–Dhanbad,Howrah–Dhanbad Section 8,Central,4.6,Yes,Double Line,100
+SEC-0099,COR-010,Howrah–Dhanbad,Howrah–Dhanbad Section 9,Central,10.0,Yes,Double Line,120
+SEC-0100,COR-010,Howrah–Dhanbad,Howrah–Dhanbad Section 10,Central,12.8,Yes,Double Line,120
+SEC-0101,COR-011,Dhanbad–Gaya,Dhanbad–Gaya Section 1,Eastern,6.7,Yes,Quadruple Line,100
+SEC-0102,COR-011,Dhanbad–Gaya,Dhanbad–Gaya Section 2,Eastern,14.8,Yes,Double Line,130
+SEC-0103,COR-011,Dhanbad–Gaya,Dhanbad–Gaya Section 3,Eastern,4.4,No,Double Line,130
+SEC-0104,COR-011,Dhanbad–Gaya,Dhanbad–Gaya Section 4,Eastern,4.2,Yes,Double Line,110
+SEC-0105,COR-011,Dhanbad–Gaya,Dhanbad–Gaya Section 5,Eastern,4.9,Yes,Double Line,140
+SEC-0106,COR-011,Dhanbad–Gaya,Dhanbad–Gaya Section 6,Eastern,10.8,Yes,Double Line,100
+SEC-0107,COR-011,Dhanbad–Gaya,Dhanbad–Gaya Section 7,Eastern,10.2,Yes,Double Line,130
+SEC-0108,COR-011,Dhanbad–Gaya,Dhanbad–Gaya Section 8,Eastern,3.9,Yes,Single Line,130
+SEC-0109,COR-011,Dhanbad–Gaya,Dhanbad–Gaya Section 9,Eastern,11.3,Yes,Double Line,110
+SEC-0110,COR-011,Dhanbad–Gaya,Dhanbad–Gaya Section 10,Eastern,4.6,Yes,Quadruple Line,120
+SEC-0111,COR-012,Chennai–Arakkonam,Chennai–Arakkonam Section 1,Southern,13.1,Yes,Quadruple Line,110
+SEC-0112,COR-012,Chennai–Arakkonam,Chennai–Arakkonam Section 2,Southern,6.3,Yes,Single Line,120
+SEC-0113,COR-012,Chennai–Arakkonam,Chennai–Arakkonam Section 3,Southern,3.8,Yes,Double Line,130
+SEC-0114,COR-012,Chennai–Arakkonam,Chennai–Arakkonam Section 4,Southern,11.4,Yes,Double Line,110
+SEC-0115,COR-012,Chennai–Arakkonam,Chennai–Arakkonam Section 5,Southern,14.6,Yes,Quadruple Line,120
+SEC-0116,COR-012,Chennai–Arakkonam,Chennai–Arakkonam Section 6,Southern,9.8,Yes,Single Line,110
+SEC-0117,COR-012,Chennai–Arakkonam,Chennai–Arakkonam Section 7,Southern,9.9,Yes,Double Line,140
+SEC-0118,COR-012,Chennai–Arakkonam,Chennai–Arakkonam Section 8,Southern,4.9,Yes,Double Line,120
+SEC-0119,COR-012,Chennai–Arakkonam,Chennai–Arakkonam Section 9,Southern,4.6,Yes,Double Line,110
+SEC-0120,COR-012,Chennai–Arakkonam,Chennai–Arakkonam Section 10,Southern,8.2,Yes,Double Line,120
+SEC-0121,COR-013,Bengaluru–Mysuru,Bengaluru–Mysuru Section 1,North Central,7.9,Yes,Double Line,110
+SEC-0122,COR-013,Bengaluru–Mysuru,Bengaluru–Mysuru Section 2,North Central,3.6,Yes,Double Line,110
+SEC-0123,COR-013,Bengaluru–Mysuru,Bengaluru–Mysuru Section 3,North Central,9.8,Yes,Quadruple Line,120
+SEC-0124,COR-013,Bengaluru–Mysuru,Bengaluru–Mysuru Section 4,North Central,10.8,Yes,Quadruple Line,120
+SEC-0125,COR-013,Bengaluru–Mysuru,Bengaluru–Mysuru Section 5,North Central,8.2,Yes,Double Line,120
+SEC-0126,COR-013,Bengaluru–Mysuru,Bengaluru–Mysuru Section 6,North Central,11.7,Yes,Single Line,120
+SEC-0127,COR-013,Bengaluru–Mysuru,Bengaluru–Mysuru Section 7,North Central,9.2,Yes,Double Line,130
+SEC-0128,COR-013,Bengaluru–Mysuru,Bengaluru–Mysuru Section 8,North Central,8.9,Yes,Double Line,130
+SEC-0129,COR-013,Bengaluru–Mysuru,Bengaluru–Mysuru Section 9,North Central,3.8,Yes,Double Line,110
+SEC-0130,COR-013,Bengaluru–Mysuru,Bengaluru–Mysuru Section 10,North Central,6.8,Yes,Double Line,130
+SEC-0131,COR-014,Hyderabad–Secunderabad,Hyderabad–Secunderabad Section 1,South Central,13.1,Yes,Double Line,120
+SEC-0132,COR-014,Hyderabad–Secunderabad,Hyderabad–Secunderabad Section 2,South Central,4.6,Yes,Single Line,140
+SEC-0133,COR-014,Hyderabad–Secunderabad,Hyderabad–Secunderabad Section 3,South Central,12.2,Yes,Quadruple Line,130
+SEC-0134,COR-014,Hyderabad–Secunderabad,Hyderabad–Secunderabad Section 4,South Central,7.7,Yes,Double Line,110
+SEC-0135,COR-014,Hyderabad–Secunderabad,Hyderabad–Secunderabad Section 5,South Central,9.3,Yes,Double Line,130
+SEC-0136,COR-014,Hyderabad–Secunderabad,Hyderabad–Secunderabad Section 6,South Central,14.7,Yes,Quadruple Line,140
+SEC-0137,COR-014,Hyderabad–Secunderabad,Hyderabad–Secunderabad Section 7,South Central,4.8,Yes,Double Line,100
+SEC-0138,COR-014,Hyderabad–Secunderabad,Hyderabad–Secunderabad Section 8,South Central,12.0,Yes,Double Line,110
+SEC-0139,COR-014,Hyderabad–Secunderabad,Hyderabad–Secunderabad Section 9,South Central,5.3,Yes,Double Line,110
+SEC-0140,COR-014,Hyderabad–Secunderabad,Hyderabad–Secunderabad Section 10,South Central,6.6,Yes,Double Line,120
+SEC-0141,COR-015,Vijayawada–Warangal,Vijayawada–Warangal Section 1,Northern,4.2,Yes,Quadruple Line,120
+SEC-0142,COR-015,Vijayawada–Warangal,Vijayawada–Warangal Section 2,Northern,10.7,Yes,Quadruple Line,100
+SEC-0143,COR-015,Vijayawada–Warangal,Vijayawada–Warangal Section 3,Northern,7.5,Yes,Double Line,130
+SEC-0144,COR-015,Vijayawada–Warangal,Vijayawada–Warangal Section 4,Northern,8.8,Yes,Quadruple Line,120
+SEC-0145,COR-015,Vijayawada–Warangal,Vijayawada–Warangal Section 5,Northern,13.8,Yes,Quadruple Line,110
+SEC-0146,COR-015,Vijayawada–Warangal,Vijayawada–Warangal Section 6,Northern,9.0,Yes,Double Line,120
+SEC-0147,COR-015,Vijayawada–Warangal,Vijayawada–Warangal Section 7,Northern,13.8,Yes,Double Line,110
+SEC-0148,COR-015,Vijayawada–Warangal,Vijayawada–Warangal Section 8,Northern,5.4,Yes,Single Line,120
+SEC-0149,COR-015,Vijayawada–Warangal,Vijayawada–Warangal Section 9,Northern,6.8,Yes,Double Line,110
+SEC-0150,COR-015,Vijayawada–Warangal,Vijayawada–Warangal Section 10,Northern,11.4,Yes,Single Line,120
+SEC-0151,COR-016,Lucknow–Kanpur,Lucknow–Kanpur Section 1,Western,8.7,Yes,Single Line,130
+SEC-0152,COR-016,Lucknow–Kanpur,Lucknow–Kanpur Section 2,Western,14.4,Yes,Quadruple Line,100
+SEC-0153,COR-016,Lucknow–Kanpur,Lucknow–Kanpur Section 3,Western,11.7,Yes,Double Line,130
+SEC-0154,COR-016,Lucknow–Kanpur,Lucknow–Kanpur Section 4,Western,14.4,No,Double Line,130
+SEC-0155,COR-016,Lucknow–Kanpur,Lucknow–Kanpur Section 5,Western,11.9,Yes,Double Line,100
+SEC-0156,COR-016,Lucknow–Kanpur,Lucknow–Kanpur Section 6,Western,12.2,Yes,Single Line,120
+SEC-0157,COR-016,Lucknow–Kanpur,Lucknow–Kanpur Section 7,Western,14.5,Yes,Quadruple Line,100
+SEC-0158,COR-016,Lucknow–Kanpur,Lucknow–Kanpur Section 8,Western,9.6,Yes,Single Line,130
+SEC-0159,COR-016,Lucknow–Kanpur,Lucknow–Kanpur Section 9,Western,3.6,Yes,Double Line,100
+SEC-0160,COR-016,Lucknow–Kanpur,Lucknow–Kanpur Section 10,Western,11.0,Yes,Quadruple Line,130
+SEC-0161,COR-017,Jaipur–Ajmer,Jaipur–Ajmer Section 1,Central,11.8,Yes,Double Line,110
+SEC-0162,COR-017,Jaipur–Ajmer,Jaipur–Ajmer Section 2,Central,10.4,Yes,Double Line,120
+SEC-0163,COR-017,Jaipur–Ajmer,Jaipur–Ajmer Section 3,Central,11.1,Yes,Double Line,130
+SEC-0164,COR-017,Jaipur–Ajmer,Jaipur–Ajmer Section 4,Central,11.0,Yes,Quadruple Line,110
+SEC-0165,COR-017,Jaipur–Ajmer,Jaipur–Ajmer Section 5,Central,13.1,Yes,Double Line,120
+SEC-0166,COR-017,Jaipur–Ajmer,Jaipur–Ajmer Section 6,Central,6.4,Yes,Double Line,100
+SEC-0167,COR-017,Jaipur–Ajmer,Jaipur–Ajmer Section 7,Central,7.2,Yes,Quadruple Line,140
+SEC-0168,COR-017,Jaipur–Ajmer,Jaipur–Ajmer Section 8,Central,6.6,Yes,Double Line,120
+SEC-0169,COR-017,Jaipur–Ajmer,Jaipur–Ajmer Section 9,Central,14.8,Yes,Double Line,120
+SEC-0170,COR-017,Jaipur–Ajmer,Jaipur–Ajmer Section 10,Central,13.8,Yes,Double Line,120
+SEC-0171,COR-018,Patna–Mughalsarai,Patna–Mughalsarai Section 1,Eastern,4.0,Yes,Double Line,120
+SEC-0172,COR-018,Patna–Mughalsarai,Patna–Mughalsarai Section 2,Eastern,10.6,Yes,Double Line,140
+SEC-0173,COR-018,Patna–Mughalsarai,Patna–Mughalsarai Section 3,Eastern,11.9,Yes,Double Line,130
+SEC-0174,COR-018,Patna–Mughalsarai,Patna–Mughalsarai Section 4,Eastern,5.9,Yes,Single Line,120
+SEC-0175,COR-018,Patna–Mughalsarai,Patna–Mughalsarai Section 5,Eastern,11.8,Yes,Double Line,110
+SEC-0176,COR-018,Patna–Mughalsarai,Patna–Mughalsarai Section 6,Eastern,6.0,Yes,Double Line,130
+SEC-0177,COR-018,Patna–Mughalsarai,Patna–Mughalsarai Section 7,Eastern,6.5,Yes,Quadruple Line,130
+SEC-0178,COR-018,Patna–Mughalsarai,Patna–Mughalsarai Section 8,Eastern,8.3,Yes,Single Line,130
+SEC-0179,COR-018,Patna–Mughalsarai,Patna–Mughalsarai Section 9,Eastern,12.6,Yes,Quadruple Line,110
+SEC-0180,COR-018,Patna–Mughalsarai,Patna–Mughalsarai Section 10,Eastern,9.7,Yes,Double Line,140
+SEC-0181,COR-019,Bhubaneswar–Cuttack,Bhubaneswar–Cuttack Section 1,Southern,9.1,Yes,Double Line,140
+SEC-0182,COR-019,Bhubaneswar–Cuttack,Bhubaneswar–Cuttack Section 2,Southern,4.4,Yes,Double Line,100
+SEC-0183,COR-019,Bhubaneswar–Cuttack,Bhubaneswar–Cuttack Section 3,Southern,8.5,Yes,Double Line,100
+SEC-0184,COR-019,Bhubaneswar–Cuttack,Bhubaneswar–Cuttack Section 4,Southern,4.5,Yes,Double Line,130
+SEC-0185,COR-019,Bhubaneswar–Cuttack,Bhubaneswar–Cuttack Section 5,Southern,5.6,Yes,Double Line,120
+SEC-0186,COR-019,Bhubaneswar–Cuttack,Bhubaneswar–Cuttack Section 6,Southern,3.2,Yes,Quadruple Line,100
+SEC-0187,COR-019,Bhubaneswar–Cuttack,Bhubaneswar–Cuttack Section 7,Southern,9.1,Yes,Double Line,120
+SEC-0188,COR-019,Bhubaneswar–Cuttack,Bhubaneswar–Cuttack Section 8,Southern,12.3,Yes,Double Line,110
+SEC-0189,COR-019,Bhubaneswar–Cuttack,Bhubaneswar–Cuttack Section 9,Southern,6.0,Yes,Quadruple Line,110
+SEC-0190,COR-019,Bhubaneswar–Cuttack,Bhubaneswar–Cuttack Section 10,Southern,7.0,Yes,Double Line,120
+SEC-0191,COR-020,Kolkata–Asansol,Kolkata–Asansol Section 1,North Central,11.5,Yes,Double Line,100
+SEC-0192,COR-020,Kolkata–Asansol,Kolkata–Asansol Section 2,North Central,13.9,Yes,Double Line,100
+SEC-0193,COR-020,Kolkata–Asansol,Kolkata–Asansol Section 3,North Central,4.5,Yes,Double Line,120
+SEC-0194,COR-020,Kolkata–Asansol,Kolkata–Asansol Section 4,North Central,10.0,Yes,Double Line,130
+SEC-0195,COR-020,Kolkata–Asansol,Kolkata–Asansol Section 5,North Central,10.4,Yes,Quadruple Line,130
+SEC-0196,COR-020,Kolkata–Asansol,Kolkata–Asansol Section 6,North Central,6.1,Yes,Double Line,120
+SEC-0197,COR-020,Kolkata–Asansol,Kolkata–Asansol Section 7,North Central,14.6,Yes,Quadruple Line,110
+SEC-0198,COR-020,Kolkata–Asansol,Kolkata–Asansol Section 8,North Central,12.5,Yes,Double Line,120
+SEC-0199,COR-020,Kolkata–Asansol,Kolkata–Asansol Section 9,North Central,6.9,Yes,Double Line,110
+SEC-0200,COR-020,Kolkata–Asansol,Kolkata–Asansol Section 10,North Central,3.4,Yes,Quadruple Line,130

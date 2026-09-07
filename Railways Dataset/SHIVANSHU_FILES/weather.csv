@@ -1,0 +1,99 @@
+date,region,rainfall_forecast_mm,temperature_c,humidity_percent,wind_speed_kmph,weather_risk_level
+2026-09-03,Northern,7.0,30.2,57.3,26.0,Moderate
+2026-09-03,Western,2.0,17.3,60.3,33.4,Low
+2026-09-03,Central,14.5,21.2,65.7,19.3,Moderate
+2026-09-03,Eastern,14.0,37.1,57.7,22.0,Moderate
+2026-09-03,Southern,10.8,37.8,54.1,14.9,Moderate
+2026-09-03,North Central,7.3,37.6,58.5,23.0,Moderate
+2026-09-03,South Central,5.9,34.9,70.3,12.7,Moderate
+2026-09-04,Northern,8.0,21.5,95.0,18.6,Moderate
+2026-09-04,Western,21.0,25.4,56.6,21.2,High
+2026-09-04,Central,9.1,23.0,83.7,24.5,Moderate
+2026-09-04,Eastern,11.6,35.1,53.3,7.2,Moderate
+2026-09-04,Southern,1.6,25.8,63.5,9.1,Low
+2026-09-04,North Central,1.2,28.0,59.4,29.9,Low
+2026-09-04,South Central,10.7,28.8,63.9,8.7,Moderate
+2026-09-05,Northern,3.2,31.8,80.8,25.0,Low
+2026-09-05,Western,15.8,27.8,71.3,18.9,High
+2026-09-05,Central,2.8,30.5,78.6,23.6,Low
+2026-09-05,Eastern,6.5,28.6,62.9,17.6,Moderate
+2026-09-05,Southern,1.6,32.3,81.9,22.0,Low
+2026-09-05,North Central,1.5,30.6,77.8,22.2,Low
+2026-09-05,South Central,9.4,32.8,94.9,19.1,Moderate
+2026-09-06,Northern,4.9,25.7,58.2,17.3,Low
+2026-09-06,Western,3.5,22.1,62.1,18.0,Low
+2026-09-06,Central,7.6,15.7,25.0,12.6,Moderate
+2026-09-06,Eastern,3.9,18.8,57.3,6.0,Low
+2026-09-06,Southern,2.0,30.4,47.9,18.6,Low
+2026-09-06,North Central,0.7,25.9,67.1,27.3,Low
+2026-09-06,South Central,4.2,27.4,43.9,20.9,Low
+2026-09-07,Northern,11.4,28.1,49.2,14.7,Moderate
+2026-09-07,Western,4.0,28.7,49.3,22.4,Low
+2026-09-07,Central,12.8,28.1,95.0,27.5,Moderate
+2026-09-07,Eastern,4.3,31.6,65.2,20.5,Low
+2026-09-07,Southern,16.4,28.7,79.0,14.2,High
+2026-09-07,North Central,14.8,37.1,69.1,7.4,Moderate
+2026-09-07,South Central,5.0,19.1,77.7,20.1,Low
+2026-09-08,Northern,9.3,33.8,41.0,17.5,Moderate
+2026-09-08,Western,9.8,26.8,77.6,30.5,Moderate
+2026-09-08,Central,0.7,27.0,83.6,18.8,Low
+2026-09-08,Eastern,10.9,25.5,54.9,13.5,Moderate
+2026-09-08,Southern,5.6,23.5,81.5,8.5,Moderate
+2026-09-08,North Central,4.5,36.3,65.9,27.8,Low
+2026-09-08,South Central,7.0,22.6,55.5,28.5,Moderate
+2026-09-09,Northern,6.1,32.9,71.0,27.7,Moderate
+2026-09-09,Western,4.7,24.9,64.9,21.7,Low
+2026-09-09,Central,0.2,30.0,61.0,9.4,Low
+2026-09-09,Eastern,10.9,31.0,67.5,18.9,Moderate
+2026-09-09,Southern,7.3,28.8,41.0,27.6,Moderate
+2026-09-09,North Central,9.6,27.1,53.0,7.1,Moderate
+2026-09-09,South Central,6.3,36.2,62.9,11.3,Moderate
+2026-09-10,Northern,4.7,16.1,89.3,3.4,Low
+2026-09-10,Western,13.7,21.0,65.0,7.3,Moderate
+2026-09-10,Central,14.0,28.5,64.4,18.6,Moderate
+2026-09-10,Eastern,8.7,38.1,62.8,14.9,Moderate
+2026-09-10,Southern,6.2,25.6,70.3,21.2,Moderate
+2026-09-10,North Central,15.5,32.8,44.8,14.0,High
+2026-09-10,South Central,10.8,20.9,67.3,28.8,Moderate
+2026-09-11,Northern,10.1,30.8,45.3,17.3,Moderate
+2026-09-11,Western,9.6,18.4,73.2,19.3,Moderate
+2026-09-11,Central,1.3,32.4,79.2,11.5,Low
+2026-09-11,Eastern,8.0,21.2,61.6,18.8,Moderate
+2026-09-11,Southern,1.1,24.7,55.1,25.9,Low
+2026-09-11,North Central,4.0,30.6,45.0,26.3,Low
+2026-09-11,South Central,1.6,13.2,86.9,21.0,Low
+2026-09-12,Northern,2.3,23.0,50.8,25.0,Low
+2026-09-12,Western,12.3,32.4,72.6,24.9,Moderate
+2026-09-12,Central,2.9,31.8,78.9,20.5,Low
+2026-09-12,Eastern,1.7,22.1,50.9,27.4,Low
+2026-09-12,Southern,15.9,15.6,63.0,21.9,High
+2026-09-12,North Central,4.3,28.0,46.8,8.8,Low
+2026-09-12,South Central,6.3,20.8,41.9,13.0,Moderate
+2026-09-13,Northern,8.4,28.3,63.8,13.3,Moderate
+2026-09-13,Western,6.3,15.6,61.1,28.8,Moderate
+2026-09-13,Central,5.9,28.4,84.1,20.4,Moderate
+2026-09-13,Eastern,2.3,21.8,64.1,13.6,Low
+2026-09-13,Southern,7.0,19.3,73.7,14.9,Moderate
+2026-09-13,North Central,14.3,25.7,63.7,9.2,Moderate
+2026-09-13,South Central,9.1,24.8,56.1,13.9,Moderate
+2026-09-14,Northern,13.2,19.5,60.9,28.8,Moderate
+2026-09-14,Western,11.9,22.8,76.4,19.9,Moderate
+2026-09-14,Central,20.1,37.1,56.4,18.5,High
+2026-09-14,Eastern,13.5,25.3,46.1,26.5,Moderate
+2026-09-14,Southern,2.8,25.4,62.2,22.9,Low
+2026-09-14,North Central,5.6,22.5,61.1,17.3,Moderate
+2026-09-14,South Central,20.8,15.1,63.4,22.0,High
+2026-09-15,Northern,4.0,22.9,56.7,22.6,Low
+2026-09-15,Western,5.0,23.9,57.9,24.3,Low
+2026-09-15,Central,10.8,20.8,67.6,4.4,Moderate
+2026-09-15,Eastern,4.2,16.2,59.4,26.1,Low
+2026-09-15,Southern,15.6,23.5,51.3,26.7,High
+2026-09-15,North Central,12.8,20.8,60.9,15.0,Moderate
+2026-09-15,South Central,13.6,25.8,63.3,26.0,Moderate
+2026-09-16,Northern,4.3,29.9,63.9,19.8,Low
+2026-09-16,Western,3.0,24.2,82.0,9.6,Low
+2026-09-16,Central,5.6,30.9,95.0,12.2,Moderate
+2026-09-16,Eastern,8.8,24.8,53.4,24.1,Moderate
+2026-09-16,Southern,13.0,28.3,66.3,22.7,Moderate
+2026-09-16,North Central,6.6,15.3,52.4,22.4,Moderate
+2026-09-16,South Central,15.0,30.6,78.4,11.1,High

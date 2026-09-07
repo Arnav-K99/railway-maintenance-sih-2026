@@ -1,0 +1,27 @@
+{
+  "_description": "Synthetic railway route topology for simulation and rerouting demonstration. Not official Indian Railways network topology.",
+  "topology": {
+    "SEC-0001": ["SEC-0002", "SEC-0003"],
+    "SEC-0002": ["SEC-0004"],
+    "SEC-0003": ["SEC-0004"],
+    "SEC-0004": ["SEC-0005", "SEC-0007"],
+    "SEC-0005": ["SEC-0006", "SEC-0008"],
+    "SEC-0006": ["SEC-0008"],
+    "SEC-0007": ["SEC-0008", "SEC-0009"],
+    "SEC-0008": ["SEC-0010"],
+    "SEC-0009": ["SEC-0010"],
+    "SEC-0010": ["SEC-0011"],
+    "SEC-0011": ["SEC-0012", "SEC-0013"],
+    "SEC-0012": ["SEC-0014"],
+    "SEC-0013": ["SEC-0014"],
+    "SEC-0014": [],
+    "SEC-0071": ["SEC-0072", "SEC-0074"],
+    "SEC-0072": ["SEC-0073", "SEC-0075"],
+    "SEC-0073": ["SEC-0076", "SEC-0077"],
+    "SEC-0074": ["SEC-0075"],
+    "SEC-0075": ["SEC-0076"],
+    "SEC-0076": ["SEC-0078"],
+    "SEC-0077": ["SEC-0078"],
+    "SEC-0078": []
+  }
+}

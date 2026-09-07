@@ -1,0 +1,11 @@
+department_1,department_2,compatible,max_combined_duration_minutes,same_section_required,minimum_overlap_minutes
+Track / Civil Engineering,Track / Civil Engineering,Yes,360,Yes,30
+Track / Civil Engineering,Electrical / TRD,Yes,360,Yes,30
+Track / Civil Engineering,Signal & Telecommunications (S&T),Yes,360,Yes,30
+Track / Civil Engineering,Mechanical / Rolling Stock,Conditional,300,Yes,30
+Electrical / TRD,Electrical / TRD,Yes,360,Yes,30
+Electrical / TRD,Signal & Telecommunications (S&T),Yes,360,Yes,30
+Electrical / TRD,Mechanical / Rolling Stock,Conditional,240,Yes,30
+Signal & Telecommunications (S&T),Signal & Telecommunications (S&T),Yes,360,Yes,30
+Signal & Telecommunications (S&T),Mechanical / Rolling Stock,Conditional,240,Yes,30
+Mechanical / Rolling Stock,Mechanical / Rolling Stock,Yes,360,Yes,30

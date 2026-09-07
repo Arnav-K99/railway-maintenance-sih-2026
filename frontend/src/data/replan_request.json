@@ -1,0 +1,21 @@
+{
+  "event": "REPLAN_REQUEST",
+  "reason": "NEW_TRAIN_CONFLICT",
+  "maintenance_task_id": "TASK-000005",
+  "section_id": "SEC-0004",
+  "block_ids": [
+    "BLK-009637",
+    "BLK-009638"
+  ],
+  "affected_window": {
+    "start": "01:50",
+    "end": "02:20"
+  },
+  "conflicting_trains": [
+    "TRN-SIM-002"
+  ],
+  "rerouting_attempted": true,
+  "alternative_route_available": false,
+  "action_required": "REPLAN_MAINTENANCE_BLOCK",
+  "notes": "Rerouting failed for TRN-SIM-002: All candidate bypass routes are infeasible due to capacity, secondary maintenance, or track closures"
+}

@@ -1,0 +1,92 @@
+{
+  "model_role": "Neev \u2014 Prediction ML",
+  "primary_output": "failure probability within 30 days, converted to risk_score 0-100",
+  "secondary_output": "30-day degradation forecast",
+  "departments": [
+    "Track / Civil Engineering",
+    "Electrical / TRD",
+    "Signal & Telecommunications (S&T)",
+    "Mechanical / Rolling Stock"
+  ],
+  "features": [
+    "department",
+    "asset_type",
+    "region",
+    "corridor_id",
+    "section_id",
+    "asset_age_years",
+    "traffic_load_trains_per_day",
+    "rainfall_mm",
+    "humidity_percent",
+    "ambient_temperature_c",
+    "wind_speed_kmph",
+    "wear_index_percent",
+    "rail_wear_mm",
+    "track_vibration_level",
+    "ballast_condition_score",
+    "ohe_wear_percent",
+    "line_voltage_kv",
+    "signal_health_score",
+    "relay_fault_count",
+    "wheel_wear_percent",
+    "bearing_temperature_c",
+    "brake_wear_percent",
+    "inspection_score",
+    "fault_count_30d",
+    "fault_count_90d",
+    "days_since_last_maintenance",
+    "obs_month",
+    "obs_dayofweek",
+    "obs_hour"
+  ],
+  "categorical_features": [
+    "department",
+    "asset_type",
+    "region",
+    "corridor_id",
+    "section_id"
+  ],
+  "excluded_fields": [
+    "asset_id",
+    "degradation_14d",
+    "degradation_30d",
+    "degradation_7d",
+    "failure_severity",
+    "failure_type",
+    "failure_within_30d",
+    "maintenance_required",
+    "observation_date",
+    "risk_score"
+  ],
+  "split": "chronological 80% train / 20% test",
+  "classifier": {
+    "algorithm": "CatBoostClassifier",
+    "metrics": {
+      "roc_auc": 0.8841372506715688,
+      "accuracy": 0.8129333333333333,
+      "precision": 0.7918615063177793,
+      "recall": 0.693353079536545,
+      "f1": 0.7393404551788203,
+      "train_rows": 120000,
+      "test_rows": 30000,
+      "training_seconds": 46.5
+    }
+  },
+  "regressor": {
+    "algorithm": "HistGradientBoostingRegressor",
+    "metrics": {
+      "mae": 7.118893243772644,
+      "rmse": 8.899540334231355,
+      "r2": 0.6458593893895184,
+      "train_rows": 70000,
+      "test_rows": 30000,
+      "training_seconds": 3.5
+    }
+  },
+  "downstream_contract": {
+    "asset_id": "unique asset identifier",
+    "risk_score": "0-100; higher means higher predicted 30-day failure probability",
+    "risk_level": "LOW / MODERATE / HIGH / CRITICAL",
+    "forecast_30d_degradation": "0-100"
+  }
+}

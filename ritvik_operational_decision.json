@@ -1,0 +1,11 @@
+{
+  "status": "PLAN_APPROVED",
+  "maintenance_plan_valid": true,
+  "maintenance_task_id": "TASK-000005",
+  "block_ids": [
+    "BLK-012046",
+    "BLK-012047"
+  ],
+  "train_actions": [],
+  "replanning_required": false
+}

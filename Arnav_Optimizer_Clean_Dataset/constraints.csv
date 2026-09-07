@@ -1,0 +1,13 @@
+constraint_id,constraint_class,description,constraint_group
+C001,Hard,Block duration must cover every assigned task,Duration
+C002,Hard,Blocked section cannot be occupied by a train during the block,Train conflict
+C003,Hard,Track must be available,Infrastructure
+C004,Hard,Assigned team must be available for the full task,Team
+C005,Hard,Task must be completed before its deadline,Deadline
+C006,Hard,Incompatible departments cannot be bundled,Bundling
+C007,Hard,Maximum simultaneous task capacity cannot be exceeded,Capacity
+C008,Soft,Prefer low passenger-load periods,Passenger impact
+C009,Soft,Prefer lower predicted congestion,Congestion
+C010,Soft,Prefer night maintenance where practical,Operational preference
+C011,Soft,Prioritize critical/high-risk assets,Maintenance priority
+C012,Soft,Prefer bundling compatible tasks,Bundling efficiency

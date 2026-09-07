@@ -1,0 +1,40 @@
+team_id,department,team_name,team_size,shift_start_minute,shift_end_minute,availability_percent
+TEAM-001,Track / Civil Engineering,Track Gang,8,0,480,90
+TEAM-002,Track / Civil Engineering,Track Gang,8,480,960,90
+TEAM-003,Track / Civil Engineering,Track Gang,8,960,1440,100
+TEAM-004,Track / Civil Engineering,Tamping Team,10,0,480,100
+TEAM-005,Track / Civil Engineering,Tamping Team,10,480,960,90
+TEAM-006,Track / Civil Engineering,Tamping Team,10,960,1440,95
+TEAM-007,Track / Civil Engineering,Bridge Team,7,0,480,90
+TEAM-008,Track / Civil Engineering,Bridge Team,7,480,960,100
+TEAM-009,Track / Civil Engineering,Bridge Team,7,960,1440,85
+TEAM-010,Track / Civil Engineering,Turnout Team,6,0,480,95
+TEAM-011,Track / Civil Engineering,Turnout Team,6,480,960,85
+TEAM-012,Track / Civil Engineering,Turnout Team,6,960,1440,95
+TEAM-013,Electrical / TRD,OHE Team,6,0,480,95
+TEAM-014,Electrical / TRD,OHE Team,6,480,960,95
+TEAM-015,Electrical / TRD,OHE Team,6,960,1440,100
+TEAM-016,Electrical / TRD,TRD Substation Team,5,0,480,85
+TEAM-017,Electrical / TRD,TRD Substation Team,5,480,960,95
+TEAM-018,Electrical / TRD,TRD Substation Team,5,960,1440,100
+TEAM-019,Electrical / TRD,Electrical Inspection Team,4,0,480,95
+TEAM-020,Electrical / TRD,Electrical Inspection Team,4,480,960,95
+TEAM-021,Electrical / TRD,Electrical Inspection Team,4,960,1440,100
+TEAM-022,Signal & Telecommunications (S&T),Signal Team,5,0,480,85
+TEAM-023,Signal & Telecommunications (S&T),Signal Team,5,480,960,90
+TEAM-024,Signal & Telecommunications (S&T),Signal Team,5,960,1440,90
+TEAM-025,Signal & Telecommunications (S&T),Telecom Team,4,0,480,90
+TEAM-026,Signal & Telecommunications (S&T),Telecom Team,4,480,960,85
+TEAM-027,Signal & Telecommunications (S&T),Telecom Team,4,960,1440,95
+TEAM-028,Signal & Telecommunications (S&T),Relay Team,4,0,480,95
+TEAM-029,Signal & Telecommunications (S&T),Relay Team,4,480,960,100
+TEAM-030,Signal & Telecommunications (S&T),Relay Team,4,960,1440,95
+TEAM-031,Mechanical / Rolling Stock,Brake Team,6,0,480,85
+TEAM-032,Mechanical / Rolling Stock,Brake Team,6,480,960,90
+TEAM-033,Mechanical / Rolling Stock,Brake Team,6,960,1440,95
+TEAM-034,Mechanical / Rolling Stock,Wheelset Team,7,0,480,100
+TEAM-035,Mechanical / Rolling Stock,Wheelset Team,7,480,960,90
+TEAM-036,Mechanical / Rolling Stock,Wheelset Team,7,960,1440,100
+TEAM-037,Mechanical / Rolling Stock,Mechanical Inspection Team,5,0,480,95
+TEAM-038,Mechanical / Rolling Stock,Mechanical Inspection Team,5,480,960,95
+TEAM-039,Mechanical / Rolling Stock,Mechanical Inspection Team,5,960,1440,95

@@ -1,0 +1,58 @@
+{
+  "_description": "Synthetic operational events for Ritvik dynamic operations simulation. Not official Indian Railways live dispatch feed.",
+  "events": [
+    {
+      "event_id": "EVT-001",
+      "event_type": "NEW_TRAIN",
+      "train_id": "TRN-SIM-001",
+      "train_name": "Special Rajdhani Relief Express",
+      "section_id": "SEC-0004",
+      "destination_section_id": "SEC-0010",
+      "arrival_minute": 70,
+      "departure_minute": 95,
+      "date": "2026-09-07",
+      "priority_class": 2,
+      "notes": "Unscheduled passenger movement conflicts with TASK-000005"
+    },
+    {
+      "event_id": "EVT-002",
+      "event_type": "NEW_TRAIN",
+      "train_id": "TRN-SIM-002",
+      "train_name": "Military Priority Movement",
+      "section_id": "SEC-0004",
+      "destination_section_id": "SEC-0010",
+      "arrival_minute": 110,
+      "departure_minute": 140,
+      "date": "2026-09-07",
+      "priority_class": 1,
+      "notes": "High priority train on congested corridor where all bypasses are blocked"
+    },
+    {
+      "event_id": "EVT-003",
+      "event_type": "BLOCK_UNAVAILABLE",
+      "block_id": "BLK-009637",
+      "section_id": "SEC-0004",
+      "date": "2026-09-07",
+      "reason": "Emergency rail defect discovered during ultrasonic testing",
+      "notes": "Physical possession block closed immediately"
+    },
+    {
+      "event_id": "EVT-004",
+      "event_type": "CAPACITY_REDUCTION",
+      "section_id": "SEC-0005",
+      "date": "2026-09-07",
+      "capacity_delta": -4,
+      "reason": "Speed restriction (30 km/h) due to ballast work on adjacent line",
+      "notes": "Limits available throughput on SEC-0005"
+    },
+    {
+      "event_id": "EVT-005",
+      "event_type": "CAPACITY_INCREASE",
+      "section_id": "SEC-0007",
+      "date": "2026-09-07",
+      "capacity_delta": 2,
+      "reason": "Auxiliary bypass siding cleared and signaled for main-line diversion",
+      "notes": "Increases throughput headroom on bypass route SEC-0007"
+    }
+  ]
+}

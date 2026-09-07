@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "validation_pass_1": "PASS",
+  "validation_pass_2": "PASS",
+  "maintenance_tasks": 30000,
+  "neev_predictions": 30000,
+  "task_to_neev_coverage": "100%",
+  "planning_horizon": [
+    "2026-09-03",
+    "2026-09-16"
+  ],
+  "train_block_conflicts": 12912,
+  "train_zero_duration_records_fixed": 0
+}

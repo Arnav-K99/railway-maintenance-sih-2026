@@ -1,0 +1,26 @@
+NEEV PREDICTION ML — FINAL PROTOTYPE REPORT
+
+PRIMARY MODEL
+CatBoostClassifier
+Target: failure_within_30d
+Chronological split: 120,000 train / 30,000 test
+
+ROC-AUC:  0.8841
+Accuracy: 0.8129
+Precision:0.7919
+Recall:   0.6934
+F1:       0.7393
+
+SECONDARY MODEL
+HistGradientBoostingRegressor
+Target: degradation_30d
+
+MAE:  7.1189
+RMSE: 8.8995
+R2:   0.6459
+
+DOWNSTREAM OUTPUT FOR ARNAV
+risk_score = predicted failure probability × 100
+
+The optimizer should consume the model output rather than the raw ML targets.
+risk_score is intentionally excluded from the model features to avoid circularity.

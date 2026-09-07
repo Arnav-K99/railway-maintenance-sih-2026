@@ -1,0 +1,3 @@
+CLEAN ARNAV OPTIMIZER DATASET
+
+All 30,000 maintenance tasks are 1:1 aligned to the 30,000 Neev prediction rows. Task department/corridor/section and risk_score use the Neev handoff as canonical. Task planning dates and deadlines are mapped into the same 14-day operational horizon as blocks, trains, weather and goods forecasts; original task/deadline values remain in source_task_date/source_deadline. Neev observation_date is aligned to the planning task date for this synthetic planning scenario. Train/block conflicts are recomputed from actual interval overlap. Validation was run independently twice and passed with zero errors. Synthetic project data only; not official railway data.

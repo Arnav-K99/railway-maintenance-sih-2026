@@ -1,0 +1,1229 @@
+{
+  "metadata": {
+    "generated_by": "Arnav Railway Maintenance Optimizer",
+    "version": "1.0.0",
+    "summary": {
+      "total_tasks_considered": 30000,
+      "total_scheduled": 53,
+      "total_deferred": 29947,
+      "scheduled_percentage": 0.18,
+      "solver_status": "FEASIBLE",
+      "runtime_seconds": 0.5,
+      "objective_value": 167275.0
+    },
+    "operational_metrics": {
+      "unique_blocks_utilized": 78,
+      "bundled_tasks_count": 4,
+      "concurrent_bundles_count": 2,
+      "serial_shared_possessions_count": 0,
+      "total_batch_excluded_instances": 0,
+      "night_maintenance_tasks": 44,
+      "teams_utilized": 27,
+      "total_team_maintenance_hours": 113.3
+    }
+  },
+  "scheduled_tasks": [
+    {
+      "task_id": "TASK-000001",
+      "asset_id": "AST-120001",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-010",
+      "section_id": "SEC-0092",
+      "date": "2026-09-03",
+      "start_minute": 0,
+      "end_minute": 125,
+      "duration_minutes": 125,
+      "block_ids": [
+        "BLK-001093",
+        "BLK-001094"
+      ],
+      "assigned_teams": [
+        "TEAM-007"
+      ],
+      "is_bundled": true,
+      "bundled_with": [
+        "TASK-000421"
+      ],
+      "is_night": true,
+      "risk_score": 7.3,
+      "priority_score": 267.5
+    },
+    {
+      "task_id": "TASK-000015",
+      "asset_id": "AST-120015",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-008",
+      "section_id": "SEC-0072",
+      "date": "2026-09-03",
+      "start_minute": 1168,
+      "end_minute": 1320,
+      "duration_minutes": 152,
+      "block_ids": [
+        "BLK-000862",
+        "BLK-000863"
+      ],
+      "assigned_teams": [
+        "TEAM-021"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 35.1,
+      "priority_score": 845.0
+    },
+    {
+      "task_id": "TASK-000029",
+      "asset_id": "AST-120029",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-003",
+      "section_id": "SEC-0028",
+      "date": "2026-09-03",
+      "start_minute": 17,
+      "end_minute": 120,
+      "duration_minutes": 103,
+      "block_ids": [
+        "BLK-000325"
+      ],
+      "assigned_teams": [
+        "TEAM-001"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 4.9,
+      "priority_score": 178.0
+    },
+    {
+      "task_id": "TASK-000043",
+      "asset_id": "AST-120043",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-011",
+      "section_id": "SEC-0102",
+      "date": "2026-09-03",
+      "start_minute": 557,
+      "end_minute": 720,
+      "duration_minutes": 163,
+      "block_ids": [
+        "BLK-001217",
+        "BLK-001218"
+      ],
+      "assigned_teams": [
+        "TEAM-017"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": false,
+      "risk_score": 20.2,
+      "priority_score": 454.0
+    },
+    {
+      "task_id": "TASK-000057",
+      "asset_id": "AST-120057",
+      "department": "Signal & Telecommunications (S&T)",
+      "corridor_id": "COR-019",
+      "section_id": "SEC-0189",
+      "date": "2026-09-03",
+      "start_minute": 1211,
+      "end_minute": 1306,
+      "duration_minutes": 95,
+      "block_ids": [
+        "BLK-002267"
+      ],
+      "assigned_teams": [
+        "TEAM-024"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 3.4,
+      "priority_score": 188.0
+    },
+    {
+      "task_id": "TASK-000071",
+      "asset_id": "AST-120071",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-020",
+      "section_id": "SEC-0194",
+      "date": "2026-09-03",
+      "start_minute": 290,
+      "end_minute": 480,
+      "duration_minutes": 190,
+      "block_ids": [
+        "BLK-002319",
+        "BLK-002320"
+      ],
+      "assigned_teams": [
+        "TEAM-010"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 43.0,
+      "priority_score": 941.5
+    },
+    {
+      "task_id": "TASK-000085",
+      "asset_id": "AST-120085",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-003",
+      "section_id": "SEC-0025",
+      "date": "2026-09-03",
+      "start_minute": 780,
+      "end_minute": 901,
+      "duration_minutes": 121,
+      "block_ids": [
+        "BLK-000295",
+        "BLK-000296"
+      ],
+      "assigned_teams": [
+        "TEAM-008"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": false,
+      "risk_score": 82.6,
+      "priority_score": 1782.0
+    },
+    {
+      "task_id": "TASK-000099",
+      "asset_id": "AST-120099",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-013",
+      "section_id": "SEC-0130",
+      "date": "2026-09-03",
+      "start_minute": 150,
+      "end_minute": 293,
+      "duration_minutes": 143,
+      "block_ids": [
+        "BLK-001550",
+        "BLK-001551"
+      ],
+      "assigned_teams": [
+        "TEAM-007"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 24.2,
+      "priority_score": 616.25
+    },
+    {
+      "task_id": "TASK-000113",
+      "asset_id": "AST-120113",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-013",
+      "section_id": "SEC-0127",
+      "date": "2026-09-03",
+      "start_minute": 120,
+      "end_minute": 233,
+      "duration_minutes": 113,
+      "block_ids": [
+        "BLK-001514"
+      ],
+      "assigned_teams": [
+        "TEAM-013"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 94.8,
+      "priority_score": 1998.25
+    },
+    {
+      "task_id": "TASK-000127",
+      "asset_id": "AST-120127",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-004",
+      "section_id": "SEC-0037",
+      "date": "2026-09-03",
+      "start_minute": 33,
+      "end_minute": 240,
+      "duration_minutes": 207,
+      "block_ids": [
+        "BLK-000433",
+        "BLK-000434"
+      ],
+      "assigned_teams": [
+        "TEAM-010"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 14.7,
+      "priority_score": 397.0
+    },
+    {
+      "task_id": "TASK-000141",
+      "asset_id": "AST-120141",
+      "department": "Mechanical / Rolling Stock",
+      "corridor_id": "COR-012",
+      "section_id": "SEC-0117",
+      "date": "2026-09-03",
+      "start_minute": 960,
+      "end_minute": 1197,
+      "duration_minutes": 237,
+      "block_ids": [
+        "BLK-001401",
+        "BLK-001402"
+      ],
+      "assigned_teams": [
+        "TEAM-033"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": false,
+      "risk_score": 50.2,
+      "priority_score": 1136.25
+    },
+    {
+      "task_id": "TASK-000155",
+      "asset_id": "AST-120155",
+      "department": "Mechanical / Rolling Stock",
+      "corridor_id": "COR-020",
+      "section_id": "SEC-0193",
+      "date": "2026-09-03",
+      "start_minute": 180,
+      "end_minute": 323,
+      "duration_minutes": 143,
+      "block_ids": [
+        "BLK-002306",
+        "BLK-002307"
+      ],
+      "assigned_teams": [
+        "TEAM-031"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 23.5,
+      "priority_score": 612.25
+    },
+    {
+      "task_id": "TASK-000169",
+      "asset_id": "AST-120169",
+      "department": "Mechanical / Rolling Stock",
+      "corridor_id": "COR-006",
+      "section_id": "SEC-0054",
+      "date": "2026-09-03",
+      "start_minute": 803,
+      "end_minute": 960,
+      "duration_minutes": 157,
+      "block_ids": [
+        "BLK-000643",
+        "BLK-000644"
+      ],
+      "assigned_teams": [
+        "TEAM-032"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": false,
+      "risk_score": 86.9,
+      "priority_score": 1860.25
+    },
+    {
+      "task_id": "TASK-000183",
+      "asset_id": "AST-120183",
+      "department": "Mechanical / Rolling Stock",
+      "corridor_id": "COR-005",
+      "section_id": "SEC-0045",
+      "date": "2026-09-03",
+      "start_minute": 1320,
+      "end_minute": 1429,
+      "duration_minutes": 109,
+      "block_ids": [
+        "BLK-000540"
+      ],
+      "assigned_teams": [
+        "TEAM-036"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 9.6,
+      "priority_score": 244.25
+    },
+    {
+      "task_id": "TASK-000197",
+      "asset_id": "AST-120197",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-018",
+      "section_id": "SEC-0179",
+      "date": "2026-09-03",
+      "start_minute": 1348,
+      "end_minute": 1440,
+      "duration_minutes": 92,
+      "block_ids": [
+        "BLK-002148"
+      ],
+      "assigned_teams": [
+        "TEAM-006"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 4.8,
+      "priority_score": 178.25
+    },
+    {
+      "task_id": "TASK-000211",
+      "asset_id": "AST-120211",
+      "department": "Signal & Telecommunications (S&T)",
+      "corridor_id": "COR-017",
+      "section_id": "SEC-0167",
+      "date": "2026-09-03",
+      "start_minute": 60,
+      "end_minute": 195,
+      "duration_minutes": 135,
+      "block_ids": [
+        "BLK-001993",
+        "BLK-001994"
+      ],
+      "assigned_teams": [
+        "TEAM-022"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 67.2,
+      "priority_score": 1444.0
+    },
+    {
+      "task_id": "TASK-000225",
+      "asset_id": "AST-120225",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-004",
+      "section_id": "SEC-0038",
+      "date": "2026-09-03",
+      "start_minute": 1207,
+      "end_minute": 1320,
+      "duration_minutes": 113,
+      "block_ids": [
+        "BLK-000455"
+      ],
+      "assigned_teams": [
+        "TEAM-018"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 20.8,
+      "priority_score": 558.25
+    },
+    {
+      "task_id": "TASK-000239",
+      "asset_id": "AST-120239",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-012",
+      "section_id": "SEC-0120",
+      "date": "2026-09-03",
+      "start_minute": 1294,
+      "end_minute": 1440,
+      "duration_minutes": 146,
+      "block_ids": [
+        "BLK-001439",
+        "BLK-001440"
+      ],
+      "assigned_teams": [
+        "TEAM-012"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 52.5,
+      "priority_score": 1192.25
+    },
+    {
+      "task_id": "TASK-000253",
+      "asset_id": "AST-120253",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-001",
+      "section_id": "SEC-0007",
+      "date": "2026-09-03",
+      "start_minute": 1320,
+      "end_minute": 1428,
+      "duration_minutes": 108,
+      "block_ids": [
+        "BLK-000084"
+      ],
+      "assigned_teams": [
+        "TEAM-021"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 29.0,
+      "priority_score": 720.0
+    },
+    {
+      "task_id": "TASK-000267",
+      "asset_id": "AST-120267",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-002",
+      "section_id": "SEC-0018",
+      "date": "2026-09-03",
+      "start_minute": 1200,
+      "end_minute": 1268,
+      "duration_minutes": 68,
+      "block_ids": [
+        "BLK-000215"
+      ],
+      "assigned_teams": [
+        "TEAM-012"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 87.6,
+      "priority_score": 1853.5
+    },
+    {
+      "task_id": "TASK-000281",
+      "asset_id": "AST-120281",
+      "department": "Mechanical / Rolling Stock",
+      "corridor_id": "COR-015",
+      "section_id": "SEC-0141",
+      "date": "2026-09-03",
+      "start_minute": 316,
+      "end_minute": 480,
+      "duration_minutes": 164,
+      "block_ids": [
+        "BLK-001683",
+        "BLK-001684"
+      ],
+      "assigned_teams": [
+        "TEAM-034"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 32.2,
+      "priority_score": 776.25
+    },
+    {
+      "task_id": "TASK-000295",
+      "asset_id": "AST-120295",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-007",
+      "section_id": "SEC-0069",
+      "date": "2026-09-03",
+      "start_minute": 580,
+      "end_minute": 720,
+      "duration_minutes": 140,
+      "block_ids": [
+        "BLK-000821",
+        "BLK-000822"
+      ],
+      "assigned_teams": [
+        "TEAM-014"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": false,
+      "risk_score": 66.0,
+      "priority_score": 1451.5
+    },
+    {
+      "task_id": "TASK-000309",
+      "asset_id": "AST-120309",
+      "department": "Mechanical / Rolling Stock",
+      "corridor_id": "COR-006",
+      "section_id": "SEC-0052",
+      "date": "2026-09-03",
+      "start_minute": 1235,
+      "end_minute": 1320,
+      "duration_minutes": 85,
+      "block_ids": [
+        "BLK-000623"
+      ],
+      "assigned_teams": [
+        "TEAM-036"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 9.7,
+      "priority_score": 294.0
+    },
+    {
+      "task_id": "TASK-000323",
+      "asset_id": "AST-120323",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-010",
+      "section_id": "SEC-0100",
+      "date": "2026-09-03",
+      "start_minute": 300,
+      "end_minute": 478,
+      "duration_minutes": 178,
+      "block_ids": [
+        "BLK-001191",
+        "BLK-001192"
+      ],
+      "assigned_teams": [
+        "TEAM-007"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 23.4,
+      "priority_score": 519.5
+    },
+    {
+      "task_id": "TASK-000337",
+      "asset_id": "AST-120337",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-019",
+      "section_id": "SEC-0182",
+      "date": "2026-09-03",
+      "start_minute": 1200,
+      "end_minute": 1305,
+      "duration_minutes": 105,
+      "block_ids": [
+        "BLK-002183"
+      ],
+      "assigned_teams": [
+        "TEAM-003"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 80.7,
+      "priority_score": 1634.0
+    },
+    {
+      "task_id": "TASK-000351",
+      "asset_id": "AST-120351",
+      "department": "Mechanical / Rolling Stock",
+      "corridor_id": "COR-003",
+      "section_id": "SEC-0024",
+      "date": "2026-09-03",
+      "start_minute": 777,
+      "end_minute": 960,
+      "duration_minutes": 183,
+      "block_ids": [
+        "BLK-000283",
+        "BLK-000284"
+      ],
+      "assigned_teams": [
+        "TEAM-035"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": false,
+      "risk_score": 27.8,
+      "priority_score": 656.0
+    },
+    {
+      "task_id": "TASK-000365",
+      "asset_id": "AST-120365",
+      "department": "Signal & Telecommunications (S&T)",
+      "corridor_id": "COR-005",
+      "section_id": "SEC-0044",
+      "date": "2026-09-03",
+      "start_minute": 0,
+      "end_minute": 91,
+      "duration_minutes": 91,
+      "block_ids": [
+        "BLK-000517"
+      ],
+      "assigned_teams": [
+        "TEAM-025"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 2.1,
+      "priority_score": 92.0
+    },
+    {
+      "task_id": "TASK-000379",
+      "asset_id": "AST-120379",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-011",
+      "section_id": "SEC-0108",
+      "date": "2026-09-03",
+      "start_minute": 1204,
+      "end_minute": 1316,
+      "duration_minutes": 112,
+      "block_ids": [
+        "BLK-001295"
+      ],
+      "assigned_teams": [
+        "TEAM-009"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 77.7,
+      "priority_score": 1604.0
+    },
+    {
+      "task_id": "TASK-000393",
+      "asset_id": "AST-120393",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-010",
+      "section_id": "SEC-0098",
+      "date": "2026-09-03",
+      "start_minute": 352,
+      "end_minute": 480,
+      "duration_minutes": 128,
+      "block_ids": [
+        "BLK-001167",
+        "BLK-001168"
+      ],
+      "assigned_teams": [
+        "TEAM-016"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 12.8,
+      "priority_score": 336.0
+    },
+    {
+      "task_id": "TASK-000407",
+      "asset_id": "AST-120407",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-016",
+      "section_id": "SEC-0152",
+      "date": "2026-09-03",
+      "start_minute": 240,
+      "end_minute": 350,
+      "duration_minutes": 110,
+      "block_ids": [
+        "BLK-001815"
+      ],
+      "assigned_teams": [
+        "TEAM-016"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 38.1,
+      "priority_score": 885.0
+    },
+    {
+      "task_id": "TASK-000421",
+      "asset_id": "AST-120421",
+      "department": "Mechanical / Rolling Stock",
+      "corridor_id": "COR-010",
+      "section_id": "SEC-0092",
+      "date": "2026-09-03",
+      "start_minute": 0,
+      "end_minute": 150,
+      "duration_minutes": 150,
+      "block_ids": [
+        "BLK-001093",
+        "BLK-001094"
+      ],
+      "assigned_teams": [
+        "TEAM-031"
+      ],
+      "is_bundled": true,
+      "bundled_with": [
+        "TASK-000001"
+      ],
+      "is_night": true,
+      "risk_score": 11.6,
+      "priority_score": 374.25
+    },
+    {
+      "task_id": "TASK-000435",
+      "asset_id": "AST-120435",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-016",
+      "section_id": "SEC-0155",
+      "date": "2026-09-03",
+      "start_minute": 254,
+      "end_minute": 360,
+      "duration_minutes": 106,
+      "block_ids": [
+        "BLK-001851"
+      ],
+      "assigned_teams": [
+        "TEAM-019"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 46.6,
+      "priority_score": 1075.0
+    },
+    {
+      "task_id": "TASK-000463",
+      "asset_id": "AST-120463",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-007",
+      "section_id": "SEC-0065",
+      "date": "2026-09-03",
+      "start_minute": 120,
+      "end_minute": 291,
+      "duration_minutes": 171,
+      "block_ids": [
+        "BLK-000770",
+        "BLK-000771"
+      ],
+      "assigned_teams": [
+        "TEAM-004"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 88.9,
+      "priority_score": 1901.0
+    },
+    {
+      "task_id": "TASK-000491",
+      "asset_id": "AST-120491",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-002",
+      "section_id": "SEC-0019",
+      "date": "2026-09-03",
+      "start_minute": 141,
+      "end_minute": 240,
+      "duration_minutes": 99,
+      "block_ids": [
+        "BLK-000218"
+      ],
+      "assigned_teams": [
+        "TEAM-019"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 33.3,
+      "priority_score": 806.0
+    },
+    {
+      "task_id": "TASK-000505",
+      "asset_id": "AST-120505",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-002",
+      "section_id": "SEC-0012",
+      "date": "2026-09-03",
+      "start_minute": 1320,
+      "end_minute": 1365,
+      "duration_minutes": 45,
+      "block_ids": [
+        "BLK-000144"
+      ],
+      "assigned_teams": [
+        "TEAM-009"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 7.4,
+      "priority_score": 280.25
+    },
+    {
+      "task_id": "TASK-000519",
+      "asset_id": "AST-120519",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-014",
+      "section_id": "SEC-0135",
+      "date": "2026-09-03",
+      "start_minute": 120,
+      "end_minute": 227,
+      "duration_minutes": 107,
+      "block_ids": [
+        "BLK-001610"
+      ],
+      "assigned_teams": [
+        "TEAM-001"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 33.3,
+      "priority_score": 806.0
+    },
+    {
+      "task_id": "TASK-000533",
+      "asset_id": "AST-120533",
+      "department": "Signal & Telecommunications (S&T)",
+      "corridor_id": "COR-009",
+      "section_id": "SEC-0088",
+      "date": "2026-09-03",
+      "start_minute": 241,
+      "end_minute": 353,
+      "duration_minutes": 112,
+      "block_ids": [
+        "BLK-001047"
+      ],
+      "assigned_teams": [
+        "TEAM-022"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 3.8,
+      "priority_score": 216.0
+    },
+    {
+      "task_id": "TASK-000547",
+      "asset_id": "AST-120547",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-019",
+      "section_id": "SEC-0188",
+      "date": "2026-09-03",
+      "start_minute": 60,
+      "end_minute": 203,
+      "duration_minutes": 143,
+      "block_ids": [
+        "BLK-002245",
+        "BLK-002246"
+      ],
+      "assigned_teams": [
+        "TEAM-016"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 36.8,
+      "priority_score": 788.25
+    },
+    {
+      "task_id": "TASK-000561",
+      "asset_id": "AST-120561",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-010",
+      "section_id": "SEC-0098",
+      "date": "2026-09-03",
+      "start_minute": 1370,
+      "end_minute": 1440,
+      "duration_minutes": 70,
+      "block_ids": [
+        "BLK-001176"
+      ],
+      "assigned_teams": [
+        "TEAM-009"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 42.8,
+      "priority_score": 876.0
+    },
+    {
+      "task_id": "TASK-000589",
+      "asset_id": "AST-120589",
+      "department": "Signal & Telecommunications (S&T)",
+      "corridor_id": "COR-004",
+      "section_id": "SEC-0036",
+      "date": "2026-09-03",
+      "start_minute": 1316,
+      "end_minute": 1440,
+      "duration_minutes": 124,
+      "block_ids": [
+        "BLK-000431",
+        "BLK-000432"
+      ],
+      "assigned_teams": [
+        "TEAM-024"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 91.2,
+      "priority_score": 1954.0
+    },
+    {
+      "task_id": "TASK-000617",
+      "asset_id": "AST-120617",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-012",
+      "section_id": "SEC-0120",
+      "date": "2026-09-03",
+      "start_minute": 3,
+      "end_minute": 120,
+      "duration_minutes": 117,
+      "block_ids": [
+        "BLK-001429"
+      ],
+      "assigned_teams": [
+        "TEAM-004"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 55.5,
+      "priority_score": 1212.25
+    },
+    {
+      "task_id": "TASK-000631",
+      "asset_id": "AST-120631",
+      "department": "Mechanical / Rolling Stock",
+      "corridor_id": "COR-003",
+      "section_id": "SEC-0022",
+      "date": "2026-09-03",
+      "start_minute": 1369,
+      "end_minute": 1440,
+      "duration_minutes": 71,
+      "block_ids": [
+        "BLK-000264"
+      ],
+      "assigned_teams": [
+        "TEAM-033"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 96.3,
+      "priority_score": 2046.0
+    },
+    {
+      "task_id": "TASK-000645",
+      "asset_id": "AST-120645",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-002",
+      "section_id": "SEC-0014",
+      "date": "2026-09-03",
+      "start_minute": 319,
+      "end_minute": 480,
+      "duration_minutes": 161,
+      "block_ids": [
+        "BLK-000159",
+        "BLK-000160"
+      ],
+      "assigned_teams": [
+        "TEAM-004"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 71.0,
+      "priority_score": 1523.0
+    },
+    {
+      "task_id": "TASK-000673",
+      "asset_id": "AST-120673",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-005",
+      "section_id": "SEC-0042",
+      "date": "2026-09-03",
+      "start_minute": 1200,
+      "end_minute": 1347,
+      "duration_minutes": 147,
+      "block_ids": [
+        "BLK-000503",
+        "BLK-000504"
+      ],
+      "assigned_teams": [
+        "TEAM-006"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 44.6,
+      "priority_score": 943.5
+    },
+    {
+      "task_id": "TASK-000687",
+      "asset_id": "AST-120687",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-007",
+      "section_id": "SEC-0067",
+      "date": "2026-09-03",
+      "start_minute": 1140,
+      "end_minute": 1285,
+      "duration_minutes": 145,
+      "block_ids": [
+        "BLK-000802",
+        "BLK-000803"
+      ],
+      "assigned_teams": [
+        "TEAM-015"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 7.2,
+      "priority_score": 265.5
+    },
+    {
+      "task_id": "TASK-007057",
+      "asset_id": "AST-127057",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-008",
+      "section_id": "SEC-0073",
+      "date": "2026-09-03",
+      "start_minute": 19,
+      "end_minute": 120,
+      "duration_minutes": 101,
+      "block_ids": [
+        "BLK-000865"
+      ],
+      "assigned_teams": [
+        "TEAM-013"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 93.6,
+      "priority_score": 1953.5
+    },
+    {
+      "task_id": "TASK-008079",
+      "asset_id": "AST-128079",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-008",
+      "section_id": "SEC-0073",
+      "date": "2026-09-03",
+      "start_minute": 487,
+      "end_minute": 600,
+      "duration_minutes": 113,
+      "block_ids": [
+        "BLK-000869"
+      ],
+      "assigned_teams": [
+        "TEAM-020"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": false,
+      "risk_score": 19.5,
+      "priority_score": 443.0
+    },
+    {
+      "task_id": "TASK-016913",
+      "asset_id": "AST-136913",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-008",
+      "section_id": "SEC-0073",
+      "date": "2026-09-03",
+      "start_minute": 240,
+      "end_minute": 378,
+      "duration_minutes": 138,
+      "block_ids": [
+        "BLK-000867",
+        "BLK-000868"
+      ],
+      "assigned_teams": [
+        "TEAM-013"
+      ],
+      "is_bundled": true,
+      "bundled_with": [
+        "TASK-018159"
+      ],
+      "is_night": true,
+      "risk_score": 84.0,
+      "priority_score": 1813.0
+    },
+    {
+      "task_id": "TASK-017641",
+      "asset_id": "AST-137641",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-008",
+      "section_id": "SEC-0073",
+      "date": "2026-09-03",
+      "start_minute": 960,
+      "end_minute": 1114,
+      "duration_minutes": 154,
+      "block_ids": [
+        "BLK-000873",
+        "BLK-000874"
+      ],
+      "assigned_teams": [
+        "TEAM-003"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": false,
+      "risk_score": 82.0,
+      "priority_score": 1770.0
+    },
+    {
+      "task_id": "TASK-018159",
+      "asset_id": "AST-138159",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-008",
+      "section_id": "SEC-0073",
+      "date": "2026-09-03",
+      "start_minute": 240,
+      "end_minute": 321,
+      "duration_minutes": 81,
+      "block_ids": [
+        "BLK-000867"
+      ],
+      "assigned_teams": [
+        "TEAM-001"
+      ],
+      "is_bundled": true,
+      "bundled_with": [
+        "TASK-016913"
+      ],
+      "is_night": true,
+      "risk_score": 89.8,
+      "priority_score": 1936.0
+    },
+    {
+      "task_id": "TASK-018761",
+      "asset_id": "AST-138761",
+      "department": "Track / Civil Engineering",
+      "corridor_id": "COR-008",
+      "section_id": "SEC-0073",
+      "date": "2026-09-03",
+      "start_minute": 1305,
+      "end_minute": 1440,
+      "duration_minutes": 135,
+      "block_ids": [
+        "BLK-000875",
+        "BLK-000876"
+      ],
+      "assigned_teams": [
+        "TEAM-003"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 95.4,
+      "priority_score": 1931.0
+    },
+    {
+      "task_id": "TASK-023605",
+      "asset_id": "AST-143605",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-008",
+      "section_id": "SEC-0073",
+      "date": "2026-09-03",
+      "start_minute": 747,
+      "end_minute": 840,
+      "duration_minutes": 93,
+      "block_ids": [
+        "BLK-000871"
+      ],
+      "assigned_teams": [
+        "TEAM-017"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": false,
+      "risk_score": 12.9,
+      "priority_score": 281.0
+    },
+    {
+      "task_id": "TASK-000005",
+      "asset_id": "AST-120005",
+      "department": "Electrical / TRD",
+      "corridor_id": "COR-001",
+      "section_id": "SEC-0004",
+      "date": "2026-09-08",
+      "start_minute": 1080,
+      "end_minute": 1280,
+      "duration_minutes": 200,
+      "block_ids": [
+        "BLK-012046",
+        "BLK-012047"
+      ],
+      "assigned_teams": [
+        "TEAM-018"
+      ],
+      "is_bundled": false,
+      "bundled_with": [],
+      "is_night": true,
+      "risk_score": 81.0,
+      "priority_score": 1772.25
+    }
+  ]
+}
