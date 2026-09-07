@@ -1,6 +1,11 @@
 # Arnav Railway Maintenance Optimization Engine
 ### Smart India Hackathon (SIH) — Railway Maintenance Planning & Optimization
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2bee516d-7668-469e-bef7-3a4f9ce7fca2/deploy-status)](https://app.netlify.com/projects/railway-maintenance-sih-2026/deploys)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-railway--maintenance--sih--2026.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://railway-maintenance-sih-2026.netlify.app)
+
+> 🌐 **Live Demo Website:** [https://railway-maintenance-sih-2026.netlify.app](https://railway-maintenance-sih-2026.netlify.app)
+
 ---
 
 ## 1. Overview & Architecture

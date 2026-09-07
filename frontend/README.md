@@ -1,6 +1,8 @@
-# React + Vite
+# Railway Maintenance Optimization System - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+> 🌐 **Live Demo Website:** [https://railway-maintenance-sih-2026.netlify.app](https://railway-maintenance-sih-2026.netlify.app)
+> 
+> AI-Powered Automatic Block Planning to Maximize Asset Reliability & Minimize Passenger Delays (Smart India Hackathon 2026).
 
 Currently, two official plugins are available:
 
