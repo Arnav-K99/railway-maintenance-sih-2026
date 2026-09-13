@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import { DemoGuideBar } from './DemoGuideBar';
+import { WorkflowBanner } from './WorkflowBanner';
 
 export const AppLayout = ({ activeTab, onTabChange, children }) => {
   return (
@@ -12,8 +13,9 @@ export const AppLayout = ({ activeTab, onTabChange, children }) => {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
         <Header />
-        <DemoGuideBar onNavigate={(page, role) => onTabChange(page)} />
+        <DemoGuideBar onNavigate={(page, role) => onTabChange(page, role)} />
         <main className="flex-1 p-6 max-w-7xl w-full mx-auto space-y-6">
+          <WorkflowBanner activeTab={activeTab} onNavigate={onTabChange} />
           {children}
         </main>
       </div>

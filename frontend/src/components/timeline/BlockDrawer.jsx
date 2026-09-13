@@ -49,34 +49,41 @@ export const BlockDrawer = ({ task, isOpen, onClose, onOpenWhyArnav }) => {
       <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-3">
         <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
           <Clock size={14} className="text-blue-600" />
-          <span>Block Possession Schedule</span>
+          <span>Block Possession Information</span>
         </h4>
 
         <div className="grid grid-cols-2 gap-3 text-xs">
           <div>
-            <span className="text-slate-500 block text-[11px]">Assigned Block(s)</span>
+            <span className="text-slate-500 block text-[11px]">Block ID(s)</span>
             <span className="font-mono font-bold text-slate-900 text-sm">
               {Array.isArray(task.block_ids) ? task.block_ids.join(' + ') : task.block_ids}
             </span>
           </div>
           <div>
-            <span className="text-slate-500 block text-[11px]">Execution Window</span>
-            <span className="font-mono font-bold text-slate-900 text-sm">
-              {startTime} – {endTime} ({task.duration_minutes}m)
-            </span>
-          </div>
-          <div>
-            <span className="text-slate-500 block text-[11px]">Scheduled Date</span>
+            <span className="text-slate-500 block text-[11px]">Date</span>
             <span className="font-medium text-slate-800 flex items-center gap-1 mt-0.5">
               <Calendar size={13} className="text-slate-400" />
               {task.date}
             </span>
           </div>
           <div>
-            <span className="text-slate-500 block text-[11px]">Location / Section</span>
+            <span className="text-slate-500 block text-[11px]">Start Time – End Time</span>
+            <span className="font-mono font-bold text-slate-900 text-xs">
+              {startTime} – {endTime} ({task.duration_minutes}m)
+            </span>
+          </div>
+          <div>
+            <span className="text-slate-500 block text-[11px]">Corridor & Section</span>
             <span className="font-medium text-slate-800 flex items-center gap-1 mt-0.5">
               <MapPin size={13} className="text-slate-400" />
-              {task.section_id} ({task.corridor_id})
+              {task.corridor_id} • {task.section_id}
+            </span>
+          </div>
+          <div className="col-span-2 bg-emerald-50 border border-emerald-200 p-2.5 rounded-lg flex items-center justify-between">
+            <span className="text-slate-600 text-[11px] font-medium">Block Availability:</span>
+            <span className="text-emerald-800 font-bold font-mono text-xs flex items-center gap-1">
+              <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
+              Available (No Conflicting Trains)
             </span>
           </div>
         </div>
@@ -86,80 +93,83 @@ export const BlockDrawer = ({ task, isOpen, onClose, onOpenWhyArnav }) => {
       <div className="bg-white rounded-xl p-4 border border-slate-200 space-y-3 shadow-xs">
         <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
           <ShieldAlert size={14} className="text-red-600" />
-          <span>Work Order & Neev Risk</span>
+          <span>Maintenance Task Details</span>
         </h4>
 
-        <div className="flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-100">
+        <div className="grid grid-cols-2 gap-3 text-xs">
           <div>
-            <span className="text-xs font-semibold text-slate-800 block">
-              {task.maintenance_type || 'Track Inspection / Renewal'}
-            </span>
-            <span className="text-[11px] text-slate-500">{task.department}</span>
-          </div>
-          <Badge
-            variant={task.risk_score >= 80 ? 'CRITICAL' : task.risk_score >= 60 ? 'HIGH' : 'MODERATE'}
-            size="md"
-          >
-            Neev Risk: {task.risk_score ? task.risk_score.toFixed(1) : '81.0'}%
-          </Badge>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3 text-xs pt-1">
-          <div>
-            <span className="text-slate-500 block text-[11px]">Asset Identifier</span>
-            <span className="font-mono font-bold text-slate-800">{task.asset_id}</span>
+            <span className="text-slate-500 block text-[11px]">Task ID</span>
+            <span className="font-mono font-bold text-slate-900">{task.task_id}</span>
           </div>
           <div>
-            <span className="text-slate-500 block text-[11px]">Optimizer Priority Score</span>
+            <span className="text-slate-500 block text-[11px]">Maintenance Type</span>
+            <span className="font-bold text-slate-800">{task.maintenance_type || 'Track Inspection / Renewal'}</span>
+          </div>
+          <div>
+            <span className="text-slate-500 block text-[11px]">Department</span>
+            <span className="font-medium text-slate-700">{task.department}</span>
+          </div>
+          <div>
+            <span className="text-slate-500 block text-[11px]">Duration</span>
+            <span className="font-mono font-bold text-slate-800">{task.duration_minutes} minutes</span>
+          </div>
+          <div>
+            <span className="text-slate-500 block text-[11px]">Neev Risk Score</span>
+            <Badge
+              variant={task.risk_score >= 80 ? 'CRITICAL' : task.risk_score >= 60 ? 'HIGH' : 'MODERATE'}
+              size="sm"
+            >
+              {task.risk_score ? task.risk_score.toFixed(1) : '81.0'}% {task.risk_score >= 80 ? 'CRITICAL' : ''}
+            </Badge>
+          </div>
+          <div>
+            <span className="text-slate-500 block text-[11px]">Priority Score</span>
             <span className="font-mono font-bold text-slate-800">
               {task.priority_score ? task.priority_score.toFixed(1) : '1,762.2'}
             </span>
           </div>
-          <div>
-            <span className="text-slate-500 block text-[11px]">Night Window Bonus</span>
-            <span className="font-medium text-slate-800">
-              {task.is_night ? 'Applied (00:00 - 08:00)' : 'Day Execution'}
-            </span>
-          </div>
-          <div>
-            <span className="text-slate-500 block text-[11px]">Operational Status</span>
-            <Badge variant="Scheduled" size="sm">Scheduled & Feasible</Badge>
-          </div>
         </div>
       </div>
 
-      {/* 3. ASSIGNED CREW */}
+      {/* 3. ASSIGNED TEAMS */}
       <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-3">
         <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
           <Users size={14} className="text-emerald-600" />
-          <span>Assigned Maintenance Crew</span>
+          <span>Assigned Teams</span>
         </h4>
 
-        <div className="flex items-center justify-between text-xs">
+        <div className="p-3 bg-white rounded-lg border border-slate-200 text-xs flex items-center justify-between">
           <div>
-            <span className="font-bold text-slate-900 font-mono">
+            <span className="font-bold font-mono text-slate-900 text-sm">
               {Array.isArray(task.assigned_teams) ? task.assigned_teams.join(', ') : task.assigned_teams || 'TEAM-013'}
             </span>
-            <p className="text-[11px] text-slate-500 mt-0.5">{task.department} Specialist Team</p>
+            <p className="text-[11px] text-slate-600 mt-0.5">{task.department} Qualified Crew</p>
           </div>
-          <Badge variant="success" size="sm">Crew Shift Covers Window</Badge>
+          <Badge variant="success" size="sm">Available & Shift Active</Badge>
         </div>
       </div>
 
-      {/* 4. BUNDLING DETAILS (If applicable) */}
+      {/* 4. BUNDLING DETAILS (Section 10 requirement) */}
       {task.is_bundled && (
-        <div className="bg-purple-50 rounded-xl p-4 border border-purple-200 space-y-2">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-purple-900">
-            <Layers size={15} className="text-purple-700" />
-            <span>Smart Bundled Possession (C006 & S008)</span>
+        <div className="bg-purple-50 rounded-xl p-4 border border-purple-200 space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-purple-950 uppercase tracking-wider flex items-center gap-1.5">
+              <Layers size={14} className="text-purple-700" />
+              Bundled Maintenance
+            </span>
+            <Badge variant="purple" size="sm">Shared Possession</Badge>
           </div>
-          <p className="text-xs text-purple-800 leading-relaxed">
-            This task shares its possession window with compatible work in the same section:
-          </p>
-          <div className="bg-white/80 p-2.5 rounded-lg border border-purple-200 text-xs text-slate-800 font-mono">
-            {task.bundled_with && task.bundled_with.length > 0
-              ? `Shared with: ${task.bundled_with.join(', ')}`
-              : 'Shared with compatible Track / Electrical team'}
+
+          <div className="bg-white p-3 rounded-lg border border-purple-100 text-center space-y-1 text-xs">
+            <div className="font-bold text-blue-900">Track / Civil</div>
+            <div className="text-purple-600 font-bold text-sm">+</div>
+            <div className="font-bold text-purple-900">Electrical / TRD</div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2 text-center text-[10px] font-semibold text-purple-900">
+            <div className="bg-purple-100/70 p-1.5 rounded border border-purple-200">Shared possession</div>
+            <div className="bg-purple-100/70 p-1.5 rounded border border-purple-200">Same section</div>
+            <div className="bg-purple-100/70 p-1.5 rounded border border-purple-200">Compatible work</div>
           </div>
         </div>
       )}

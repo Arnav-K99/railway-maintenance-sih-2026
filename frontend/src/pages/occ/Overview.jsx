@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { MetricCard } from '../../components/common/MetricCard';
 import { Card } from '../../components/common/Card';
 import { Badge } from '../../components/common/Badge';
+import { Modal } from '../../components/common/Modal';
 import { usePlan } from '../../context/PlanContext';
 import corridorsSectionsData from '../../data/corridors_sections.json';
 import {
@@ -17,11 +18,14 @@ import {
   Layers,
   MapPin,
   ExternalLink,
+  Train,
+  Zap,
 } from 'lucide-react';
 
 export const Overview = ({ onNavigate }) => {
   const { metrics, scheduledTasks, activeEvent } = usePlan();
   const [selectedCorridorId, setSelectedCorridorId] = useState('COR-001');
+  const [selectedSection, setSelectedSection] = useState(null);
 
   const corridors = corridorsSectionsData.corridors;
   const sections = corridorsSectionsData.sections;
@@ -167,7 +171,7 @@ export const Overview = ({ onNavigate }) => {
                   return (
                     <div
                       key={sec.section_id}
-                      onClick={() => onNavigate('block-planning')}
+                      onClick={() => setSelectedSection(sec)}
                       className={`p-3 rounded-lg border text-left cursor-pointer transition-all hover:scale-[1.02] hover:shadow-xs ${
                         isTask5
                           ? 'bg-red-50/70 border-red-300 ring-1 ring-red-200'
@@ -245,6 +249,86 @@ export const Overview = ({ onNavigate }) => {
           </Card>
         </div>
       </div>
+
+      {/* Section Detail Modal (Section 4 requirement) */}
+      <Modal
+        isOpen={Boolean(selectedSection)}
+        onClose={() => setSelectedSection(null)}
+        title={`Track Section Operational Telemetry — ${selectedSection?.section_id}`}
+        subtitle={`${selectedSection?.section_name} • ${selectedSection?.corridor_name}`}
+        maxWidth="max-w-xl"
+      >
+        {selectedSection && (
+          <div className="space-y-4 text-xs">
+            <div className="grid grid-cols-2 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+              <div>
+                <span className="text-slate-400 block text-[11px]">Track Configuration:</span>
+                <span className="font-bold text-slate-800">{selectedSection.track_type}</span>
+              </div>
+              <div>
+                <span className="text-slate-400 block text-[11px]">Speed Authorization:</span>
+                <span className="font-bold text-slate-800">{selectedSection.maximum_speed_kmph} km/h</span>
+              </div>
+              <div>
+                <span className="text-slate-400 block text-[11px]">Section Length:</span>
+                <span className="font-bold text-slate-800">{selectedSection.section_length_km} km</span>
+              </div>
+              <div>
+                <span className="text-slate-400 block text-[11px]">Electrification:</span>
+                <span className="font-bold text-emerald-700">
+                  {selectedSection.electrified ? '25kV AC 50Hz OHE' : 'Non-Electrified Diesel'}
+                </span>
+              </div>
+            </div>
+
+            {/* Scheduled possessions on this section */}
+            <div className="space-y-2">
+              <h4 className="font-bold uppercase tracking-wider text-slate-600 text-[11px]">
+                Maintenance Activity on this Section:
+              </h4>
+              {scheduledTasks.filter((t) => t.section_id === selectedSection.section_id).length > 0 ? (
+                <div className="space-y-2">
+                  {scheduledTasks
+                    .filter((t) => t.section_id === selectedSection.section_id)
+                    .map((t) => (
+                      <div
+                        key={t.task_id}
+                        className="p-3 rounded-lg border border-blue-200 bg-blue-50/50 flex items-center justify-between"
+                      >
+                        <div>
+                          <div className="font-bold text-slate-900 font-mono">{t.task_id} — {t.maintenance_type || t.department}</div>
+                          <div className="text-[11px] text-slate-500">
+                            Window: {minToHhmm(t.start_minute)} – {minToHhmm(t.end_minute)} ({t.duration_minutes}m) • Date: {t.date}
+                          </div>
+                        </div>
+                        <Badge variant={t.risk_score >= 80 ? 'CRITICAL' : 'primary'} size="sm">
+                          {t.risk_score >= 80 ? 'CRITICAL' : 'SCHEDULED'}
+                        </Badge>
+                      </div>
+                    ))}
+                </div>
+              ) : (
+                <div className="p-3 rounded-lg border border-slate-200 bg-slate-50 text-slate-500 text-center">
+                  Zero active maintenance block closures on this section. Line operating at 100% throughput availability.
+                </div>
+              )}
+            </div>
+
+            <div className="pt-2 flex justify-end gap-2">
+              <button
+                onClick={() => {
+                  setSelectedSection(null);
+                  onNavigate('block-planning');
+                }}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg text-xs flex items-center gap-1.5 transition-colors"
+              >
+                <span>Inspect in Block Planner</span>
+                <ExternalLink size={13} />
+              </button>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };

@@ -2,13 +2,13 @@ import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
 
-export const ROLES = {
-  OCC: 'Operations Control',
-  MAINTENANCE: 'Maintenance Personnel',
-  GENERAL: 'General User',
+export const PORTALS = {
+  MAINTENANCE: 'MAINTENANCE',
+  AUTHORITY: 'AUTHORITY',
 };
 
 export const DEPARTMENTS = [
+  'All Departments',
   'Track / Civil Engineering',
   'Electrical / TRD',
   'Signal & Telecommunications',
@@ -16,49 +16,72 @@ export const DEPARTMENTS = [
 ];
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState({
-    username: 'chief_controller',
-    name: 'S. K. Sharma (Chief Controller)',
-    role: ROLES.OCC,
-    department: 'Operations',
-    station: 'New Delhi HQ',
+  // Default to AUTHORITY mode on first load for demonstration, or read from storage
+  const [currentPortal, setCurrentPortal] = useState(() => {
+    return localStorage.getItem('sih_portal') || PORTALS.AUTHORITY;
   });
 
-  const [selectedDept, setSelectedDept] = useState(DEPARTMENTS[1]); // Default to Electrical/TRD for TASK-000005
+  const [selectedDept, setSelectedDept] = useState('All Departments');
 
-  const login = (role, username = '', department = '') => {
-    let name = 'Operations Controller';
-    let dept = 'Operations';
-    if (role === ROLES.MAINTENANCE) {
-      name = 'R. K. Verma (Senior Section Engineer)';
-      dept = department || selectedDept;
-    } else if (role === ROLES.GENERAL) {
-      name = 'Citizen / Railway Auditor';
-      dept = 'Public Verification';
+  const [currentUser, setCurrentUser] = useState(() => {
+    const p = localStorage.getItem('sih_portal') || PORTALS.AUTHORITY;
+    return p === PORTALS.MAINTENANCE
+      ? {
+          name: 'R. K. Verma',
+          designation: 'Senior Section Engineer (SSE)',
+          department: 'Electrical / TRD',
+          station: 'Northern Railway / Delhi Div',
+        }
+      : {
+          name: 'S. K. Sharma',
+          designation: 'Chief Operations Controller (COC)',
+          department: 'Central Operations Control',
+          station: 'Rail Bhavan, New Delhi HQ',
+        };
+  });
+
+  const login = (portal, department = 'All Departments') => {
+    setCurrentPortal(portal);
+    setSelectedDept(department);
+    localStorage.setItem('sih_portal', portal);
+
+    if (portal === PORTALS.MAINTENANCE) {
+      setCurrentUser({
+        name: 'R. K. Verma',
+        designation: 'Senior Section Engineer (SSE)',
+        department: department === 'All Departments' ? 'Electrical / TRD' : department,
+        station: 'Northern Railway / Delhi Div',
+      });
+    } else {
+      setCurrentUser({
+        name: 'S. K. Sharma',
+        designation: 'Chief Operations Controller (COC)',
+        department: 'Central Operations Control',
+        station: 'Rail Bhavan, New Delhi HQ',
+      });
     }
+  };
 
-    setCurrentUser({
-      username: username || (role === ROLES.OCC ? 'occ_operator' : role === ROLES.MAINTENANCE ? 'sse_trd' : 'public_user'),
-      name,
-      role,
-      department: dept,
-      station: 'Northern Railway',
-    });
+  const switchPortal = (portal) => {
+    login(portal, selectedDept);
   };
 
   const logout = () => {
     setCurrentUser(null);
+    localStorage.removeItem('sih_portal');
   };
 
   return (
     <AuthContext.Provider
       value={{
+        currentPortal,
         currentUser,
         selectedDept,
         setSelectedDept,
         login,
+        switchPortal,
         logout,
-        ROLES,
+        PORTALS,
         DEPARTMENTS,
       }}
     >

@@ -1,155 +1,129 @@
 import React, { useState, useEffect } from 'react';
-import { StoryNav } from './components/presentation/StoryNav';
-import { ScreenPortal } from './components/presentation/ScreenPortal';
-import { ScreenOperationsHome } from './components/presentation/ScreenOperationsHome';
-import { ScreenTasksList } from './components/presentation/ScreenTasksList';
-import { ScreenTaskDetails } from './components/presentation/ScreenTaskDetails';
-import { ScreenArnavPlan } from './components/presentation/ScreenArnavPlan';
-import { ScreenLiveOps } from './components/presentation/ScreenLiveOps';
-import { ScreenReplanningRequests } from './components/presentation/ScreenReplanningRequests';
-import { ScreenReplanning } from './components/presentation/ScreenReplanning';
-import { ScreenMaintenancePortal } from './components/presentation/ScreenMaintenancePortal';
-import { ScreenVerification } from './components/presentation/ScreenVerification';
+import { ThemeProvider } from './context/ThemeContext';
+import { LanguageProvider } from './context/LanguageContext';
+import { AuthProvider, useAuth, PORTALS } from './context/AuthContext';
+import { PlanContext_Provider } from './context/PlanContext';
 
-export default function App() {
-  // Screen state machine
-  const [currentScreen, setCurrentScreen] = useState('portal');
-  const [selectedTaskId, setSelectedTaskId] = useState('TASK-000005');
-  const [selectedEventId, setSelectedEventId] = useState('EVENT-001');
+import { GovShell } from './components/layout/GovShell';
+import { Landing } from './pages/Landing';
 
-  // Shared Maintenance Requirements state (defined by Maintenance, passed to Arnav)
-  const [maintenanceReqs, setMaintenanceReqs] = useState({
-    duration: 200,
-    personnel: 5,
-    canCollaborate: true,
-    compatibleDept: 'Track / Civil',
-    canBundle: true,
+// Maintenance Portal Pages
+import { MaintDashboard } from './pages/maintenance/MaintDashboard';
+import { NeevPredictions } from './pages/maintenance/NeevPredictions';
+import { MyWork } from './pages/maintenance/MyWork';
+import { MaintHistory } from './pages/maintenance/MaintHistory';
+
+// Authority Portal Pages
+import { AuthDashboard } from './pages/authority/AuthDashboard';
+import { Operations } from './pages/authority/Operations';
+import { Replanning } from './pages/authority/Replanning';
+import { WorkVerification } from './pages/authority/WorkVerification';
+import { UpcomingTasks } from './pages/authority/UpcomingTasks';
+import { AuthHistory } from './pages/authority/AuthHistory';
+
+const MAINT_TABS = [
+  'maint-dashboard',
+  'neev-predictions',
+  'my-work',
+  'maint-history',
+];
+
+const AUTH_TABS = [
+  'auth-dashboard',
+  'operations',
+  'replanning',
+  'verification',
+  'upcoming',
+  'auth-history',
+];
+
+function MainApp() {
+  const { currentPortal, currentUser, login } = useAuth();
+  const [activeTab, setActiveTab] = useState(() => {
+    return currentPortal === PORTALS.MAINTENANCE ? 'maint-dashboard' : 'operations';
   });
 
-  // Global Theme state (default dark per Vision Pro / Apple macOS black monochrome glass direction)
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('sih_theme') || 'dark';
-  });
-
+  // Keep active tab synchronized with active portal
   useEffect(() => {
-    localStorage.setItem('sih_theme', theme);
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
+    if (currentPortal === PORTALS.MAINTENANCE) {
+      if (!MAINT_TABS.includes(activeTab)) {
+        setActiveTab('maint-dashboard');
+      }
     } else {
-      document.documentElement.classList.remove('dark');
+      if (!AUTH_TABS.includes(activeTab)) {
+        setActiveTab('operations');
+      }
     }
-  }, [theme]);
+  }, [currentPortal]);
 
-  const handleToggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  const handlePortalSwitch = (nextPortal) => {
+    if (nextPortal === PORTALS.MAINTENANCE) {
+      setActiveTab('maint-dashboard');
+    } else {
+      setActiveTab('operations');
+    }
   };
 
-  const handleSelectPortal = (portalType) => {
-    if (portalType === 'maintenance') setCurrentScreen('tasks_list');
-    else if (portalType === 'operations') setCurrentScreen('operations_home');
-    else if (portalType === 'verification') setCurrentScreen('verification');
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
   };
 
-  const handleSelectTask = (taskId) => {
-    setSelectedTaskId(taskId);
-    setCurrentScreen('task_details');
-  };
-
-  const handleSelectEvent = (eventId) => {
-    setSelectedEventId(eventId);
-    setCurrentScreen('replanning_detail');
-  };
-
-  const handleSaveRequirements = (newReqs) => {
-    setMaintenanceReqs(newReqs);
-  };
-
-  const handleReset = () => {
-    setCurrentScreen('portal');
-    setSelectedTaskId('TASK-000005');
-    setSelectedEventId('EVENT-001');
-  };
+  // If user signed out, show clean government landing/portal selector
+  if (!currentUser) {
+    return (
+      <Landing
+        onSelectPortal={(portal) => {
+          if (portal === PORTALS.MAINTENANCE) {
+            setActiveTab('maint-dashboard');
+          } else {
+            setActiveTab('operations');
+          }
+        }}
+      />
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] dark:bg-[#08080a] text-neutral-900 dark:text-neutral-100 flex flex-col font-sans antialiased transition-colors selection:bg-neutral-900 selection:text-white dark:selection:bg-white dark:selection:text-black">
-      {/* Apple-style Monochrome Glass Header */}
-      <StoryNav
-        currentScreen={currentScreen}
-        onNavigate={setCurrentScreen}
-        onReset={handleReset}
-        theme={theme}
-        onToggleTheme={handleToggleTheme}
-      />
+    <GovShell
+      activeTab={activeTab}
+      onTabChange={handleTabChange}
+      onSwitchPortal={handlePortalSwitch}
+    >
+      {/* Portal A: Maintenance Portal */}
+      {currentPortal === PORTALS.MAINTENANCE && (
+        <>
+          {activeTab === 'maint-dashboard' && <MaintDashboard onNavigate={handleTabChange} />}
+          {activeTab === 'neev-predictions' && <NeevPredictions />}
+          {activeTab === 'my-work' && <MyWork />}
+          {activeTab === 'maint-history' && <MaintHistory />}
+        </>
+      )}
 
-      {/* Main Screen Container */}
-      <main className="flex-1 pb-16">
-        {currentScreen === 'portal' && (
-          <ScreenPortal onSelectPortal={handleSelectPortal} />
-        )}
+      {/* Portal B: Authority Portal */}
+      {currentPortal === PORTALS.AUTHORITY && (
+        <>
+          {activeTab === 'auth-dashboard' && <AuthDashboard onNavigate={handleTabChange} />}
+          {activeTab === 'operations' && <Operations />}
+          {activeTab === 'replanning' && <Replanning />}
+          {activeTab === 'verification' && <WorkVerification />}
+          {activeTab === 'upcoming' && <UpcomingTasks />}
+          {activeTab === 'auth-history' && <AuthHistory />}
+        </>
+      )}
+    </GovShell>
+  );
+}
 
-        {currentScreen === 'tasks_list' && (
-          <ScreenTasksList
-            onNavigate={setCurrentScreen}
-            onSelectTask={handleSelectTask}
-          />
-        )}
-
-        {currentScreen === 'task_details' && (
-          <ScreenTaskDetails
-            taskId={selectedTaskId}
-            onNavigate={setCurrentScreen}
-            onSaveRequirements={handleSaveRequirements}
-          />
-        )}
-
-        {currentScreen === 'arnav_plan' && (
-          <ScreenArnavPlan
-            taskId={selectedTaskId}
-            maintenanceReqs={maintenanceReqs}
-            onNavigate={setCurrentScreen}
-          />
-        )}
-
-        {currentScreen === 'operations_home' && (
-          <ScreenOperationsHome onNavigate={setCurrentScreen} />
-        )}
-
-        {currentScreen === 'live_ops' && (
-          <ScreenLiveOps onNavigate={setCurrentScreen} />
-        )}
-
-        {currentScreen === 'replanning_requests' && (
-          <ScreenReplanningRequests
-            onNavigate={setCurrentScreen}
-            onSelectEvent={handleSelectEvent}
-          />
-        )}
-
-        {currentScreen === 'replanning_detail' && (
-          <ScreenReplanning onNavigate={setCurrentScreen} />
-        )}
-
-        {currentScreen === 'maintenance_portal' && (
-          <ScreenMaintenancePortal
-            onNavigate={setCurrentScreen}
-            onSelectTask={handleSelectTask}
-          />
-        )}
-
-        {currentScreen === 'verification' && (
-          <ScreenVerification onNavigate={setCurrentScreen} />
-        )}
-      </main>
-
-      {/* Calm Monochrome Footer */}
-      <footer className="border-t border-black/[0.06] dark:border-white/[0.08] bg-[#f8f9fa]/80 dark:bg-[#08080a]/80 py-4 text-center text-xs text-neutral-500 dark:text-neutral-500 transition-colors">
-        <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>Indian Railways • Maintenance Optimization Prototype</span>
-          <span className="font-mono text-[11px] text-neutral-400">
-            Maintenance Requirements → Block Optimization → Live Operations → Replanning → Verification
-          </span>
-        </div>
-      </footer>
-    </div>
+export default function App() {
+  return (
+    <ThemeProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <PlanContext_Provider>
+            <MainApp />
+          </PlanContext_Provider>
+        </AuthProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }

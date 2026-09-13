@@ -4,59 +4,52 @@
 
 @layer base {
   body {
-    @apply bg-[#f8f9fa] dark:bg-[#08080a] text-neutral-900 dark:text-neutral-100 font-sans antialiased text-sm;
+    @apply bg-[#f8f9fa] dark:bg-[#0d0f12] text-slate-900 dark:text-neutral-100 font-sans antialiased text-xs sm:text-sm;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Accessible, clean form inputs */
+  input, select, textarea {
+    @apply bg-white dark:bg-white/[0.04] border border-slate-300 dark:border-white/[0.1] rounded-lg text-slate-800 dark:text-neutral-100 text-xs px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-blue-500 transition-colors;
   }
 }
 
-/* Apple-style restrained glass panels */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+/* macOS-Inspired Translucent Panels */
+.mac-panel, .gov-panel {
+  @apply bg-white dark:bg-white/[0.035] border border-slate-200 dark:border-white/[0.08] rounded-xl shadow-2xs backdrop-blur-md;
 }
 
-.dark .glass-panel {
-  background: rgba(255, 255, 255, 0.035);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.4);
+.mac-panel-header, .gov-panel-header {
+  @apply px-4 py-3 border-b border-slate-200/80 dark:border-white/[0.08] bg-slate-50/60 dark:bg-white/[0.02] flex items-center justify-between rounded-t-xl;
 }
 
-.glass-panel-hover:hover {
-  border-color: rgba(0, 0, 0, 0.16);
+/* Unicolor Dashboard Metric Box */
+.unicolor-card {
+  @apply bg-white dark:bg-white/[0.035] border border-slate-200 dark:border-white/[0.08] rounded-xl p-4 shadow-2xs backdrop-blur-md transition-all hover:border-slate-300 dark:hover:border-white/[0.14];
 }
 
-.dark .glass-panel-hover:hover {
-  border-color: rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.05);
+/* Enterprise Data Tables */
+.mac-table, .gov-table {
+  @apply w-full text-left border-collapse;
 }
 
-/* Subtle glass inputs */
-.glass-input {
-  background: rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  color: inherit;
+.mac-table th, .gov-table th {
+  @apply bg-slate-100/70 dark:bg-white/[0.03] text-slate-600 dark:text-neutral-400 font-semibold uppercase text-[11px] tracking-wider px-3.5 py-2.5 border-b border-slate-200 dark:border-white/[0.08];
 }
 
-.dark .glass-input {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+.mac-table td, .gov-table td {
+  @apply px-3.5 py-2.5 text-xs text-slate-800 dark:text-neutral-200 border-b border-slate-200/60 dark:border-white/[0.05];
 }
 
-.glass-input:focus {
-  outline: none;
-  border-color: rgba(0, 0, 0, 0.3);
+.mac-table tbody tr:hover, .gov-table tbody tr:hover {
+  @apply bg-slate-50/80 dark:bg-white/[0.03];
 }
 
-.dark .glass-input:focus {
-  border-color: rgba(255, 255, 255, 0.25);
+.mac-table-zebra tbody tr:nth-child(even), .gov-table-zebra tbody tr:nth-child(even) {
+  @apply bg-slate-50/40 dark:bg-white/[0.015];
 }
 
-/* Subtle scrollbars */
+/* Subtle enterprise scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -65,9 +58,9 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(120, 120, 120, 0.2);
-  border-radius: 9999px;
+  background: rgba(150, 150, 150, 0.2);
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(120, 120, 120, 0.4);
+  background: rgba(150, 150, 150, 0.4);
 }

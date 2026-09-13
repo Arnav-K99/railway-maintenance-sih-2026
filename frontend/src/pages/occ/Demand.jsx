@@ -20,9 +20,28 @@ export const Demand = ({ onNavigate }) => {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDept, setSelectedDept] = useState('ALL');
+  const [selectedCorridor, setSelectedCorridor] = useState('ALL');
   const [selectedRisk, setSelectedRisk] = useState('ALL');
+  const [selectedDate, setSelectedDate] = useState('ALL');
   const [selectedStatus, setSelectedStatus] = useState('ALL');
+  const [selectedType, setSelectedType] = useState('ALL');
   const [selectedTask, setSelectedTask] = useState(null);
+
+  // Derive unique options
+  const uniqueCorridors = useMemo(() => {
+    const set = new Set(tasksInventory.map((t) => t.corridor_id).filter(Boolean));
+    return Array.from(set).sort();
+  }, [tasksInventory]);
+
+  const uniqueDates = useMemo(() => {
+    const set = new Set(tasksInventory.map((t) => t.task_date).filter(Boolean));
+    return Array.from(set).sort();
+  }, [tasksInventory]);
+
+  const uniqueTypes = useMemo(() => {
+    const set = new Set(tasksInventory.map((t) => t.maintenance_type).filter(Boolean));
+    return Array.from(set).sort();
+  }, [tasksInventory]);
 
   // Filter tasks
   const filteredTasks = useMemo(() => {
@@ -34,12 +53,32 @@ export const Demand = ({ onNavigate }) => {
         t.maintenance_type.toLowerCase().includes(searchQuery.toLowerCase());
 
       const matchesDept = selectedDept === 'ALL' || t.department === selectedDept;
+      const matchesCorridor = selectedCorridor === 'ALL' || t.corridor_id === selectedCorridor;
       const matchesRisk = selectedRisk === 'ALL' || t.risk_level === selectedRisk;
+      const matchesDate = selectedDate === 'ALL' || t.task_date === selectedDate;
       const matchesStatus = selectedStatus === 'ALL' || t.status === selectedStatus;
+      const matchesType = selectedType === 'ALL' || t.maintenance_type === selectedType;
 
-      return matchesSearch && matchesDept && matchesRisk && matchesStatus;
+      return (
+        matchesSearch &&
+        matchesDept &&
+        matchesCorridor &&
+        matchesRisk &&
+        matchesDate &&
+        matchesStatus &&
+        matchesType
+      );
     });
-  }, [tasksInventory, searchQuery, selectedDept, selectedRisk, selectedStatus]);
+  }, [
+    tasksInventory,
+    searchQuery,
+    selectedDept,
+    selectedCorridor,
+    selectedRisk,
+    selectedDate,
+    selectedStatus,
+    selectedType,
+  ]);
 
   return (
     <div className="space-y-6">
@@ -58,10 +97,10 @@ export const Demand = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* Filters & Search Toolbar */}
+      {/* 6 Required Filters & Search Toolbar (Section 5 requirement) */}
       <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-wrap items-center gap-3">
         {/* Search */}
-        <div className="relative flex-1 min-w-[220px]">
+        <div className="relative flex-1 min-w-[200px]">
           <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
@@ -72,7 +111,7 @@ export const Demand = ({ onNavigate }) => {
           />
         </div>
 
-        {/* Department Filter */}
+        {/* 1. Department Filter */}
         <select
           value={selectedDept}
           onChange={(e) => setSelectedDept(e.target.value)}
@@ -85,7 +124,19 @@ export const Demand = ({ onNavigate }) => {
           <option value="Mechanical / Rolling Stock">Mechanical / Rolling Stock</option>
         </select>
 
-        {/* Risk Filter */}
+        {/* 2. Corridor Filter */}
+        <select
+          value={selectedCorridor}
+          onChange={(e) => setSelectedCorridor(e.target.value)}
+          className="text-xs bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 font-medium text-slate-700"
+        >
+          <option value="ALL">All Corridors</option>
+          {uniqueCorridors.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
+
+        {/* 3. Risk Level Filter */}
         <select
           value={selectedRisk}
           onChange={(e) => setSelectedRisk(e.target.value)}
@@ -98,7 +149,19 @@ export const Demand = ({ onNavigate }) => {
           <option value="LOW">Low Risk (&lt; 40)</option>
         </select>
 
-        {/* Status Filter */}
+        {/* 4. Date Filter */}
+        <select
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+          className="text-xs bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 font-medium text-slate-700 font-mono"
+        >
+          <option value="ALL">All Dates</option>
+          {uniqueDates.map((d) => (
+            <option key={d} value={d}>{d}</option>
+          ))}
+        </select>
+
+        {/* 5. Status Filter */}
         <select
           value={selectedStatus}
           onChange={(e) => setSelectedStatus(e.target.value)}
@@ -110,13 +173,34 @@ export const Demand = ({ onNavigate }) => {
           <option value="Completed">Completed</option>
         </select>
 
-        {(searchQuery || selectedDept !== 'ALL' || selectedRisk !== 'ALL' || selectedStatus !== 'ALL') && (
+        {/* 6. Maintenance Type Filter */}
+        <select
+          value={selectedType}
+          onChange={(e) => setSelectedType(e.target.value)}
+          className="text-xs bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 font-medium text-slate-700"
+        >
+          <option value="ALL">All Maintenance Types</option>
+          {uniqueTypes.map((t) => (
+            <option key={t} value={t}>{t}</option>
+          ))}
+        </select>
+
+        {(searchQuery ||
+          selectedDept !== 'ALL' ||
+          selectedCorridor !== 'ALL' ||
+          selectedRisk !== 'ALL' ||
+          selectedDate !== 'ALL' ||
+          selectedStatus !== 'ALL' ||
+          selectedType !== 'ALL') && (
           <button
             onClick={() => {
               setSearchQuery('');
               setSelectedDept('ALL');
+              setSelectedCorridor('ALL');
               setSelectedRisk('ALL');
+              setSelectedDate('ALL');
               setSelectedStatus('ALL');
+              setSelectedType('ALL');
             }}
             className="text-xs text-blue-600 hover:text-blue-800 font-semibold px-2 py-1"
           >

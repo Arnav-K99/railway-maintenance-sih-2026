@@ -6,9 +6,9 @@ export const AssetHealthCard = ({ asset }) => {
   const isCritical = asset.risk_score >= 80;
   const isHigh = asset.risk_score >= 60 && asset.risk_score < 80;
 
-  // Human-readable indicators
-  const recentFaults = isCritical ? 'High (3 alarms in 7d)' : isHigh ? 'Moderate' : 'Low';
-  const wearLevel = isCritical ? 'Severe Mechanical Wear' : isHigh ? 'Accelerated Degradation' : 'Normal Operational Wear';
+  // Human-readable indicators (Section 21 requirement)
+  const recentFaults = isCritical ? 'High' : isHigh ? 'Moderate' : 'Low';
+  const wearLevel = isCritical ? 'High' : isHigh ? 'Moderate' : 'Normal';
 
   return (
     <div className={`p-4 rounded-xl border bg-white shadow-xs transition-all hover:shadow-md ${

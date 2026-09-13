@@ -28,6 +28,9 @@ export const BlockPlanning = () => {
 
   const [selectedDate, setSelectedDate] = useState('2026-09-07');
   const [selectedCorridor, setSelectedCorridor] = useState('COR-001');
+  const [selectedDept, setSelectedDept] = useState('ALL');
+  const [selectedRisk, setSelectedRisk] = useState('ALL');
+  const [selectedStatus, setSelectedStatus] = useState('ALL');
   const [viewMode, setViewMode] = useState('timeline'); // 'timeline', 'weekly', 'monthly'
 
   const [drawerTask, setDrawerTask] = useState(null);
@@ -38,6 +41,22 @@ export const BlockPlanning = () => {
   const sections = corridorsSectionsData.sections.filter(
     (s) => s.corridor_id === selectedCorridor || s.section_id === 'SEC-0073'
   );
+
+  // Filter scheduled tasks based on top controls
+  const filteredScheduledTasks = scheduledTasks.filter((t) => {
+    const matchesDept = selectedDept === 'ALL' || t.department === selectedDept;
+    const matchesRisk =
+      selectedRisk === 'ALL' ||
+      (selectedRisk === 'CRITICAL' && t.risk_score >= 80) ||
+      (selectedRisk === 'HIGH' && t.risk_score >= 60 && t.risk_score < 80) ||
+      (selectedRisk === 'MODERATE' && t.risk_score >= 40 && t.risk_score < 60) ||
+      (selectedRisk === 'LOW' && t.risk_score < 40);
+    const matchesStatus =
+      selectedStatus === 'ALL' ||
+      (selectedStatus === 'Replanned' && t.date === '2026-09-08' && t.task_id === 'TASK-000005') ||
+      (selectedStatus === 'Scheduled' && !(t.date === '2026-09-08' && t.task_id === 'TASK-000005'));
+    return matchesDept && matchesRisk && matchesStatus;
+  });
 
   const handleSelectTask = (task) => {
     setDrawerTask(task);
@@ -76,7 +95,7 @@ export const BlockPlanning = () => {
           </button>
           <button
             onClick={() => alert('Plan synchronization verified against latest physical track blocks.')}
-            className="flex items-center gap-1.5 px-3 py-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-lg text-xs font-semibold transition-colors"
           >
             <RefreshCw size={13} />
             <span>Update Plan</span>
@@ -84,7 +103,7 @@ export const BlockPlanning = () => {
         </div>
       </div>
 
-      {/* Top Filter Bar & View Toggles */}
+      {/* Top Filter Bar & View Toggles (Section 7 requirement) */}
       <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-3">
           {/* View Mode Switcher */}
@@ -126,7 +145,7 @@ export const BlockPlanning = () => {
           {/* Date Selector */}
           <div className="flex items-center gap-1.5 text-xs text-slate-700">
             <Calendar size={14} className="text-slate-400" />
-            <span className="font-semibold">Planning Date:</span>
+            <span className="font-semibold">Date:</span>
             <select
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
@@ -134,8 +153,9 @@ export const BlockPlanning = () => {
             >
               <option value="2026-09-07">2026-09-07 (Original Slot)</option>
               <option value="2026-09-08">2026-09-08 (Replanned Slot)</option>
-              <option value="2026-09-09">2026-09-09</option>
-              <option value="2026-09-10">2026-09-10</option>
+              <option value="2026-09-03">2026-09-03 (Full Inventory)</option>
+              <option value="2026-09-04">2026-09-04</option>
+              <option value="2026-09-05">2026-09-05</option>
             </select>
           </div>
 
@@ -150,6 +170,52 @@ export const BlockPlanning = () => {
               <option value="COR-001">COR-001 (Delhi–Agra)</option>
               <option value="COR-008">COR-008 (Bhopal–Itarsi)</option>
               <option value="COR-010">COR-010 (Mumbai–Surat)</option>
+            </select>
+          </div>
+
+          {/* Department Filter */}
+          <div className="flex items-center gap-1.5 text-xs text-slate-700">
+            <span className="font-semibold">Dept:</span>
+            <select
+              value={selectedDept}
+              onChange={(e) => setSelectedDept(e.target.value)}
+              className="bg-slate-50 border border-slate-200 rounded px-2 py-1 font-medium text-slate-800"
+            >
+              <option value="ALL">All Depts</option>
+              <option value="Track / Civil Engineering">Track / Civil</option>
+              <option value="Electrical / TRD">Electrical / TRD</option>
+              <option value="Signal & Telecommunications">Signal & Telecom</option>
+              <option value="Mechanical / Rolling Stock">Mechanical</option>
+            </select>
+          </div>
+
+          {/* Risk Filter */}
+          <div className="flex items-center gap-1.5 text-xs text-slate-700">
+            <span className="font-semibold">Risk:</span>
+            <select
+              value={selectedRisk}
+              onChange={(e) => setSelectedRisk(e.target.value)}
+              className="bg-slate-50 border border-slate-200 rounded px-2 py-1 font-medium text-slate-800"
+            >
+              <option value="ALL">All Risk</option>
+              <option value="CRITICAL">Critical (≥80)</option>
+              <option value="HIGH">High (60-79)</option>
+              <option value="MODERATE">Moderate (40-59)</option>
+              <option value="LOW">Low (&lt;40)</option>
+            </select>
+          </div>
+
+          {/* Status Filter */}
+          <div className="flex items-center gap-1.5 text-xs text-slate-700">
+            <span className="font-semibold">Status:</span>
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="bg-slate-50 border border-slate-200 rounded px-2 py-1 font-medium text-slate-800"
+            >
+              <option value="ALL">All Statuses</option>
+              <option value="Scheduled">Scheduled</option>
+              <option value="Replanned">Replanned</option>
             </select>
           </div>
         </div>
@@ -217,7 +283,7 @@ export const BlockPlanning = () => {
       {viewMode === 'timeline' && (
         <GanttTimeline
           sections={sections}
-          scheduledTasks={scheduledTasks}
+          scheduledTasks={filteredScheduledTasks}
           selectedDate={selectedDate}
           onSelectTask={handleSelectTask}
         />

@@ -8,16 +8,24 @@ export const DemoGuideBar = ({ onNavigate }) => {
   if (!isGuideActive) return null;
 
   const handleNext = () => {
-    nextStep();
-    if (onNavigate && currentStep) {
-      onNavigate(currentStep.page, currentStep.role);
+    if (currentStepIndex < totalSteps - 1) {
+      const nextIdx = currentStepIndex + 1;
+      const targetStep = DEMO_STEPS[nextIdx];
+      setStep(nextIdx);
+      if (onNavigate && targetStep) {
+        onNavigate(targetStep.page, targetStep.role);
+      }
     }
   };
 
   const handlePrev = () => {
-    prevStep();
-    if (onNavigate && currentStep) {
-      onNavigate(currentStep.page, currentStep.role);
+    if (currentStepIndex > 0) {
+      const prevIdx = currentStepIndex - 1;
+      const targetStep = DEMO_STEPS[prevIdx];
+      setStep(prevIdx);
+      if (onNavigate && targetStep) {
+        onNavigate(targetStep.page, targetStep.role);
+      }
     }
   };
 
