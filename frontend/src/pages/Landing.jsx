@@ -58,24 +58,31 @@ export const Landing = ({ onSelectPortal }) => {
       {/* Hero Section & Portal Options */}
       <main className="max-w-4xl mx-auto px-4 py-12 sm:py-16 w-full">
         {/* Title Banner */}
-        <div className="text-center space-y-2.5 mb-12">
+        <div className="text-center space-y-2.5 mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 dark:bg-white/[0.06] dark:text-slate-300 dark:border-white/[0.08] text-xs font-medium font-mono">
-            <span>{t('prototypeNotice', 'Prototype • SIH • Synthetic Data')}</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>{t('prototypeNotice', 'Prototype • Synthetic Data')}</span>
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white uppercase">
             {t('systemTitle', 'Railway Maintenance Optimization System')}
           </h1>
 
-          <p className="text-sm text-slate-600 dark:text-slate-400 max-w-lg mx-auto font-medium">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-lg mx-auto font-medium">
             {t('systemSubtitle', 'AI-Powered Automatic Block Planning for Train Operations')}
           </p>
+
+          <div className="pt-2">
+            <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-mono">
+              {t('selectPortal', 'Select Operational Portal to Sign In')}
+            </span>
+          </div>
         </div>
 
-        {/* Two Clean Portal Cards */}
+        {/* Two Clean Portal Login Cards */}
         <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {/* Portal Option 1: Maintenance Portal */}
-          <div className="unicolor-card p-6 flex flex-col justify-between hover:border-slate-400 dark:hover:border-white/[0.20] transition-all group">
+          <div className="unicolor-card p-6 flex flex-col justify-between hover:border-slate-400 dark:hover:border-white/[0.20] transition-all group bg-white dark:bg-[#16191E] border border-slate-200/90 dark:border-white/[0.08] rounded-xl shadow-xs">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="p-3 rounded-lg bg-slate-100 dark:bg-white/[0.06] text-slate-800 dark:text-white border border-slate-200/60 dark:border-white/[0.06]">
@@ -87,6 +94,9 @@ export const Landing = ({ onSelectPortal }) => {
               </div>
 
               <div>
+                <div className="inline-block text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/40 mb-1.5">
+                  ROLE: SENIOR SECTION ENGINEER
+                </div>
                 <h2 className="text-base font-bold text-slate-900 dark:text-white">
                   {t('maintenancePortal', 'MAINTENANCE PORTAL')}
                 </h2>
@@ -95,18 +105,31 @@ export const Landing = ({ onSelectPortal }) => {
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-slate-100 dark:border-white/[0.06] space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={13} className="text-slate-500 dark:text-slate-400" />
-                  <span>Work Management Dashboard</span>
+              <div className="pt-3 border-t border-slate-100 dark:border-white/[0.06] space-y-2 text-xs">
+                <div className="space-y-1">
+                  <label className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">
+                    Active Department:
+                  </label>
+                  <select
+                    className="w-full bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.10] rounded-lg px-2.5 py-1.5 text-xs text-slate-800 dark:text-slate-200 font-medium focus:outline-hidden"
+                    defaultValue="Electrical / TRD"
+                  >
+                    <option value="Electrical / TRD">Electrical / TRD</option>
+                    <option value="Track / Civil Engineering">Track / Civil Engineering</option>
+                    <option value="Signal & Telecommunications">Signal & Telecommunications</option>
+                    <option value="Mechanical / Rolling Stock">Mechanical / Rolling Stock</option>
+                  </select>
                 </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={13} className="text-slate-500 dark:text-slate-400" />
-                  <span>Maintenance To-Do Queue</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={13} className="text-slate-500 dark:text-slate-400" />
-                  <span>Assigned Work Orders & History</span>
+
+                <div className="pt-1 space-y-1.5 text-slate-700 dark:text-slate-300">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-emerald-500 shrink-0" />
+                    <span>Work Management & To-Do Queue</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-emerald-500 shrink-0" />
+                    <span>Assigned Work Orders & Execution History</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -114,15 +137,15 @@ export const Landing = ({ onSelectPortal }) => {
             <button
               type="button"
               onClick={() => handlePortalSelect(PORTALS.MAINTENANCE)}
-              className="mt-6 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-md bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition-colors shadow-2xs"
+              className="mt-6 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition-colors shadow-2xs cursor-pointer"
             >
-              <span>{t('login', 'LOGIN')}</span>
+              <span>{t('login', 'SIGN IN TO MAINTENANCE')}</span>
               <ArrowRight size={14} />
             </button>
           </div>
 
           {/* Portal Option 2: Authority Portal */}
-          <div className="unicolor-card p-6 flex flex-col justify-between hover:border-slate-400 dark:hover:border-white/[0.20] transition-all group">
+          <div className="unicolor-card p-6 flex flex-col justify-between hover:border-slate-400 dark:hover:border-white/[0.20] transition-all group bg-white dark:bg-[#16191E] border border-slate-200/90 dark:border-white/[0.08] rounded-xl shadow-xs">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="p-3 rounded-lg bg-slate-100 dark:bg-white/[0.06] text-slate-800 dark:text-white border border-slate-200/60 dark:border-white/[0.06]">
@@ -134,6 +157,9 @@ export const Landing = ({ onSelectPortal }) => {
               </div>
 
               <div>
+                <div className="inline-block text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/40 mb-1.5">
+                  ROLE: CHIEF OPERATIONS CONTROLLER
+                </div>
                 <h2 className="text-base font-bold text-slate-900 dark:text-white">
                   {t('authorityPortal', 'AUTHORITY PORTAL')}
                 </h2>
@@ -142,18 +168,25 @@ export const Landing = ({ onSelectPortal }) => {
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-slate-100 dark:border-white/[0.06] space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={13} className="text-slate-500 dark:text-slate-400" />
-                  <span>Weekly Block Planning Calendar</span>
+              <div className="pt-3 border-t border-slate-100 dark:border-white/[0.06] space-y-2 text-xs">
+                <div className="space-y-1">
+                  <label className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">
+                    Jurisdiction:
+                  </label>
+                  <div className="px-2.5 py-1.5 bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.10] rounded-lg text-xs text-slate-700 dark:text-slate-300 font-mono">
+                    Central Operations HQ &bull; Network Division
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={13} className="text-slate-500 dark:text-slate-400" />
-                  <span>Closed-Loop Replanning Engine</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={13} className="text-slate-500 dark:text-slate-400" />
-                  <span>Work Verification Workflow</span>
+
+                <div className="pt-1 space-y-1.5 text-slate-700 dark:text-slate-300">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-emerald-500 shrink-0" />
+                    <span>Weekly Block Planning Calendar</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={13} className="text-emerald-500 shrink-0" />
+                    <span>Closed-Loop Replanning & Verification</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -161,9 +194,9 @@ export const Landing = ({ onSelectPortal }) => {
             <button
               type="button"
               onClick={() => handlePortalSelect(PORTALS.AUTHORITY)}
-              className="mt-6 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-md bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition-colors shadow-2xs"
+              className="mt-6 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition-colors shadow-2xs cursor-pointer"
             >
-              <span>{t('login', 'LOGIN')}</span>
+              <span>{t('login', 'SIGN IN TO AUTHORITY')}</span>
               <ArrowRight size={14} />
             </button>
           </div>

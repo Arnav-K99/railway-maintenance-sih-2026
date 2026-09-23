@@ -16,48 +16,54 @@ export const DEPARTMENTS = [
 ];
 
 export const AuthProvider = ({ children }) => {
-  // Default to AUTHORITY mode on first load for demonstration, or read from storage
+  // Read saved portal or default to AUTHORITY
   const [currentPortal, setCurrentPortal] = useState(() => {
-    return localStorage.getItem('sih_portal') || PORTALS.AUTHORITY;
+    return sessionStorage.getItem('sih_portal') || PORTALS.AUTHORITY;
   });
 
   const [selectedDept, setSelectedDept] = useState('All Departments');
 
+  // Default to null so user lands on Login / Portal Selection page first
   const [currentUser, setCurrentUser] = useState(() => {
-    const p = localStorage.getItem('sih_portal') || PORTALS.AUTHORITY;
-    return p === PORTALS.MAINTENANCE
-      ? {
-          name: 'R. K. Verma',
-          designation: 'Senior Section Engineer (SSE)',
-          department: 'Electrical / TRD',
-          station: 'Northern Railway / Delhi Div',
-        }
-      : {
-          name: 'S. K. Sharma',
-          designation: 'Chief Operations Controller (COC)',
-          department: 'Central Operations Control',
-          station: 'Rail Bhavan, New Delhi HQ',
-        };
+    const isLoggedIn = sessionStorage.getItem('sih_logged_in');
+    const p = sessionStorage.getItem('sih_portal');
+    if (isLoggedIn === 'true' && p) {
+      return p === PORTALS.MAINTENANCE
+        ? {
+            name: 'Authority B',
+            designation: 'Senior Section Engineer (SSE)',
+            department: 'Electrical / TRD',
+            station: 'Delhi Maintenance Division',
+          }
+        : {
+            name: 'Authority A',
+            designation: 'Chief Operations Controller (COC)',
+            department: 'Central Operations Control',
+            station: 'Central Operations HQ',
+          };
+    }
+    return null;
   });
 
   const login = (portal, department = 'All Departments') => {
     setCurrentPortal(portal);
     setSelectedDept(department);
-    localStorage.setItem('sih_portal', portal);
+    sessionStorage.setItem('sih_portal', portal);
+    sessionStorage.setItem('sih_logged_in', 'true');
 
     if (portal === PORTALS.MAINTENANCE) {
       setCurrentUser({
-        name: 'R. K. Verma',
+        name: 'Authority B',
         designation: 'Senior Section Engineer (SSE)',
         department: department === 'All Departments' ? 'Electrical / TRD' : department,
-        station: 'Northern Railway / Delhi Div',
+        station: 'Delhi Maintenance Division',
       });
     } else {
       setCurrentUser({
-        name: 'S. K. Sharma',
+        name: 'Authority A',
         designation: 'Chief Operations Controller (COC)',
         department: 'Central Operations Control',
-        station: 'Rail Bhavan, New Delhi HQ',
+        station: 'Central Operations HQ',
       });
     }
   };
@@ -68,7 +74,10 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setCurrentUser(null);
+    sessionStorage.removeItem('sih_portal');
+    sessionStorage.removeItem('sih_logged_in');
     localStorage.removeItem('sih_portal');
+    localStorage.removeItem('sih_logged_in');
   };
 
   return (
