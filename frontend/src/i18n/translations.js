@@ -1,18 +1,17 @@
-// Central Bilingual Dictionary for Railway Maintenance Optimization System
-// Clean enterprise terminology without government ownership claims
+// Bilingual Dictionary for Railway Maintenance Optimization System
 
 export const TRANSLATIONS = {
   en: {
-    // System Branding & Notice
+    // Branding
     systemTitle: "Railway Maintenance Optimization System",
     systemSubtitle: "AI-Powered Automatic Block Planning",
-    prototypeNotice: "Prototype • SIH • Synthetic Data",
+    prototypeNotice: "Prototype • Synthetic Data",
 
     // Portals & Modes
     maintenancePortal: "Maintenance Portal",
     authorityPortal: "Authority Portal",
-    maintenancePortalDesc: "For maintenance personnel, division engineers and duty work gangs",
-    authorityPortalDesc: "For railway authorities, operations controllers and scheduling staff",
+    maintenancePortalDesc: "For maintenance personnel, engineers and field teams",
+    authorityPortalDesc: "For railway operational controllers and scheduling authorities",
     login: "Login",
     selectPortal: "Select Operational Portal",
     signOut: "Sign Out",
@@ -45,40 +44,39 @@ export const TRANSLATIONS = {
 
     // Departments
     allDepartments: "All Departments",
-    trackCivil: "Track / Civil",
+    trackCivil: "Track / Civil Engineering",
     electricalTRD: "Electrical / TRD",
-    signalTelecom: "Signal & Telecom",
-    mechanicalRollingStock: "Mechanical",
+    signalTelecom: "Signal & Telecommunications",
+    mechanicalRollingStock: "Mechanical / Rolling Stock",
     deptContext: "Department Context",
 
-    // Maintenance Mode Navigation (Section 8: TO-DO WORK)
-    predictions: "To-Do Work",
-    toDoWork: "To-Do Work",
+    // Maintenance Mode Navigation (Renamed from Neev Predictions to To-Do Work)
+    todoWork: "To-Do Work",
     myWork: "My Work",
-    maintDashboard: "Maintenance Dashboard",
-    maintHistory: "Maintenance History",
+    maintDashboard: "Dashboard",
+    maintHistory: "History",
 
     // Authority Mode Navigation
-    authDashboard: "Authority Dashboard",
+    authDashboard: "Dashboard",
     operations: "Operations",
     replanning: "Replanning",
     workVerification: "Work Verification",
     upcomingTasks: "Upcoming Tasks",
     authHistory: "Audit History",
 
-    // Maintenance Dashboard
+    // Dashboard Summary
     pendingWork: "Pending Work",
     highCriticalRisk: "High/Critical Risk",
     activeWork: "Active Work",
     completedWork: "Completed Work",
-    workInventory: "Maintenance Work Inventory",
-    workInventoryDesc: "Consolidated work demands across Track, TRD, Signal and Mechanical divisions",
+    workInventory: "Maintenance Work Orders",
+    workInventoryDesc: "Consolidated work order demands across all engineering divisions",
 
     // Table Headers
     taskId: "Task",
     asset: "Asset",
-    assetId: "Asset",
-    maintType: "Maintenance Type",
+    assetId: "Asset ID",
+    maintType: "Maintenance Work",
     department: "Department",
     risk: "Risk",
     riskLevel: "Risk Level",
@@ -97,7 +95,7 @@ export const TRANSLATIONS = {
     rescheduled: "Rescheduled",
     inProgress: "In Progress",
     completed: "Completed",
-    pendingPlanning: "Pending Planning",
+    pendingPlanning: "Pending",
     conflictDetected: "Conflict Detected",
     replanRequired: "Replan Required",
     reroutedSuccessfully: "Rerouted Successfully",
@@ -111,11 +109,11 @@ export const TRANSLATIONS = {
     moderate: "Moderate",
     low: "Low",
 
-    // To-Do Work Section (Section 8, 9, 10)
-    toDoWorkTitle: "Maintenance To-Do Work",
-    toDoWorkSubtitle: "Diagnosed maintenance work orders requiring engineering review and operational requirements definition",
+    // To-Do Work Page
+    todoWorkTitle: "Maintenance To-Do Queue",
+    todoWorkSubtitle: "Review incoming work items and define physical requirements for block planning",
     failureRisk30Day: "30-Day Failure Risk",
-    forecastDegradation: "Degradation Forecast",
+    forecastDegradation: "Forecast Degradation",
     diagnosis: "Diagnostic Analysis",
     maintRequirement: "Maintenance Requirement",
     maintRequirementDesc: "Define physical maintenance parameters to submit for CP-SAT block planning",
@@ -132,7 +130,7 @@ export const TRANSLATIONS = {
 
     // My Work Page
     myWorkTitle: "Assigned Maintenance Work Orders",
-    myWorkSubtitle: "Work assigned to your division and active duty gangs",
+    myWorkSubtitle: "Work assigned to your engineering division and active duty crews",
     workingWith: "WORKING WITH",
     jointPossession: "Joint Possession",
     workDetails: "Work Order Details",
@@ -144,8 +142,8 @@ export const TRANSLATIONS = {
     // Maintenance History
     originalBlock: "Original Block",
     replannedBlock: "Replanned Block",
-    reasonForChange: "Operational Notes",
-    completionLog: "Work Completion & Rescheduling History",
+    reasonForChange: "Reason for Rescheduling",
+    completionLog: "Possession Execution & Rescheduling History",
 
     // Authority Operations Page
     weeklyBlockCalendar: "Weekly Block Planning Calendar",
@@ -171,7 +169,7 @@ export const TRANSLATIONS = {
     alternateRouteA: "Alternative Route A (SEC-0007)",
     alternateRouteB: "Alternative Route B (SEC-0005)",
     available: "Available",
-    saturated: "Saturated",
+    saturated: "Saturated / Capacity Exhausted",
     selectedRoute: "Selected Route",
     operationalDecisionFlow: "Operational Decision Closed Loop",
     maintBlockGranted: "Maintenance Block Planned",
@@ -181,40 +179,40 @@ export const TRANSLATIONS = {
     yesConflict: "YES → Check Bypass Routes",
     safeRouteAvailableQ: "Safe Alternate Route Available?",
     yesReroute: "YES → Train Rerouted (Plan Preserved)",
-    noReplan: "NO → Replan Request Emitted",
-    newBlockScheduled: "CP-SAT Re-Optimizes Block",
-    reValidation: "Ritvik Re-Audit → Plan Approved",
+    noReplan: "NO → Replan Request Emitted to Solver Engine",
+    newBlockScheduled: "CP-SAT Solver Re-Optimizes Block",
+    reValidation: "Operational Re-Audit → Plan Approved",
 
     // Replanning Section
     replanningDirectory: "Operational Disruption & Replanning Events",
     replanningDirectoryDesc: "Real-time incident feed requiring route adjustment or schedule re-optimization",
     affectedSection: "Affected Section",
-    affectedBlock: "Affected Block",
+    affectedBlock: "Affected Possession Block",
     alternateRouteEval: "Alternate Route Evaluation",
     decision: "Operational Decision",
     originalSchedule: "Original Schedule",
     replannedSchedule: "Replanned Schedule",
     finalValidation: "Final Operational Validation",
-    viewDetail: "Inspect Audit Details",
+    viewDetail: "Inspect",
 
     // Work Verification
     workVerificationTitle: "Work Completion Verification",
-    workVerificationSubtitle: "Authority sign-off, photo-proof inspection and discrepancy reporting",
+    workVerificationSubtitle: "Operational sign-off, photo-proof audit and discrepancy reporting",
     accept: "✓ Accept",
     reject: "✕ Reject",
     reportFalseClosure: "⚠ Report False Closure",
-    proofPhotos: "Completion Proof & Tolerance",
-    inspectionComments: "Inspection Notes",
-    verifyConfirmMsg: "Work order accepted and recorded in the permanent maintenance log.",
-    rejectConfirmMsg: "Work order rejected. Returned to engineering division for re-inspection.",
-    falseClosureConfirmMsg: "Discrepancy report filed for inquiry.",
+    proofPhotos: "Completion Proof",
+    inspectionComments: "Inspector Comments",
+    verifyConfirmMsg: "Work order accepted and recorded in the permanent log.",
+    rejectConfirmMsg: "Work order rejected. Returned to engineering division.",
+    falseClosureConfirmMsg: "False closure discrepancy report filed.",
     enterComments: "Enter verification or inspection notes...",
-    reportingParty: "Inspecting Officer",
+    reportingParty: "Reporting Officer",
     discrepancyDetails: "Describe Discrepancy or Missing Work",
 
     // Upcoming Tasks
-    upcomingPossessions: "Master Upcoming Maintenance Possessions",
-    upcomingPossessionsDesc: "Authorized possessions across all corridors for the next 7 operational days",
+    upcomingPossessions: "Upcoming Maintenance Possessions",
+    upcomingPossessionsDesc: "Scheduled possessions across corridors for the next 7 operational days",
 
     // Theme & Lang
     language: "Language",
@@ -224,16 +222,16 @@ export const TRANSLATIONS = {
   },
 
   hi: {
-    // System Branding & Notice
+    // Branding
     systemTitle: "रेल रखरखाव अनुकूलन प्रणाली",
-    systemSubtitle: "कृत्रिम बुद्धिमत्ता आधारित स्वचालित ब्लॉक योजना",
-    prototypeNotice: "प्रारूप • एसआईएच • कृत्रिम डेटा",
+    systemSubtitle: "स्वचालित ब्लॉक योजना",
+    prototypeNotice: "प्रारूप • कृत्रिम डेटा",
 
     // Portals & Modes
     maintenancePortal: "रखरखाव पोर्टल",
     authorityPortal: "प्राधिकरण पोर्टल",
-    maintenancePortalDesc: "रखरखाव कार्मिकों, संभाग इंजीनियरों और कार्य दलों के लिए",
-    authorityPortalDesc: "परिचालन नियंत्रकों और समय सारणी समन्वयकों के लिए",
+    maintenancePortalDesc: "रखरखाव कार्मिकों, इंजीनियरों और विभागीय टीमों के लिए",
+    authorityPortalDesc: "परिचालन नियंत्रकों और प्रशासनिक कर्मियों के लिए",
     login: "प्रवेश करें",
     selectPortal: "पोर्टल चुनें",
     signOut: "साइन आउट",
@@ -266,40 +264,39 @@ export const TRANSLATIONS = {
 
     // Departments
     allDepartments: "सभी विभाग",
-    trackCivil: "रेल पथ / सिविल",
+    trackCivil: "रेल पथ / सिविल इंजीनियरिंग",
     electricalTRD: "विद्युत / टीआरडी",
     signalTelecom: "सिग्नल एवं दूरसंचार",
-    mechanicalRollingStock: "यांत्रिक",
+    mechanicalRollingStock: "यांत्रिक / रोलिंग स्टॉक",
     deptContext: "विभागीय संदर्भ",
 
-    // Maintenance Mode Navigation (Section 8: TO-DO WORK)
-    predictions: "रखरखाव कार्य सूची",
-    toDoWork: "रखरखाव कार्य सूची",
+    // Maintenance Mode Navigation
+    todoWork: "रखरखाव कार्य सूची",
     myWork: "मेरा कार्य",
-    maintDashboard: "रखरखाव डैशबोर्ड",
-    maintHistory: "रखरखाव इतिहास",
+    maintDashboard: "डैशबोर्ड",
+    maintHistory: "इतिहास",
 
     // Authority Mode Navigation
-    authDashboard: "प्राधिकरण डैशबोर्ड",
+    authDashboard: "डैशबोर्ड",
     operations: "परिचालन",
     replanning: "पुनर्निर्धारण",
     workVerification: "कार्य सत्यापन",
     upcomingTasks: "आगामी कार्य",
     authHistory: "ऑडिट इतिहास",
 
-    // Maintenance Dashboard
+    // Dashboard Summary
     pendingWork: "लंबित कार्य",
     highCriticalRisk: "गंभीर / उच्च जोखिम",
     activeWork: "प्रगतिरत कार्य",
     completedWork: "पूर्ण कार्य",
-    workInventory: "रखरखाव मांग सूची",
-    workInventoryDesc: "सभी इंजीनियरिंग संभागों में वास्तविक समय की रखरखाव मांगों का विवरण",
+    workInventory: "रखरखाव कार्य आदेश",
+    workInventoryDesc: "सभी इंजीनियरिंग संभागों में समेकित रखरखाव मांग",
 
     // Table Headers
     taskId: "कार्य",
     asset: "उपकरण",
-    assetId: "उपकरण",
-    maintType: "रखरखाव प्रकार",
+    assetId: "उपकरण संख्या",
+    maintType: "रखरखाव कार्य",
     department: "विभाग",
     risk: "जोखिम",
     riskLevel: "जोखिम स्तर",
@@ -318,11 +315,11 @@ export const TRANSLATIONS = {
     rescheduled: "पुनर्निर्धारित",
     inProgress: "प्रगति पर",
     completed: "पूर्ण",
-    pendingPlanning: "योजना लंबित",
-    conflictDetected: "टकराव पहचाना गया",
+    pendingPlanning: "लंबित",
+    conflictDetected: "टकराव",
     replanRequired: "पुनर्निर्धारण आवश्यक",
-    reroutedSuccessfully: "सफलतापूर्वक मार्ग बदला गया",
-    planApproved: "योजना स्वीकृत",
+    reroutedSuccessfully: "सफलतापूर्वक मार्ग बदला",
+    planApproved: "स्वीकृत",
     verified: "सत्यापित",
     rejected: "अस्वीकृत",
     falseClosureReported: "गलत समापन रिपोर्ट",
@@ -332,9 +329,9 @@ export const TRANSLATIONS = {
     moderate: "मध्यम",
     low: "कम",
 
-    // To-Do Work Section
-    toDoWorkTitle: "रखरखाव कार्य सूची (To-Do Work)",
-    toDoWorkSubtitle: "समीक्षा और ब्लॉक योजना हेतु आवश्यक कार्य आदेश",
+    // To-Do Work Page
+    todoWorkTitle: "रखरखाव कार्य सूची (टू-डू)",
+    todoWorkSubtitle: "प्राप्त कार्यों की समीक्षा करें और ब्लॉक योजना हेतु आवश्यकताएं निर्धारित करें",
     failureRisk30Day: "30-दिवसीय विफलता जोखिम",
     forecastDegradation: "पूर्वानुमानित गिरावट दर",
     diagnosis: "नैदानिक विश्लेषण",
@@ -347,13 +344,13 @@ export const TRANSLATIONS = {
     deadline: "कार्य पूर्णता अंतिम तिथि",
     collaboration: "अंतर-विभागीय समन्वय",
     canBundle: "ब्लॉक संयोजन की अनुमति",
-    bundleNotice: "संगत रखरखाव गतिविधियां एक ही ब्लॉक विंडो में समन्वित की जाएंगी।",
+    bundleNotice: "संगत गतिविधियां एक ही ब्लॉक विंडो में समन्वित की जाएंगी।",
     saveAndSend: "सहेजें और ब्लॉक योजना के लिए भेजें",
-    requirementUpdatedMsg: "रखरखाव आवश्यकता सहेज ली गई है और ब्लॉक योजना इंजन को भेज दी गई है।",
+    requirementUpdatedMsg: "रखरखाव आवश्यकता सहेज ली गई है और ब्लॉक योजना को भेज दी गई है।",
 
     // My Work Page
     myWorkTitle: "नामित रखरखाव कार्य आदेश",
-    myWorkSubtitle: "आपके संभाग और फील्ड टीमों को सौंपे गए कार्य",
+    myWorkSubtitle: "आपके इंजीनियरिंग संभाग और फील्ड टीमों को सौंपे गए कार्य",
     workingWith: "संयुक्त कार्य विभाग",
     jointPossession: "संयुक्त कब्जा",
     workDetails: "कार्य आदेश विवरण",
@@ -365,7 +362,7 @@ export const TRANSLATIONS = {
     // Maintenance History
     originalBlock: "मूल ब्लॉक",
     replannedBlock: "पुनर्निर्धारित ब्लॉक",
-    reasonForChange: "परिचालन टिप्पणी",
+    reasonForChange: "पुनर्निर्धारण का कारण",
     completionLog: "कार्य पूर्णता एवं पुनर्निर्धारण लेखा-जोखा",
 
     // Authority Operations Page
@@ -392,19 +389,19 @@ export const TRANSLATIONS = {
     alternateRouteA: "वैकल्पिक मार्ग ए (खंड-0007)",
     alternateRouteB: "वैकल्पिक मार्ग बी (खंड-0005)",
     available: "उपलब्ध",
-    saturated: "संतृप्त",
+    saturated: "संतृप्त / क्षमता समाप्त",
     selectedRoute: "चयनित मार्ग",
-    operationalDecisionFlow: "परिचालन निर्णय बंद लूप",
+    operationalDecisionFlow: "परिचालन निर्णय बंद लूप (क्लोज्ड लूप)",
     maintBlockGranted: "रखरखाव ब्लॉक नियोजित",
     operationalCheck: "परिचालन व्यवहार्यता जांच",
     trainConflictQ: "क्या ट्रेन का टकराव है?",
     noConflict: "नहीं → योजना मान्य रहेगी",
     yesConflict: "हाँ → वैकल्पिक मार्ग जांचें",
     safeRouteAvailableQ: "क्या सुरक्षित वैकल्पिक मार्ग उपलब्ध है?",
-    yesReroute: "हाँ → ट्रेन का मार्ग बदला (योजना सुरक्षित)",
-    noReplan: "नहीं → पुनर्निर्धारण अनुरोध प्रेषित",
-    newBlockScheduled: "सीपी-सैट ने नया ब्लॉक निर्धारित किया",
-    reValidation: "ऋत्विक पुनः जांच → योजना स्वीकृत",
+    yesReroute: "हाँ → ट्रेन का मार्ग बदला",
+    noReplan: "नहीं → सॉल्वर इंजन को पुनर्निर्धारण अनुरोध",
+    newBlockScheduled: "सीपी-सैट सॉल्वर ने नया ब्लॉक निर्धारित किया",
+    reValidation: "परिचालन पुनः जांच → योजना स्वीकृत",
 
     // Replanning Section
     replanningDirectory: "परिचालन व्यवधान एवं पुनर्निर्धारण घटनाएं",
@@ -416,26 +413,26 @@ export const TRANSLATIONS = {
     originalSchedule: "मूल समय सारणी",
     replannedSchedule: "पुनर्निर्धारित समय सारणी",
     finalValidation: "अंतिम परिचालन सत्यापन",
-    viewDetail: "ऑडिट विवरण देखें",
+    viewDetail: "जांचें",
 
     // Work Verification
     workVerificationTitle: "कार्य पूर्णता सत्यापन",
-    workVerificationSubtitle: "अधिकारी अनुमोदन, फोटो साक्ष्य निरीक्षण और विसंगति निवारण",
+    workVerificationSubtitle: "सत्यापन, फोटो साक्ष्य और विसंगति निवारण",
     accept: "✓ स्वीकार करें",
     reject: "✕ अस्वीकार करें",
     reportFalseClosure: "⚠ गलत कार्य-समापन की रिपोर्ट करें",
-    proofPhotos: "कार्य पूर्णता साक्ष्य और सहिष्णुता",
+    proofPhotos: "कार्य पूर्णता साक्ष्य",
     inspectionComments: "निरीक्षण टिप्पणी",
-    verifyConfirmMsg: "कार्य आदेश स्वीकृत और स्थायी रखरखाव लॉग में दर्ज किया गया।",
-    rejectConfirmMsg: "कार्य आदेश अस्वीकृत। पुनः निरीक्षण हेतु संबंधित संभाग को वापस भेजा गया।",
-    falseClosureConfirmMsg: "विसंगति रिपोर्ट दर्ज कर दी गई है।",
-    enterComments: "सत्यापन अथवा निरीक्षण संबंधी टिप्पणी लिखें...",
-    reportingParty: "निरीक्षण अधिकारी",
-    discrepancyDetails: "विसंगति अथवा अधूरे कार्य का विवरण दें",
+    verifyConfirmMsg: "कार्य आदेश स्वीकृत और लॉग में दर्ज किया गया।",
+    rejectConfirmMsg: "कार्य आदेश अस्वीकृत।",
+    falseClosureConfirmMsg: "विसंगति रिपोर्ट दर्ज।",
+    enterComments: "टिप्पणी लिखें...",
+    reportingParty: "रिपोर्टिंग अधिकारी",
+    discrepancyDetails: "विसंगति का विवरण दें",
 
     // Upcoming Tasks
     upcomingPossessions: "आगामी रखरखाव ब्लॉक",
-    upcomingPossessionsDesc: "अगले 7 परिचालन दिनों के लिए सभी गलियारों पर स्वीकृत रखरखाव कब्जे",
+    upcomingPossessionsDesc: "अगले 7 परिचालन दिनों के लिए स्वीकृत रखरखाव कब्जे",
 
     // Theme & Lang
     language: "भाषा",

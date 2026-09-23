@@ -2,317 +2,298 @@ import React from 'react';
 import { usePlan } from '../../context/PlanContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
+import { formatTaskId, formatAssetId } from '../../utils/formatters';
 import { 
-  ShieldCheck, 
-  CalendarDays, 
+  TrainTrack, 
   AlertTriangle, 
-  RefreshCw, 
-  CheckCircle2, 
   ArrowRight,
-  TrainTrack,
-  Clock,
-  Layers,
-  Radio
+  Radio,
+  CalendarDays,
+  RefreshCw,
+  CheckSquare
 } from 'lucide-react';
 
 export const AuthDashboard = ({ onNavigate }) => {
-  const { metrics, scheduledTasks, isReplanned } = usePlan();
+  const { metrics, isReplanned } = usePlan();
   const { t } = useLanguage();
 
-  // Upcoming critical possessions
-  const upcomingBlocks = [
-    {
-      taskId: 'TASK-000005',
-      assetId: 'AST-120005',
-      maintType: 'Rail Grinding',
-      dept: 'Electrical / TRD',
-      section: 'SEC-0004 (Delhi–Agra)',
-      date: isReplanned ? '2026-09-08' : '2026-09-07',
-      window: isReplanned ? '18:00 – 21:20' : '00:00 – 03:20',
-      block: isReplanned ? 'BLK-012046+47' : 'BLK-009637+38',
-      risk: 'CRITICAL',
-      status: isReplanned ? 'Rescheduled' : 'Scheduled',
-    },
+  // Simplified Upcoming Maintenance List across 1-Week Horizon
+  const upcomingMaintenance = [
     {
       taskId: 'TASK-000004',
-      assetId: 'AST-120004',
-      maintType: 'Track Inspection & Renewal',
-      dept: 'Track / Civil Engineering',
-      section: 'SEC-0004 (Delhi–Agra)',
-      date: '2026-09-07',
-      window: '00:00 – 03:20',
-      block: 'BLK-009637+38',
-      risk: 'HIGH',
+      dept: 'Track / Civil',
+      work: 'Joint Track Ultrasonic Inspection',
+      date: '03 Sep (Mon)',
       status: 'Scheduled',
     },
     {
       taskId: 'TASK-000210',
-      assetId: 'AST-120002',
-      maintType: 'Track Maintenance',
-      dept: 'Track / Civil Engineering',
-      section: 'SEC-0002 (Palwal)',
-      date: '2026-09-07',
-      window: '02:00 – 05:30',
-      block: 'BLK-009630+31',
-      risk: 'MODERATE',
+      dept: 'Track / Civil',
+      work: 'Track Tamping & Dynamic Ballasting',
+      date: '04 Sep (Tue)',
       status: 'Scheduled',
     },
     {
       taskId: 'TASK-000315',
-      assetId: 'AST-120003',
-      maintType: 'Electrical Maintenance',
       dept: 'Electrical / TRD',
-      section: 'SEC-0003 (Faridabad)',
-      date: '2026-09-07',
-      window: '06:00 – 09:00',
-      block: 'BLK-009633',
-      risk: 'MODERATE',
+      work: 'Catenary Wire Pull & Stagger Check',
+      date: '05 Sep (Wed)',
       status: 'Scheduled',
+    },
+    {
+      taskId: 'TASK-000512',
+      dept: 'Signal & Telecom',
+      work: 'Track Circuit Relay Overhaul',
+      date: '06 Sep (Thu)',
+      status: 'Scheduled',
+    },
+    {
+      taskId: 'TASK-000005',
+      dept: 'Electrical / TRD',
+      work: 'Rail Grinding & OHE Adjust',
+      date: isReplanned ? '08 Sep (Sat)' : '07 Sep (Fri)',
+      status: isReplanned ? 'Rescheduled' : 'Scheduled',
     },
   ];
 
-  // Recent operational events & audit records
-  const recentHistory = [
+  // Simplified Replanning Events List (Section 13 requirement)
+  const replanningAlerts = [
     {
-      id: 'EVT-2026-901',
-      event: 'Replanned Task Approved by Ritvik',
-      item: 'TASK-000005 (Rail Grinding)',
-      time: '08 Sep 2026, 09:15',
-      status: 'Plan Approved',
-      detail: 'Replaced BLK-009637 with BLK-012046. Zero train collisions confirmed.',
+      trainId: 'TRN-SIM-001',
+      title: 'Container Relief Freight on SEC-0004',
+      status: 'Replan Required',
     },
     {
-      id: 'EVT-2026-899',
-      event: 'Work Verified by Divisional Engineer',
-      item: 'TASK-000421 (Track Realignment)',
-      time: '06 Sep 2026, 14:30',
-      status: 'Verified',
-      detail: 'Certified compliant with Section 4.2 of IR Track Manual.',
+      trainId: 'TRN-SIM-002',
+      title: 'Emergency Priority Movement on SEC-0004',
+      status: 'Conflict Detected',
     },
     {
-      id: 'EVT-2026-894',
-      event: 'Work Rejected on Inspection',
-      item: 'TASK-000214 (OHE Isolator)',
-      time: '03 Sep 2026, 08:45',
-      status: 'Rejected',
-      detail: 'Megger insulation below 10MΩ threshold. Returned for rectification.',
+      trainId: 'TRN-SIM-003',
+      title: 'Speed Restriction Bottleneck on SEC-0005',
+      status: 'Resolved',
+    },
+  ];
+
+  // Simplified Recent Verification Activity List with Authority Sign-Offs
+  const recentVerifications = [
+    {
+      taskId: 'TASK-000421',
+      work: 'Track Realignment & Ballast',
+      decision: 'Accepted',
+      signedBy: 'Authority A',
+      date: '07 Sep',
     },
     {
-      id: 'EVT-2026-880',
-      event: 'False Closure Discrepancy Filed',
-      item: 'TASK-000892 (Ballast Dressing)',
-      time: '02 Sep 2026, 18:20',
-      status: 'False Closure Reported',
-      detail: 'Physical site patrol detected incomplete ballast shoulder dressing.',
+      taskId: 'TASK-000512',
+      work: 'Signal Overhaul Inspection',
+      decision: 'Accepted',
+      signedBy: 'Authority B',
+      date: '06 Sep',
+    },
+    {
+      taskId: 'TASK-000214',
+      work: 'OHE Isolator Switch Test',
+      decision: 'Rejected',
+      signedBy: 'Authority C',
+      date: '05 Sep',
+    },
+    {
+      taskId: 'TASK-000892',
+      work: 'Ballast Dressing Audit Inquiry',
+      decision: 'False Closure Reported',
+      signedBy: 'Authority D',
+      date: '04 Sep',
     },
   ];
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 max-w-5xl">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200/80 dark:border-white/[0.08] pb-3">
         <div>
-          <div className="flex items-center gap-2 text-[11px] font-bold text-govnavy-700 dark:text-govnavy-300 uppercase tracking-wider">
-            <ShieldCheck size={14} />
-            <span>{t('authorityPortal', 'Authority Portal')}</span>
-          </div>
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
-            {t('authDashboard', 'Authority Operations & Control Dashboard')}
+          <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+            {t('authDashboard', 'Authority Dashboard')}
           </h2>
-          <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-            Executive control overview of track possessions, operational headway alerts, and closed-loop replanning audits.
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Operational possession summary, replanning alerts, and recent verification activity
           </p>
         </div>
 
         <button
           type="button"
           onClick={() => onNavigate('operations')}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-govnavy-800 hover:bg-govnavy-700 text-white text-xs font-bold transition-colors shadow-2xs self-start sm:self-auto"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 text-xs font-semibold transition-colors shadow-2xs self-start sm:self-auto"
         >
-          <Radio size={13} className="text-saffron-light" />
-          <span>Open Weekly Operations Calendar</span>
+          <Radio size={13} className="text-macblue-500" />
+          <span>Open Weekly Calendar</span>
           <ArrowRight size={13} />
         </button>
       </div>
 
-      {/* Top Operational Summary Cards (Section 14) */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {/* Active Blocks */}
-        <div className="gov-panel p-3.5 flex items-center justify-between border-l-4 border-l-govnavy-700">
-          <div>
-            <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
-              Active Blocks
-            </span>
-            <span className="text-xl font-bold font-mono text-govnavy-900 dark:text-white mt-1 block">
-              {metrics.block_utilization?.total_blocks_used || 98}
-            </span>
-            <span className="text-[10px] text-slate-400">Possession windows</span>
+      {/* Section 1: Operational Status (Unicolor Summary Cards) */}
+      <div className="space-y-2">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Operational Status
+        </h3>
+        <div className="grid grid-cols-2 gap-3.5">
+          <div className="unicolor-card flex items-center justify-between">
+            <div>
+              <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+                Active Blocks
+              </span>
+              <span className="text-2xl font-bold font-mono text-slate-900 dark:text-white mt-0.5 block">
+                12
+              </span>
+              <span className="text-[10px] text-slate-400 font-medium">Conflict-free possession windows</span>
+            </div>
+            <div className="p-2.5 rounded-md bg-slate-100 dark:bg-white/[0.06] text-slate-700 dark:text-slate-300">
+              <TrainTrack size={20} />
+            </div>
           </div>
-          <div className="p-2.5 rounded bg-govnavy-50 text-govnavy-800 dark:bg-slate-800 dark:text-govnavy-300">
-            <TrainTrack size={18} />
-          </div>
-        </div>
 
-        {/* Scheduled Tasks */}
-        <div className="gov-panel p-3.5 flex items-center justify-between border-l-4 border-l-blue-600">
-          <div>
-            <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
-              Scheduled Tasks
-            </span>
-            <span className="text-xl font-bold font-mono text-blue-700 dark:text-blue-400 mt-1 block">
-              {scheduledTasks.length}
-            </span>
-            <span className="text-[10px] text-slate-400">Zero conflicts</span>
-          </div>
-          <div className="p-2.5 rounded bg-blue-50 text-blue-800 dark:bg-slate-800 dark:text-blue-300">
-            <CalendarDays size={18} />
-          </div>
-        </div>
-
-        {/* Operational Alerts */}
-        <div className="gov-panel p-3.5 flex items-center justify-between border-l-4 border-l-amber-600">
-          <div>
-            <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
-              Operational Alerts
-            </span>
-            <span className="text-xl font-bold font-mono text-amber-700 dark:text-amber-400 mt-1 block">
-              01
-            </span>
-            <span className="text-[10px] text-slate-400">TRN-SIM-002 on SEC-0004</span>
-          </div>
-          <div className="p-2.5 rounded bg-amber-50 text-amber-800 dark:bg-slate-800 dark:text-amber-300">
-            <AlertTriangle size={18} />
-          </div>
-        </div>
-
-        {/* Replanning Events */}
-        <div className="gov-panel p-3.5 flex items-center justify-between border-l-4 border-l-orange-600">
-          <div>
-            <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
-              Replanning Events
-            </span>
-            <span className="text-xl font-bold font-mono text-orange-700 dark:text-orange-400 mt-1 block">
-              03
-            </span>
-            <span className="text-[10px] text-slate-400">1 Resolved, 2 Audited</span>
-          </div>
-          <div className="p-2.5 rounded bg-orange-50 text-orange-800 dark:bg-slate-800 dark:text-orange-300">
-            <RefreshCw size={18} />
+          <div className="unicolor-card flex items-center justify-between">
+            <div>
+              <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+                Operational Alerts
+              </span>
+              <span className="text-2xl font-bold font-mono text-slate-900 dark:text-white mt-0.5 block">
+                3
+              </span>
+              <span className="text-[10px] text-slate-400 font-medium">Train headway overlaps under review</span>
+            </div>
+            <div className="p-2.5 rounded-md bg-slate-100 dark:bg-white/[0.06] text-amber-500">
+              <AlertTriangle size={20} />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Main Grid: Upcoming Maintenance & Recent History (Section 14) */}
-      <div className="grid lg:grid-cols-12 gap-5">
-        {/* Left: Upcoming Maintenance Table (7 cols) */}
-        <div className="lg:col-span-7 gov-panel overflow-hidden">
-          <div className="gov-panel-header">
+      {/* Section 2: Upcoming Maintenance (Section 13 requirement) */}
+      <div className="mac-panel overflow-hidden">
+        <div className="mac-panel-header">
+          <div className="flex items-center gap-2">
+            <CalendarDays size={14} className="text-slate-400" />
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+              Upcoming Maintenance
+            </h3>
+          </div>
+          <button
+            type="button"
+            onClick={() => onNavigate('upcoming')}
+            className="text-[11px] text-macblue-500 hover:underline font-semibold"
+          >
+            View All
+          </button>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="mac-table">
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Department</th>
+                <th>Maintenance Work</th>
+                <th>Scheduled Date</th>
+                <th className="text-right">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {upcomingMaintenance.map((m) => (
+                <tr key={m.taskId}>
+                  <td className="font-mono font-bold text-slate-900 dark:text-white">
+                    {formatTaskId(m.taskId)}
+                  </td>
+                  <td className="text-slate-600 dark:text-slate-400 text-xs">
+                    {m.dept}
+                  </td>
+                  <td className="font-medium text-slate-800 dark:text-slate-200">
+                    {m.work}
+                  </td>
+                  <td className="font-mono text-xs text-slate-700 dark:text-slate-300">
+                    {m.date}
+                  </td>
+                  <td className="text-right">
+                    <GovBadge status={m.status} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Two-Column Grid: Replanning Events & Recent Verification (Section 13 requirement) */}
+      <div className="grid md:grid-cols-2 gap-5">
+        {/* Section 3: Replanning Events */}
+        <div className="mac-panel overflow-hidden">
+          <div className="mac-panel-header">
             <div className="flex items-center gap-2">
-              <CalendarDays size={14} className="text-govnavy-700 dark:text-govnavy-300" />
-              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                Upcoming Maintenance Possessions
-              </span>
+              <RefreshCw size={14} className="text-slate-400" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+                Replanning Events
+              </h3>
             </div>
             <button
               type="button"
-              onClick={() => onNavigate('upcoming')}
-              className="text-[11px] text-govnavy-700 dark:text-govnavy-300 hover:underline font-semibold"
+              onClick={() => onNavigate('replanning')}
+              className="text-[11px] text-macblue-500 hover:underline font-semibold"
             >
-              View All
+              Inspect
             </button>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="gov-table">
-              <thead>
-                <tr>
-                  <th>Task & Asset</th>
-                  <th>Department</th>
-                  <th>Window & Block</th>
-                  <th>Risk</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {upcomingBlocks.map((b) => (
-                  <tr key={b.taskId}>
-                    <td>
-                      <div className="font-mono font-bold text-govnavy-700 dark:text-govnavy-300 text-xs">
-                        {b.taskId}
-                      </div>
-                      <div className="text-[11px] font-semibold text-slate-800 dark:text-slate-200">
-                        {b.maintType}
-                      </div>
-                      <div className="text-[10px] text-slate-500 font-mono">
-                        {b.section}
-                      </div>
-                    </td>
-                    <td className="text-[11px] text-slate-600 dark:text-slate-400">
-                      {b.dept}
-                    </td>
-                    <td>
-                      <div className="text-xs font-semibold text-slate-900 dark:text-white">
-                        {b.date}
-                      </div>
-                      <div className="text-[11px] font-mono text-slate-600 dark:text-slate-400">
-                        {b.window}
-                      </div>
-                      <div className="text-[10px] font-mono text-govnavy-600 dark:text-govnavy-400">
-                        {b.block}
-                      </div>
-                    </td>
-                    <td>
-                      <GovBadge status={b.risk} type="risk" />
-                    </td>
-                    <td>
-                      <GovBadge status={b.status} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="divide-y divide-slate-100 dark:divide-white/[0.05]">
+            {replanningAlerts.map((r) => (
+              <div key={r.trainId} className="p-3 flex items-center justify-between text-xs">
+                <div>
+                  <span className="font-mono font-bold text-slate-900 dark:text-white block">
+                    {r.trainId}
+                  </span>
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 block mt-0.5">
+                    {r.title}
+                  </span>
+                </div>
+                <GovBadge status={r.status} />
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Right: Recent History Log (5 cols) */}
-        <div className="lg:col-span-5 gov-panel overflow-hidden flex flex-col">
-          <div className="gov-panel-header">
+        {/* Section 4: Recent Verification */}
+        <div className="mac-panel overflow-hidden">
+          <div className="mac-panel-header">
             <div className="flex items-center gap-2">
-              <Clock size={14} className="text-govnavy-700 dark:text-govnavy-300" />
-              <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                Recent Operational Audits
-              </span>
+              <CheckSquare size={14} className="text-slate-400" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
+                Recent Verification
+              </h3>
             </div>
             <button
               type="button"
-              onClick={() => onNavigate('auth-history')}
-              className="text-[11px] text-govnavy-700 dark:text-govnavy-300 hover:underline font-semibold"
+              onClick={() => onNavigate('verification')}
+              className="text-[11px] text-macblue-500 hover:underline font-semibold"
             >
-              View Archive
+              Audit Log
             </button>
           </div>
 
-          <div className="divide-y divide-slate-200 dark:divide-slate-800 p-2 space-y-2 overflow-y-auto max-h-[400px]">
-            {recentHistory.map((h) => (
-              <div key={h.id} className="p-2.5 rounded bg-slate-50/70 dark:bg-slate-800/40 space-y-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono font-bold text-slate-400">
-                    {h.id}
+          <div className="divide-y divide-slate-100 dark:divide-white/[0.05]">
+            {recentVerifications.map((v) => (
+              <div key={v.taskId} className="p-3 flex items-center justify-between text-xs">
+                <div>
+                  <span className="font-mono font-bold text-slate-900 dark:text-white">
+                    {formatTaskId(v.taskId)}
                   </span>
-                  <GovBadge status={h.status} />
+                  <span className="mx-1.5 text-slate-400">•</span>
+                  <span className="text-slate-600 dark:text-slate-300 font-medium">
+                    {v.work}
+                  </span>
+                  <div className="text-[10px] text-slate-400 font-mono mt-0.5">
+                    Recorded: {v.date} • Certified: <span className="font-semibold text-slate-300">{v.signedBy}</span>
+                  </div>
                 </div>
-                <div className="text-xs font-bold text-slate-900 dark:text-white">
-                  {h.event}
-                </div>
-                <div className="text-[11px] text-govnavy-700 dark:text-govnavy-300 font-medium">
-                  {h.item}
-                </div>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
-                  {h.detail}
-                </p>
-                <div className="text-[10px] text-slate-400 font-mono pt-0.5">
-                  {h.time}
-                </div>
+                <GovBadge status={v.decision} />
               </div>
             ))}
           </div>

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { usePlan } from '../../context/PlanContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
+import { BackButton } from '../../components/common/BackButton';
+import { formatTaskId, formatAssetId } from '../../utils/formatters';
 import { 
   CheckSquare, 
   CheckCircle2, 
@@ -13,12 +15,16 @@ import {
   FileText,
   User,
   X,
-  AlertTriangle
+  AlertTriangle,
+  ArrowRight,
+  Eye,
+  Sliders,
+  ShieldCheck,
+  Calendar
 } from 'lucide-react';
 
 export const WorkVerification = () => {
   const { 
-    tasksInventory, 
     verifications, 
     acceptWork, 
     rejectWork, 
@@ -28,27 +34,14 @@ export const WorkVerification = () => {
   const { t } = useLanguage();
 
   const [activeTab, setActiveTab] = useState('Pending'); // 'Pending' | 'Upcoming' | 'History'
-  const [selectedTask, setSelectedTask] = useState(null);
-  const [actionType, setActionType] = useState(null); // 'accept' | 'reject' | 'false_closure'
+  const [selectedTaskForReview, setSelectedTaskForReview] = useState(null);
+  const [activeActionChoice, setActiveActionChoice] = useState(null); // 'accept' | 'reject' | 'false_closure'
   const [comments, setComments] = useState('');
-  const [reporterName, setReporterName] = useState('S. K. Sharma (Chief Controller)');
+  const [reporterName, setReporterName] = useState('Authority A');
   const [notification, setNotification] = useState('');
 
-  // Sample verified / pending verification pool
-  const pendingTasks = [
-    {
-      taskId: 'TASK-000421',
-      maintType: 'Track Alignment & Ballast Consolidation',
-      department: 'Track / Civil Engineering',
-      assetId: 'AST-120421',
-      section: 'SEC-0002 (Palwal–Mathura)',
-      scheduledBlock: 'BLK-007120',
-      completionTime: '05 Sep 2026, 03:45 AM',
-      crewLeader: 'J. P. Meena (Permanent Way Supervisor)',
-      toleranceRecorded: '±0.8 mm (Tolerance Limit ±2.0 mm)',
-      photoProofUrl: 'Geo-stamped USFD wave pattern & digital gauge snapshot',
-      notes: 'Executed 2.4 km ballast tamping and curve realignments. Track clear of all men and machinery at 03:45.',
-    },
+  // Initial candidate pool for verification across the 1-week horizon
+  const initialPendingPool = [
     {
       taskId: 'TASK-000109',
       maintType: 'Wayside Hot Axle Detector Sensor Calibration',
@@ -56,91 +49,120 @@ export const WorkVerification = () => {
       assetId: 'AST-120109',
       section: 'SEC-0012 (Kosi Kalan)',
       scheduledBlock: 'BLK-002891',
-      completionTime: '02 Sep 2026, 03:50 PM',
-      crewLeader: 'Sunil Nair (C&W Engineer)',
-      toleranceRecorded: 'Infrared tolerance 0.2°C calibration offset',
-      photoProofUrl: 'Thermal calibrator benchmark scan report',
+      completionTime: '04 Sep 2026, 15:50',
+      crewLeader: 'Maintenance Crew Unit 1',
+      toleranceRecorded: 'Infrared offset: 0.2°C (Limit: ±0.5°C)',
+      photoProofUrl: 'Thermal calibrator benchmark scan report (GEO-LOC: 27.91°N, 77.43°E)',
       notes: 'Sensor head cleaned, thermistor resistance normalized, passing test scan completed with freight rake.',
     },
     {
       taskId: 'TASK-000388',
       maintType: 'Point Machine Lubrication & Relay Overhaul',
       department: 'Signal & Telecommunications',
+      assetId: 'AST-120388',
       section: 'SEC-0009 (Agra Cantt Yard)',
       scheduledBlock: 'BLK-005912',
-      completionTime: '06 Sep 2026, 11:45 AM',
-      crewLeader: 'A. K. Bansal (Signal Inspector)',
-      toleranceRecorded: 'Throw force 450 kg within standard 400-500 kg',
-      photoProofUrl: 'Point detector micro-switch multimeter log',
+      completionTime: '05 Sep 2026, 11:45',
+      crewLeader: 'Maintenance Crew Unit 2',
+      toleranceRecorded: 'Throw force 450 kg (Standard range: 400–500 kg)',
+      photoProofUrl: 'Point detector micro-switch multimeter trace log & video inspection',
       notes: 'Points tested 5 times on mainline reverse and normal. Signal lock circuit verified intact.',
+    },
+    {
+      taskId: 'TASK-000724',
+      maintType: 'Overhead Contact Wire Height & Stagger Calibration',
+      department: 'Electrical / TRD',
+      assetId: 'AST-120724',
+      section: 'SEC-0004 (Delhi–Agra)',
+      scheduledBlock: 'BLK-004312',
+      completionTime: '07 Sep 2026, 04:30',
+      crewLeader: 'Maintenance Crew Unit 3',
+      toleranceRecorded: 'Wire height 5.58 m (Permissible: 5.50–5.60 m)',
+      photoProofUrl: 'Optical pantograph laser gauge calibration dataset & timestamp',
+      notes: 'Stagger adjusted across 14 mast spans. Sparking potential eliminated under test pantograph load.',
     },
   ];
 
-  const handleOpenActionModal = (task, type) => {
-    setSelectedTask(task);
-    setActionType(type);
-    setComments('');
+  // Critical Rule: Tasks that have been verified, rejected, or reported as false closure immediately leave Pending
+  const pendingTasks = initialPendingPool.filter((task) => {
+    const v = verifications[task.taskId];
+    if (!v) return true;
+    return v.status !== 'Verified' && v.status !== 'Rejected' && v.status !== 'False Closure Reported';
+  });
+
+  const handleInspect = (task) => {
+    setSelectedTaskForReview(task);
+    setActiveActionChoice('accept'); // Default to accept for fast flow
+    setComments('Certified compliant with standard maintenance guidelines.');
   };
 
-  const handleConfirmAction = (e) => {
+  const handleExecuteDecision = (e) => {
     e.preventDefault();
-    if (!selectedTask || !actionType) return;
+    if (!selectedTaskForReview || !activeActionChoice) return;
 
-    if (actionType === 'accept') {
-      acceptWork(selectedTask.taskId, reporterName, comments);
-      setNotification(`✓ Work order ${selectedTask.taskId} successfully ACCEPTED and permanently certified.`);
-    } else if (actionType === 'reject') {
-      rejectWork(selectedTask.taskId, reporterName, comments);
-      setNotification(`✕ Work order ${selectedTask.taskId} REJECTED. Returned for engineering rework.`);
-    } else if (actionType === 'false_closure') {
-      reportFalseClosure(selectedTask.taskId, reporterName, comments);
-      setNotification(`⚠ FALSE CLOSURE reported for ${selectedTask.taskId}. Chief Safety Commissioner notified.`);
+    const tId = selectedTaskForReview.taskId;
+    const shortTId = formatTaskId(tId);
+
+    if (activeActionChoice === 'accept') {
+      acceptWork(tId, reporterName, comments || 'Certified compliant with standard maintenance specifications.');
+      setNotification(`✓ Work order ${shortTId} (${tId}) successfully ACCEPTED and certified.`);
+    } else if (activeActionChoice === 'reject') {
+      rejectWork(tId, reporterName, comments || 'Tolerance variance exceeded limit; returned for rectification.');
+      setNotification(`✕ Work order ${shortTId} (${tId}) REJECTED. Returned to field crew for rework.`);
+    } else if (activeActionChoice === 'false_closure') {
+      reportFalseClosure(tId, reporterName, comments || 'Field inspection revealed maintenance was falsely marked closed.');
+      setNotification(`⚠ FALSE CLOSURE filed for ${shortTId} (${tId}). Safety inquiry initiated.`);
     }
 
-    setSelectedTask(null);
-    setActionType(null);
+    setSelectedTaskForReview(null);
+    setActiveActionChoice(null);
+    setComments('');
     setTimeout(() => setNotification(''), 4500);
   };
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       {/* Header */}
       <div>
-        <div className="flex items-center gap-2 text-[11px] font-bold text-govnavy-700 dark:text-govnavy-300 uppercase tracking-wider">
+        <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
           <CheckSquare size={14} />
-          <span>{t('workVerification', 'Work Verification')}</span>
+          <span>Work Verification</span>
         </div>
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
-          {t('workVerificationTitle', 'Work Completion Verification & Authority Sign-Off')}
+        <h2 className="text-xl font-bold text-slate-900 dark:text-white mt-1">
+          Work Completion Verification & Authority Sign-Off
         </h2>
-        <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-          {t('workVerificationSubtitle', 'Official sign-off interface with photographic proof, sensor tolerances and false-closure inquiry reporting.')}
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+          Review execution proof, audit sensor tolerances, and record official certification decisions.
         </p>
       </div>
 
+      {/* Notification Toast */}
       {notification && (
-        <div className="p-3.5 rounded bg-govnavy-900 text-white text-xs font-bold flex items-center gap-2 shadow-md">
-          <CheckCircle2 size={16} className="text-saffron-light" />
+        <div className="p-3.5 rounded-xl bg-slate-900 text-white text-xs font-semibold flex items-center gap-2.5 shadow-lg border border-white/[0.1] animate-fadeIn">
+          <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
           <span>{notification}</span>
         </div>
       )}
 
-      {/* Tabs (Section 23: Pending Verification, Upcoming, History) */}
-      <div className="gov-panel p-2.5 flex items-center justify-between gap-3">
+      {/* Navigation Tabs */}
+      <div className="bg-white dark:bg-[#14171d] rounded-xl border border-slate-200 dark:border-white/[0.08] p-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
         <div className="flex items-center gap-1.5">
           {[
-            { id: 'Pending', label: 'Pending Verification' },
-            { id: 'Upcoming', label: 'Upcoming Sign-Offs' },
-            { id: 'History', label: 'Verification History' },
+            { id: 'Pending', label: `Pending Verification (${pendingTasks.length})` },
+            { id: 'Upcoming', label: 'Upcoming Sign-Offs (2)' },
+            { id: 'History', label: `Verification History (${Object.keys(verifications).length})` },
           ].map((tab) => (
             <button
               key={tab.id}
               type="button"
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-3 py-1 rounded text-xs font-semibold transition-colors ${
+              onClick={() => {
+                setActiveTab(tab.id);
+                setSelectedTaskForReview(null);
+              }}
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 activeTab === tab.id
-                  ? 'bg-govnavy-800 text-white dark:bg-govnavy-700 shadow-2xs'
-                  : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
+                  ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-xs'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05]'
               }`}
             >
               {tab.label}
@@ -148,149 +170,362 @@ export const WorkVerification = () => {
           ))}
         </div>
 
-        <span className="text-xs font-mono font-bold text-slate-500">
-          Role: Authority Certification Officer
+        <span className="text-[11px] font-mono font-medium text-slate-400 px-2">
+          Authority Sign-Off Mode
         </span>
       </div>
 
-      {/* Tab 1: Pending Verification List */}
+      {/* TAB 1: PENDING VERIFICATION */}
       {activeTab === 'Pending' && (
-        <div className="gov-panel overflow-hidden">
-          <div className="gov-panel-header">
-            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-              Works Awaiting Authority Sign-Off
-            </span>
-            <span className="text-[11px] text-slate-500 font-mono">
-              Inspect proofs & choose official action
-            </span>
-          </div>
+        <>
+          {/* Detail View when [ Inspect ] is clicked */}
+          {selectedTaskForReview ? (
+            <div className="space-y-6">
+              {/* Back Bar */}
+              <div className="flex items-center justify-between">
+                <BackButton 
+                  onClick={() => setSelectedTaskForReview(null)} 
+                  label="Back to Pending Verification List"
+                />
+                <div className="flex items-center gap-2 font-mono text-xs text-slate-500">
+                  <span>{formatTaskId(selectedTaskForReview.taskId)}</span>
+                  <span>•</span>
+                  <span>{selectedTaskForReview.taskId}</span>
+                </div>
+              </div>
 
-          <div className="divide-y divide-slate-200 dark:divide-slate-800">
-            {pendingTasks.map((task) => {
-              const currentV = verifications[task.taskId];
-              const isHandled = currentV && currentV.status !== 'Scheduled';
-
-              return (
-                <div key={task.taskId} className="p-4 space-y-3">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-xs text-govnavy-700 dark:text-govnavy-300">
-                          {task.taskId}
-                        </span>
-                        <span className="text-slate-400">•</span>
-                        <span className="font-mono text-xs text-slate-600 dark:text-slate-400">
-                          {task.assetId}
-                        </span>
-                        <span className="text-slate-400">•</span>
-                        <span className="text-xs text-slate-600 dark:text-slate-400">
-                          {task.department}
-                        </span>
-                      </div>
-                      <h3 className="text-sm font-bold text-slate-900 dark:text-white mt-0.5">
-                        {task.maintType}
-                      </h3>
+              {/* Work Completion Review Card */}
+              <div className="bg-white dark:bg-[#14171d] rounded-xl border border-slate-200 dark:border-white/[0.08] shadow-sm p-6 space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-white/[0.06] pb-4">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono font-bold text-xs text-blue-600 dark:text-blue-400">
+                        {formatTaskId(selectedTaskForReview.taskId)}
+                      </span>
+                      <span className="text-slate-300 dark:text-slate-600">•</span>
+                      <span className="font-mono text-xs text-slate-500">
+                        {formatAssetId(selectedTaskForReview.assetId)}
+                      </span>
+                      <span className="text-slate-300 dark:text-slate-600">•</span>
+                      <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">
+                        {selectedTaskForReview.department}
+                      </span>
                     </div>
-
-                    <GovBadge status={isHandled ? currentV.status : 'Pending Verification'} />
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-1">
+                      {selectedTaskForReview.maintType}
+                    </h3>
                   </div>
 
-                  {/* Detail Snapshot */}
-                  <div className="grid sm:grid-cols-3 gap-2.5 text-xs bg-slate-50 dark:bg-slate-800/50 p-2.5 rounded border border-slate-200 dark:border-slate-700">
-                    <div>
-                      <span className="text-[10px] uppercase font-bold text-slate-500 block">Section & Block</span>
-                      <span className="font-medium text-slate-800 dark:text-slate-200">{task.section}</span>
-                      <span className="font-mono text-[10px] text-slate-500 block">{task.scheduledBlock}</span>
-                    </div>
+                  <GovBadge status="Pending Verification" />
+                </div>
 
-                    <div>
-                      <span className="text-[10px] uppercase font-bold text-slate-500 block">Completion Time</span>
-                      <span className="font-mono text-slate-800 dark:text-slate-200">{task.completionTime}</span>
-                      <span className="text-[10px] text-slate-500 block">Supervisor: {task.crewLeader}</span>
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] uppercase font-bold text-slate-500 block">Recorded Tolerance</span>
-                      <span className="font-mono font-bold text-emerald-700 dark:text-emerald-400">{task.toleranceRecorded}</span>
-                      <span className="text-[10px] text-slate-500 block">{task.photoProofUrl}</span>
-                    </div>
+                {/* Section 1: Execution & Location */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                  <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.06]">
+                    <span className="text-[10px] font-bold uppercase text-slate-400 block">Section</span>
+                    <span className="font-semibold text-slate-800 dark:text-slate-200 mt-1 block">
+                      {selectedTaskForReview.section}
+                    </span>
                   </div>
 
-                  <p className="text-xs text-slate-600 dark:text-slate-400 italic">
-                    "{task.notes}"
-                  </p>
+                  <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.06]">
+                    <span className="text-[10px] font-bold uppercase text-slate-400 block">Possession Block</span>
+                    <span className="font-mono font-bold text-slate-800 dark:text-slate-200 mt-1 block">
+                      {selectedTaskForReview.scheduledBlock}
+                    </span>
+                  </div>
 
-                  {/* Action Buttons (Section 23: [✓ ACCEPT] [✕ REJECT] [⚠ REPORT FALSE CLOSURE]) */}
-                  <div className="pt-2 flex flex-wrap items-center justify-end gap-2 border-t border-slate-100 dark:border-slate-800">
-                    <button
-                      type="button"
-                      onClick={() => handleOpenActionModal(task, 'accept')}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold transition-colors shadow-2xs"
-                    >
-                      <CheckCircle2 size={13} />
-                      <span>{t('accept', '✓ ACCEPT')}</span>
-                    </button>
+                  <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.06]">
+                    <span className="text-[10px] font-bold uppercase text-slate-400 block">Completion Time</span>
+                    <span className="font-mono font-semibold text-slate-800 dark:text-slate-200 mt-1 block">
+                      {selectedTaskForReview.completionTime}
+                    </span>
+                  </div>
 
-                    <button
-                      type="button"
-                      onClick={() => handleOpenActionModal(task, 'reject')}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-rose-700 hover:bg-rose-600 text-white text-xs font-bold transition-colors shadow-2xs"
-                    >
-                      <XCircle size={13} />
-                      <span>{t('reject', '✕ REJECT')}</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => handleOpenActionModal(task, 'false_closure')}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-colors shadow-2xs"
-                    >
-                      <ShieldAlert size={13} />
-                      <span>{t('reportFalseClosure', '⚠ REPORT FALSE CLOSURE')}</span>
-                    </button>
+                  <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.06]">
+                    <span className="text-[10px] font-bold uppercase text-slate-400 block">Supervisor</span>
+                    <span className="font-semibold text-slate-800 dark:text-slate-200 mt-1 block">
+                      {selectedTaskForReview.crewLeader}
+                    </span>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
+
+                {/* Section 2: Sensor & Evidence Review */}
+                <div className="space-y-3">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                    Sensor & Quality Compliance Evidence
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <div className="p-4 rounded-lg bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.06] space-y-1.5">
+                      <span className="text-[10px] font-bold uppercase text-slate-400 block">Recorded Tolerance Parameter</span>
+                      <div className="font-mono text-sm font-bold text-emerald-600 dark:text-emerald-400">
+                        {selectedTaskForReview.toleranceRecorded}
+                      </div>
+                      <div className="text-[11px] text-slate-500">
+                        Within standard acceptable mechanical/civil bounds
+                      </div>
+                    </div>
+
+                    <div className="p-4 rounded-lg bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/[0.06] space-y-1.5">
+                      <span className="text-[10px] font-bold uppercase text-slate-400 block">Photo & Telemetry Verification</span>
+                      <div className="font-mono text-xs font-semibold text-slate-800 dark:text-slate-200 break-words">
+                        {selectedTaskForReview.photoProofUrl}
+                      </div>
+                      <div className="text-[11px] text-slate-500">
+                        Digital hash & GPS timestamp validated
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/[0.04] text-xs">
+                    <span className="text-[10px] font-bold uppercase text-slate-400 block mb-1">Field Crew Notes</span>
+                    <p className="text-slate-700 dark:text-slate-300 italic">
+                      "{selectedTaskForReview.notes}"
+                    </p>
+                  </div>
+                </div>
+
+                {/* Section 3: Grouped Decision Area */}
+                <form onSubmit={handleExecuteDecision} className="pt-4 border-t border-slate-100 dark:border-white/[0.06] space-y-4">
+                  <div>
+                    <div className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-2">
+                      Authority Decision Action
+                    </div>
+                    
+                    {/* 3 Grouped Action Buttons */}
+                    <div className="grid grid-cols-3 gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActiveActionChoice('accept');
+                          setComments('Certified compliant with standard maintenance specifications.');
+                        }}
+                        className={`p-3 rounded-lg border text-xs font-bold flex flex-col items-center justify-center gap-1 transition-all ${
+                          activeActionChoice === 'accept'
+                            ? 'bg-emerald-500/10 border-emerald-500 text-emerald-600 dark:text-emerald-400 shadow-sm ring-1 ring-emerald-500'
+                            : 'bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-slate-400 hover:border-emerald-400'
+                        }`}
+                      >
+                        <CheckCircle2 size={18} />
+                        <span>✓ Accept Work</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActiveActionChoice('reject');
+                          setComments('Tolerance variance exceeded permissible threshold; work order rejected for rectification.');
+                        }}
+                        className={`p-3 rounded-lg border text-xs font-bold flex flex-col items-center justify-center gap-1 transition-all ${
+                          activeActionChoice === 'reject'
+                            ? 'bg-rose-500/10 border-rose-500 text-rose-600 dark:text-rose-400 shadow-sm ring-1 ring-rose-500'
+                            : 'bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-slate-400 hover:border-rose-400'
+                        }`}
+                      >
+                        <XCircle size={18} />
+                        <span>✕ Reject Work</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActiveActionChoice('false_closure');
+                          setComments('Site discrepancy reported: physical inspection indicates work was marked complete without execution.');
+                        }}
+                        className={`p-3 rounded-lg border text-xs font-bold flex flex-col items-center justify-center gap-1 transition-all ${
+                          activeActionChoice === 'false_closure'
+                            ? 'bg-amber-500/10 border-amber-500 text-amber-600 dark:text-amber-400 shadow-sm ring-1 ring-amber-500'
+                            : 'bg-slate-50 dark:bg-white/[0.02] border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-slate-400 hover:border-amber-400'
+                        }`}
+                      >
+                        <ShieldAlert size={18} />
+                        <span>⚠ Report False Closure</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Comments & Inspector Identity */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-2">
+                    <div>
+                      <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+                        Certifying Officer
+                      </label>
+                      <input
+                        type="text"
+                        value={reporterName}
+                        onChange={(e) => setReporterName(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+                        {activeActionChoice === 'accept'
+                          ? 'Audit Notes / Compliance Remarks'
+                          : activeActionChoice === 'reject'
+                          ? 'Rejection Grounds & Defect Notice'
+                          : 'False Closure Inquiry Reason'}
+                      </label>
+                      <input
+                        type="text"
+                        value={comments}
+                        onChange={(e) => setComments(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-900 dark:text-white"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-end gap-3 pt-3">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedTaskForReview(null)}
+                      className="px-4 py-2 rounded-lg border border-slate-200 dark:border-white/[0.08] text-xs font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[0.05]"
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      type="submit"
+                      className={`px-5 py-2 rounded-lg text-xs font-bold text-white shadow-sm transition-all ${
+                        activeActionChoice === 'accept'
+                          ? 'bg-emerald-600 hover:bg-emerald-500'
+                          : activeActionChoice === 'reject'
+                          ? 'bg-rose-600 hover:bg-rose-500'
+                          : 'bg-amber-600 hover:bg-amber-500'
+                      }`}
+                    >
+                      {activeActionChoice === 'accept'
+                        ? 'Confirm Acceptance'
+                        : activeActionChoice === 'reject'
+                        ? 'Confirm Rejection'
+                        : 'Submit False Closure Inquiry'}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          ) : (
+            /* Pending Tasks List */
+            <div className="bg-white dark:bg-[#14171d] rounded-xl border border-slate-200 dark:border-white/[0.08] shadow-sm overflow-hidden">
+              <div className="p-4 border-b border-slate-100 dark:border-white/[0.06] flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                  Works Awaiting Authority Sign-Off ({pendingTasks.length})
+                </span>
+                <span className="text-[11px] text-slate-400 font-mono">
+                  Select Inspect to review tolerances and record certification
+                </span>
+              </div>
+
+              {pendingTasks.length === 0 ? (
+                <div className="p-10 text-center text-xs text-slate-400">
+                  <CheckCircle2 size={32} className="mx-auto mb-2 text-emerald-500 opacity-80" />
+                  <p className="font-semibold text-slate-700 dark:text-slate-300">
+                    All submitted work orders have been processed and certified!
+                  </p>
+                  <p className="text-slate-400 mt-1">
+                    Check the "Verification History" tab to view official decisions and audit records.
+                  </p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse text-xs">
+                    <thead>
+                      <tr className="border-b border-slate-100 dark:border-white/[0.06] bg-slate-50 dark:bg-white/[0.02] text-slate-500 dark:text-slate-400 font-semibold">
+                        <th className="p-3.5">Task ID</th>
+                        <th className="p-3.5">Asset ID</th>
+                        <th className="p-3.5">Maintenance Work</th>
+                        <th className="p-3.5">Section & Possession</th>
+                        <th className="p-3.5">Tolerance Recorded</th>
+                        <th className="p-3.5 text-right">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-white/[0.06]">
+                      {pendingTasks.map((task) => (
+                        <tr
+                          key={task.taskId}
+                          className="hover:bg-slate-50/80 dark:hover:bg-white/[0.02] transition-colors"
+                        >
+                          <td className="p-3.5 font-mono font-bold text-blue-600 dark:text-blue-400">
+                            {formatTaskId(task.taskId)}
+                            <div className="text-[10px] text-slate-400 font-normal mt-0.5">{task.taskId}</div>
+                          </td>
+                          <td className="p-3.5 font-mono text-slate-600 dark:text-slate-400 font-semibold">
+                            {formatAssetId(task.assetId)}
+                          </td>
+                          <td className="p-3.5">
+                            <div className="font-semibold text-slate-900 dark:text-white">
+                              {task.maintType}
+                            </div>
+                            <div className="text-[11px] text-slate-400 mt-0.5">{task.department}</div>
+                          </td>
+                          <td className="p-3.5">
+                            <div className="text-slate-800 dark:text-slate-200">{task.section}</div>
+                            <div className="font-mono text-[11px] text-slate-400">{task.scheduledBlock}</div>
+                          </td>
+                          <td className="p-3.5">
+                            <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                              {task.toleranceRecorded.split('(')[0]}
+                            </span>
+                          </td>
+                          <td className="p-3.5 text-right">
+                            <button
+                              type="button"
+                              onClick={() => handleInspect(task)}
+                              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white font-semibold transition-all dark:bg-white/[0.06] dark:text-blue-400 dark:hover:bg-blue-600 dark:hover:text-white text-xs"
+                            >
+                              <Eye size={12} />
+                              <span>Inspect</span>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          )}
+        </>
       )}
 
-      {/* Tab 2: Upcoming Sign-Offs */}
+      {/* TAB 2: UPCOMING SIGN-OFFS */}
       {activeTab === 'Upcoming' && (
-        <div className="gov-panel p-4 space-y-3">
-          <div className="gov-panel-header -mx-4 -mt-4 mb-3">
-            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-              Upcoming Possessions for Sign-Off
-            </span>
-            <span className="text-[11px] text-slate-500 font-mono">
-              07 Sep – 09 Sep Horizon
-            </span>
+        <div className="bg-white dark:bg-[#14171d] rounded-xl border border-slate-200 dark:border-white/[0.08] shadow-sm p-5 space-y-4">
+          <div className="border-b border-slate-100 dark:border-white/[0.06] pb-3">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+              Upcoming Possessions for Sign-Off (07 Sep – 09 Sep Horizon)
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              These possessions are scheduled or in progress and will appear in the verification queue upon crew clearance submission.
+            </p>
           </div>
 
-          <p className="text-xs text-slate-600 dark:text-slate-400">
-            These maintenance possessions are currently scheduled or in progress and will appear in the verification queue upon crew clearance submission:
-          </p>
-
-          <div className="space-y-2">
-            <div className="p-3 rounded bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs">
+          <div className="space-y-2.5">
+            <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-xs">
               <div>
-                <span className="font-mono font-bold text-govnavy-700 dark:text-govnavy-300">TASK-000005</span>
-                <span className="mx-2">•</span>
-                <span className="font-semibold text-slate-900 dark:text-white">Rail Grinding & OHE Adjust (SEC-0004)</span>
-                <div className="text-[11px] text-slate-500 font-mono mt-0.5">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono font-bold text-blue-600 dark:text-blue-400">T1</span>
+                  <span className="text-slate-300 dark:text-slate-600">•</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">Rail Grinding & OHE Adjust (SEC-0004)</span>
+                </div>
+                <div className="text-[11px] text-slate-400 font-mono mt-0.5">
                   Scheduled: 08 Sep 18:00–21:20 (BLK-012046+47) • Crew: TEAM-018
                 </div>
               </div>
               <GovBadge status="Scheduled" />
             </div>
 
-            <div className="p-3 rounded bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs">
+            <div className="p-3.5 rounded-lg bg-slate-50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-xs">
               <div>
-                <span className="font-mono font-bold text-govnavy-700 dark:text-govnavy-300">TASK-000004</span>
-                <span className="mx-2">•</span>
-                <span className="font-semibold text-slate-900 dark:text-white">Track Inspection & Renewal (SEC-0004)</span>
-                <div className="text-[11px] text-slate-500 font-mono mt-0.5">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono font-bold text-blue-600 dark:text-blue-400">T4</span>
+                  <span className="text-slate-300 dark:text-slate-600">•</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">Track Inspection & Ultrasonic Testing (SEC-0004)</span>
+                </div>
+                <div className="text-[11px] text-slate-400 font-mono mt-0.5">
                   Scheduled: 07 Sep 00:00–03:20 (BLK-009637+38) • Joint Possession
                 </div>
               </div>
@@ -300,46 +535,47 @@ export const WorkVerification = () => {
         </div>
       )}
 
-      {/* Tab 3: History & False Closure Reports */}
+      {/* TAB 3: VERIFICATION HISTORY */}
       {activeTab === 'History' && (
-        <div className="space-y-4">
-          <div className="gov-panel overflow-hidden">
-            <div className="gov-panel-header">
+        <div className="space-y-6">
+          <div className="bg-white dark:bg-[#14171d] rounded-xl border border-slate-200 dark:border-white/[0.08] shadow-sm overflow-hidden">
+            <div className="p-4 border-b border-slate-100 dark:border-white/[0.06] flex items-center justify-between">
               <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                Certified Verification Decisions & Discrepancies
+                Permanent Verification & Safety Audit Trail
               </span>
-              <span className="text-[11px] text-slate-500 font-mono">
-                Permanent railway safety audit trail
+              <span className="text-[11px] text-slate-400 font-mono">
+                {Object.keys(verifications).length} Decision Records
               </span>
             </div>
 
             <div className="overflow-x-auto">
-              <table className="gov-table gov-table-zebra">
+              <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr>
-                    <th>Work Order ID</th>
-                    <th>Certification Status</th>
-                    <th>Inspecting Official</th>
-                    <th>Inspection Comments / Reason</th>
-                    <th>Recorded Timestamp</th>
+                  <tr className="border-b border-slate-100 dark:border-white/[0.06] bg-slate-50 dark:bg-white/[0.02] text-slate-500 dark:text-slate-400 font-semibold">
+                    <th className="p-3.5">Work Order ID</th>
+                    <th className="p-3.5">Certification Status</th>
+                    <th className="p-3.5">Inspecting Official</th>
+                    <th className="p-3.5">Decision Remarks</th>
+                    <th className="p-3.5 font-mono text-right">Timestamp</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-slate-100 dark:divide-white/[0.06]">
                   {Object.entries(verifications).map(([taskId, ver]) => (
-                    <tr key={taskId}>
-                      <td className="font-mono font-bold text-govnavy-700 dark:text-govnavy-300">
-                        {taskId}
+                    <tr key={taskId} className="hover:bg-slate-50/80 dark:hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3.5 font-mono font-bold text-blue-600 dark:text-blue-400">
+                        {formatTaskId(taskId)}
+                        <span className="text-slate-400 font-normal text-[10px] ml-1.5">({taskId})</span>
                       </td>
-                      <td>
+                      <td className="p-3.5">
                         <GovBadge status={ver.status} />
                       </td>
-                      <td className="font-semibold text-slate-800 dark:text-slate-200 text-xs">
+                      <td className="p-3.5 font-medium text-slate-800 dark:text-slate-200">
                         {ver.inspector}
                       </td>
-                      <td className="text-xs text-slate-600 dark:text-slate-400 max-w-md">
+                      <td className="p-3.5 text-slate-600 dark:text-slate-400 max-w-sm">
                         {ver.comments}
                       </td>
-                      <td className="font-mono text-[11px] text-slate-500">
+                      <td className="p-3.5 font-mono text-[11px] text-slate-400 text-right">
                         {ver.reportedAt}
                       </td>
                     </tr>
@@ -351,42 +587,42 @@ export const WorkVerification = () => {
 
           {/* Dedicated False Closure Inquiries Table */}
           {falseClosureReports.length > 0 && (
-            <div className="gov-panel overflow-hidden border-amber-300 dark:border-amber-900/60">
-              <div className="gov-panel-header bg-amber-50/60 dark:bg-amber-950/30">
-                <div className="flex items-center gap-1.5 text-amber-900 dark:text-amber-200">
+            <div className="bg-white dark:bg-[#14171d] rounded-xl border border-amber-300 dark:border-amber-900/60 shadow-sm overflow-hidden">
+              <div className="p-4 bg-amber-50/60 dark:bg-amber-950/20 border-b border-amber-200 dark:border-amber-900/40 flex items-center justify-between">
+                <div className="flex items-center gap-2 text-amber-900 dark:text-amber-200 font-bold text-xs uppercase tracking-wider">
                   <ShieldAlert size={14} className="text-amber-600" />
-                  <span className="text-xs font-bold uppercase tracking-wider">
-                    Official False Closure Inquiries Filed
-                  </span>
+                  <span>Official False Closure Inquiries Log</span>
                 </div>
-                <span className="text-[11px] font-mono font-bold text-amber-800 dark:text-amber-300">
-                  {falseClosureReports.length} Under Inquiry
+                <span className="text-[11px] font-mono font-semibold text-amber-700 dark:text-amber-300">
+                  {falseClosureReports.length} Inquiry Active
                 </span>
               </div>
 
               <div className="overflow-x-auto">
-                <table className="gov-table">
+                <table className="w-full text-left border-collapse text-xs">
                   <thead>
-                    <tr>
-                      <th>Report ID</th>
-                      <th>Task ID</th>
-                      <th>Section</th>
-                      <th>Reported By</th>
-                      <th>Alleged Discrepancy</th>
-                      <th>Status</th>
+                    <tr className="border-b border-slate-100 dark:border-white/[0.06] bg-slate-50 dark:bg-white/[0.02] text-slate-500 dark:text-slate-400 font-semibold">
+                      <th className="p-3.5">Report ID</th>
+                      <th className="p-3.5">Task ID</th>
+                      <th className="p-3.5">Section</th>
+                      <th className="p-3.5">Reported By</th>
+                      <th className="p-3.5">Alleged Discrepancy</th>
+                      <th className="p-3.5">Status</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="divide-y divide-slate-100 dark:divide-white/[0.06]">
                     {falseClosureReports.map((fcr) => (
-                      <tr key={fcr.reportId}>
-                        <td className="font-mono font-bold text-amber-900 dark:text-amber-200">
+                      <tr key={fcr.reportId} className="hover:bg-slate-50/80 dark:hover:bg-white/[0.02]">
+                        <td className="p-3.5 font-mono font-bold text-amber-900 dark:text-amber-300">
                           {fcr.reportId}
                         </td>
-                        <td className="font-mono text-slate-800 dark:text-slate-200">{fcr.taskId}</td>
-                        <td className="text-xs">{fcr.section}</td>
-                        <td className="text-xs font-semibold">{fcr.reportedBy}</td>
-                        <td className="text-xs text-slate-600 dark:text-slate-400 max-w-xs">{fcr.discrepancy}</td>
-                        <td>
+                        <td className="p-3.5 font-mono font-semibold text-slate-800 dark:text-slate-200">
+                          {formatTaskId(fcr.taskId)}
+                        </td>
+                        <td className="p-3.5 text-slate-600 dark:text-slate-400">{fcr.section}</td>
+                        <td className="p-3.5 font-medium text-slate-800 dark:text-slate-200">{fcr.reportedBy}</td>
+                        <td className="p-3.5 text-slate-600 dark:text-slate-400 max-w-xs">{fcr.discrepancy}</td>
+                        <td className="p-3.5">
                           <GovBadge status="False Closure Reported" />
                         </td>
                       </tr>
@@ -396,103 +632,6 @@ export const WorkVerification = () => {
               </div>
             </div>
           )}
-        </div>
-      )}
-
-      {/* Official Verification Confirmation Modal */}
-      {selectedTask && actionType && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-          <form onSubmit={handleConfirmAction} className="gov-panel max-w-lg w-full p-5 space-y-4 shadow-xl">
-            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
-              <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">
-                  {selectedTask.taskId} • {selectedTask.assetId}
-                </span>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  {actionType === 'accept'
-                    ? 'Accept & Certify Work Order'
-                    : actionType === 'reject'
-                    ? 'Reject Work Order & Order Rectification'
-                    : 'File Official False Closure Report'}
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedTask(null);
-                  setActionType(null);
-                }}
-                className="p-1 rounded text-slate-400 hover:text-slate-700 dark:hover:text-white"
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            <div className="space-y-3 text-xs">
-              <div>
-                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">
-                  {t('reportingParty', 'Reporting Officer / Authority Official')}
-                </label>
-                <input
-                  type="text"
-                  value={reporterName}
-                  onChange={(e) => setReporterName(e.target.value)}
-                  required
-                  className="w-full font-semibold"
-                />
-              </div>
-
-              <div>
-                <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">
-                  {actionType === 'accept'
-                    ? t('inspectionComments', 'Inspection Comments & Compliance Reference')
-                    : actionType === 'reject'
-                    ? 'Reason for Rejection & Tolerance Variance'
-                    : t('discrepancyDetails', 'Describe Discrepancy or Missing Work')}
-                </label>
-                <textarea
-                  rows={3}
-                  value={comments}
-                  onChange={(e) => setComments(e.target.value)}
-                  placeholder={
-                    actionType === 'accept'
-                      ? 'Certified compliant with Section 4 of Indian Railways Track Manual.'
-                      : actionType === 'reject'
-                      ? 'Tolerance variance exceeded maximum allowable limit.'
-                      : 'Physical site inspection confirmed work was marked completed without execution.'
-                  }
-                  required
-                  className="w-full text-xs"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedTask(null);
-                  setActionType(null);
-                }}
-                className="px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-              >
-                {t('cancel', 'Cancel')}
-              </button>
-
-              <button
-                type="submit"
-                className={`px-4 py-1.5 rounded text-xs font-bold text-white shadow-2xs uppercase tracking-wider ${
-                  actionType === 'accept'
-                    ? 'bg-emerald-700 hover:bg-emerald-600'
-                    : actionType === 'reject'
-                    ? 'bg-rose-700 hover:bg-rose-600'
-                    : 'bg-amber-700 hover:bg-amber-600'
-                }`}
-              >
-                {actionType === 'accept' ? 'Confirm Acceptance' : actionType === 'reject' ? 'Confirm Rejection' : 'Submit False Closure Report'}
-              </button>
-            </div>
-          </form>
         </div>
       )}
     </div>

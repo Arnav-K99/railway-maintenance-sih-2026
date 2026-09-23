@@ -6,18 +6,18 @@ export const RerouteDiagram = ({ trainId = 'TRN-SIM-001', section = 'SEC-0004', 
   const { t } = useLanguage();
 
   return (
-    <div className="gov-panel p-4 space-y-4">
-      <div className="border-b border-slate-200 dark:border-slate-800 pb-2 flex items-center justify-between">
+    <div className="mac-panel p-5 space-y-4">
+      <div className="border-b border-slate-200 dark:border-white/[0.08] pb-3 flex items-center justify-between">
         <div>
           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-1.5">
-            <GitFork size={14} className="text-govnavy-700 dark:text-govnavy-300" />
+            <GitFork size={14} className="text-blue-600 dark:text-blue-400" />
             <span>{t('rerouteSchematicTitle', 'TRAIN REROUTING SCHEMATIC & TOPOLOGY')}</span>
           </h4>
           <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
             {t('rerouteSchematicSubtitle', 'Conflict resolution through alternative route feasibility evaluation')}
           </p>
         </div>
-        <span className="font-mono text-xs font-bold bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-700 dark:text-slate-300">
+        <span className="font-mono text-xs font-bold bg-slate-100 dark:bg-white/[0.08] px-2.5 py-1 rounded text-slate-800 dark:text-slate-200">
           Train: {trainId}
         </span>
       </div>
@@ -100,9 +100,9 @@ export const RerouteDiagram = ({ trainId = 'TRN-SIM-001', section = 'SEC-0004', 
         </div>
 
         {/* 3. Operational Update Decision Banner */}
-        <div className="p-3 rounded bg-govnavy-50 dark:bg-slate-800/80 border border-govnavy-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           <div>
-            <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-govnavy-800 dark:text-govnavy-300 block">
+            <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 block">
               OPERATIONAL UPDATE & DECISION:
             </span>
             <span className="font-sans font-semibold text-xs text-slate-800 dark:text-slate-200">

@@ -74,7 +74,7 @@ export const PlanContext_Provider = ({ children }) => {
   const [verifications, setVerifications] = useState({
     'TASK-000421': {
       status: 'Verified',
-      inspector: 'K. S. Narayanan (Dy. Chief Engineer / North)',
+      inspector: 'Authority A',
       comments: 'Track geometric alignment and cross-level variance verified within ±1mm limit.',
       reportedAt: '2026-09-06 14:30',
     },
@@ -88,7 +88,7 @@ export const PlanContext_Provider = ({ children }) => {
       department: 'Track / Civil Engineering',
       assetId: 'AST-120892',
       section: 'SEC-0014',
-      reportedBy: 'Citizen Rail Auditor / Vigilance Cell',
+      reportedBy: 'Authority B',
       discrepancy: 'Ballast shoulder dressing left incomplete near km post 142/6 despite closure sign-off.',
       reportedAt: '2026-09-05 16:45',
       status: 'Under Safety Commission Inquiry',

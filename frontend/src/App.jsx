@@ -4,11 +4,12 @@ import { LanguageProvider } from './context/LanguageContext';
 import { AuthProvider, useAuth, PORTALS } from './context/AuthContext';
 import { PlanContext_Provider } from './context/PlanContext';
 
-import { GovShell } from './components/layout/GovShell';
+import { AppShell } from './components/layout/AppShell';
 import { Landing } from './pages/Landing';
 
 // Maintenance Portal Pages
 import { MaintDashboard } from './pages/maintenance/MaintDashboard';
+import { TodoWork } from './pages/maintenance/TodoWork';
 import { NeevPredictions } from './pages/maintenance/NeevPredictions';
 import { MyWork } from './pages/maintenance/MyWork';
 import { MaintHistory } from './pages/maintenance/MaintHistory';
@@ -23,6 +24,7 @@ import { AuthHistory } from './pages/authority/AuthHistory';
 
 const MAINT_TABS = [
   'maint-dashboard',
+  'todo-work',
   'neev-predictions',
   'my-work',
   'maint-history',
@@ -36,6 +38,21 @@ const AUTH_TABS = [
   'upcoming',
   'auth-history',
 ];
+
+// Page title mapping
+const PAGE_TITLES = {
+  'maint-dashboard': { title: 'Dashboard', subtitle: 'Work inventory & KPI overview' },
+  'todo-work': { title: 'To-Do Work', subtitle: 'Asset health & requirement definition' },
+  'neev-predictions': { title: 'To-Do Work', subtitle: 'Asset health & requirement definition' },
+  'my-work': { title: 'My Work', subtitle: 'Assigned maintenance work orders' },
+  'maint-history': { title: 'History', subtitle: 'Execution & rescheduling log' },
+  'auth-dashboard': { title: 'Dashboard', subtitle: 'Operations control overview' },
+  'operations': { title: 'Operations', subtitle: 'Weekly block calendar & live operations' },
+  'replanning': { title: 'Replanning', subtitle: 'Operational disruptions & re-optimization' },
+  'verification': { title: 'Work Verification', subtitle: 'Accept, reject, or report false closure' },
+  'upcoming': { title: 'Upcoming', subtitle: 'Master possession schedule' },
+  'auth-history': { title: 'Audit History', subtitle: 'Operational decisions & verifications' },
+};
 
 function MainApp() {
   const { currentPortal, currentUser, login } = useAuth();
@@ -68,7 +85,9 @@ function MainApp() {
     setActiveTab(tabId);
   };
 
-  // If user signed out, show clean government landing/portal selector
+  const pageInfo = PAGE_TITLES[activeTab] || {};
+
+  // If user signed out, show landing page
   if (!currentUser) {
     return (
       <Landing
@@ -84,16 +103,17 @@ function MainApp() {
   }
 
   return (
-    <GovShell
+    <AppShell
       activeTab={activeTab}
       onTabChange={handleTabChange}
-      onSwitchPortal={handlePortalSwitch}
+      pageTitle={pageInfo.title}
+      pageSubtitle={pageInfo.subtitle}
     >
       {/* Portal A: Maintenance Portal */}
       {currentPortal === PORTALS.MAINTENANCE && (
         <>
           {activeTab === 'maint-dashboard' && <MaintDashboard onNavigate={handleTabChange} />}
-          {activeTab === 'neev-predictions' && <NeevPredictions />}
+          {(activeTab === 'todo-work' || activeTab === 'neev-predictions') && <TodoWork />}
           {activeTab === 'my-work' && <MyWork />}
           {activeTab === 'maint-history' && <MaintHistory />}
         </>
@@ -110,7 +130,7 @@ function MainApp() {
           {activeTab === 'auth-history' && <AuthHistory />}
         </>
       )}
-    </GovShell>
+    </AppShell>
   );
 }
 

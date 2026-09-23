@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BlockHoverPopover } from './BlockHoverPopover';
 import { useLanguage } from '../../context/LanguageContext';
 import { usePlan } from '../../context/PlanContext';
+import { formatTaskId } from '../../utils/formatters';
 import { Calendar, Clock, Layers, RefreshCw, CheckCircle2 } from 'lucide-react';
 
 export const WeeklyBlockCalendar = () => {
@@ -234,13 +235,13 @@ export const WeeklyBlockCalendar = () => {
     }
 
     // Moderate / Low
-    return 'bg-govnavy-800 text-white border border-govnavy-900 dark:bg-govnavy-700 dark:border-govnavy-600';
+    return 'bg-slate-800 text-white border border-slate-700 dark:bg-slate-800 dark:border-white/[0.12] shadow-2xs';
   };
 
   return (
     <div className="space-y-3 relative">
       {/* Calendar Legend & Accessibility Guide */}
-      <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-900 p-2.5 rounded border border-slate-200 dark:border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-900/60 p-2.5 rounded border border-slate-200 dark:border-white/[0.08]">
         <div className="flex flex-wrap items-center gap-4">
           <span className="font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider text-[10px]">
             Visual Legend:
@@ -254,7 +255,7 @@ export const WeeklyBlockCalendar = () => {
             <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">High Risk</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded bg-govnavy-800 border border-govnavy-900 inline-block" />
+            <span className="h-3 w-3 rounded bg-slate-800 border border-slate-700 inline-block" />
             <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">Standard Possessions</span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -267,13 +268,13 @@ export const WeeklyBlockCalendar = () => {
           </div>
         </div>
 
-        <div className="font-mono text-[11px] text-slate-500">
+        <div className="font-mono text-[11px] text-slate-500 dark:text-slate-400">
           Horizon: <strong>03 Sep – 09 Sep 2026</strong>
         </div>
       </div>
 
-      {/* Full-Week Calendar Grid (Section 16 requirement) */}
-      <div className="gov-panel overflow-hidden border border-slate-300 dark:border-slate-800">
+      {/* Full-Week Calendar Grid */}
+      <div className="bg-white dark:bg-[#14171d] rounded-lg shadow-sm border border-slate-200 dark:border-white/[0.08] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-left min-w-[750px]">
             {/* Day Header Row */}
@@ -299,7 +300,7 @@ export const WeeklyBlockCalendar = () => {
                     <div className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
                       {d.dayName}
                     </div>
-                    <div className="text-[11px] font-mono font-semibold text-govnavy-700 dark:text-govnavy-300 mt-0.5">
+                    <div className="text-[11px] font-mono font-semibold text-blue-600 dark:text-blue-400 mt-0.5">
                       {d.date}
                     </div>
                   </th>
@@ -339,7 +340,7 @@ export const WeeklyBlockCalendar = () => {
                           >
                             <div className="flex items-center justify-between gap-1 leading-none">
                               <span className="font-mono font-bold text-[10px] truncate">
-                                {block.blockId}
+                                {formatTaskId(block.taskId)}
                               </span>
                               <span className="text-[9px] font-mono font-semibold opacity-90">
                                 {block.section}

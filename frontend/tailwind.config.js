@@ -8,39 +8,39 @@ export default {
   theme: {
     extend: {
       colors: {
-        // macOS Neutral Dark Mode Palette
+        // macOS Dark Palette (Neutral dark charcoal canvas)
         macdark: {
-          bg: '#0d0f12',         // Very dark charcoal / near-black
-          surface: '#14171d',    // Slightly lighter charcoal
-          panel: 'rgba(255, 255, 255, 0.04)',
+          bg: '#0d0f12',
+          surface: '#14171d',
+          card: '#1a1e26',
           border: 'rgba(255, 255, 255, 0.08)',
-          borderHover: 'rgba(255, 255, 255, 0.14)',
-          text: '#f3f4f6',
-          muted: '#9ca3af',
+          borderHover: 'rgba(255, 255, 255, 0.15)',
         },
-        // Restrained macOS System Blue
+        // Restrained macOS System Blue Accent
         macblue: {
-          DEFAULT: '#007AFF',
-          light: '#388BFD',
-          dark: '#0058C6',
+          50: '#F0F6FF',
+          100: '#E0EDFE',
+          200: '#BAE0FD',
+          500: '#007AFF',
+          600: '#0062CC',
+          700: '#0051A8',
         },
-        // Muted Status Accents
-        status: {
-          critical: '#DC2626',
-          warning: '#EA580C',
-          amber: '#D97706',
-          success: '#16A34A',
-          neutral: '#6B7280',
+        // Subtle restrained status accents
+        macstatus: {
+          green: '#34C759',
+          orange: '#FF9500',
+          red: '#FF3B30',
         },
       },
       fontFamily: {
-        sans: ['-apple-system', 'BlinkMacSystemFont', 'Inter', 'Segoe UI', 'system-ui', 'sans-serif'],
+        sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['SF Mono', 'JetBrains Mono', 'Menlo', 'Consolas', 'monospace'],
       },
       boxShadow: {
-        '2xs': '0 1px 2px 0 rgba(0, 0, 0, 0.04)',
-        'xs': '0 1px 3px 0 rgba(0, 0, 0, 0.08)',
-        'mac': '0 4px 20px -2px rgba(0, 0, 0, 0.3)',
+        '2xs': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        'xs': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        'mac': '0 4px 20px -2px rgba(0, 0, 0, 0.25)',
+        'mac-panel': '0 8px 32px 0 rgba(0, 0, 0, 0.36)',
       },
     },
   },
