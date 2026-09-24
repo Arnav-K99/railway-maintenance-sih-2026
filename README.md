@@ -1,10 +1,11 @@
-# Arnav Railway Maintenance Optimization Engine
+# Railway Maintenance Optimization Engine
 ### Smart India Hackathon (SIH) — Railway Maintenance Planning & Optimization
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/2bee516d-7668-469e-bef7-3a4f9ce7fca2/deploy-status)](https://app.netlify.com/projects/railway-maintenance-sih-2026/deploys)
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-railway--maintenance--sih--2026.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://railway-maintenance-sih-2026.netlify.app)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2bee516d-7668-469e-bef7-3a4f9ce7fca2/deploy-status)](https://app.netlify.com/projects/railway-maintenance/deploys)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-railway--maintenance.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://railway-maintenance.netlify.app)
 
-> 🌐 **Live Demo Website:** [https://railway-maintenance-sih-2026.netlify.app](https://railway-maintenance-sih-2026.netlify.app)
+> 🌐 **Live Demo Website:** [https://railway-maintenance.netlify.app](https://railway-maintenance.netlify.app)  
+> *(Mirror URL: [https://railway-maintenance-sih-2026.netlify.app](https://railway-maintenance-sih-2026.netlify.app))*
 
 ---
 
@@ -148,6 +149,15 @@ PYTHONPATH=. .venv/bin/python demo_closed_loop.py
 ```bash
 PYTHONPATH=. .venv/bin/python -m optimizer.main --data-dir Arnav_Optimizer_Clean_Dataset --output-dir .
 ```
+
+### Running the Frontend Web Application
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend will start locally at `http://127.0.0.1:5173/` or `http://127.0.0.1:5174/`.
 
 ---
 

@@ -1,6 +1,7 @@
 # Railway Maintenance Optimization System - Frontend
 
-> 🌐 **Live Demo Website:** [https://railway-maintenance-sih-2026.netlify.app](https://railway-maintenance-sih-2026.netlify.app)
+> 🌐 **Live Demo Website:** [https://railway-maintenance.netlify.app](https://railway-maintenance.netlify.app)  
+> *(Mirror URL: [https://railway-maintenance-sih-2026.netlify.app](https://railway-maintenance-sih-2026.netlify.app))*
 > 
 > AI-Powered Automatic Block Planning to Maximize Asset Reliability & Minimize Passenger Delays (Smart India Hackathon 2026).
 
