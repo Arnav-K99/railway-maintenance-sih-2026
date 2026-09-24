@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { usePlan } from '../../context/PlanContext';
+import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { formatTaskId, formatAssetId } from '../../utils/formatters';
@@ -7,6 +8,7 @@ import { Clock, ArrowRight, Calendar } from 'lucide-react';
 
 export const MaintHistory = () => {
   const { isReplanned } = usePlan();
+  const { selectedDept } = useAuth();
   const { t } = useLanguage();
 
   const [activeFilter, setActiveFilter] = useState('All');
@@ -127,13 +129,20 @@ export const MaintHistory = () => {
     },
   ];
 
-  const filteredItems = historyItems.filter((item) => {
-    if (activeFilter === 'All') return true;
-    if (activeFilter === 'Rescheduled') return item.isRescheduled;
-    if (activeFilter === 'Completed') return item.status === 'Completed' || item.status === 'Verified';
-    if (activeFilter === 'Rejected') return item.status === 'Rejected';
-    return true;
-  });
+  const filteredItems = useMemo(() => {
+    return historyItems.filter((item) => {
+      if (selectedDept && selectedDept !== 'All Departments') {
+        const deptPrefix = selectedDept.split('/')[0].trim().toLowerCase();
+        if (!item.department.toLowerCase().includes(deptPrefix)) return false;
+      }
+
+      if (activeFilter === 'All') return true;
+      if (activeFilter === 'Rescheduled') return item.isRescheduled;
+      if (activeFilter === 'Completed') return item.status === 'Completed' || item.status === 'Verified';
+      if (activeFilter === 'Rejected') return item.status === 'Rejected';
+      return true;
+    });
+  }, [historyItems, selectedDept, activeFilter]);
 
   return (
     <div className="space-y-5">

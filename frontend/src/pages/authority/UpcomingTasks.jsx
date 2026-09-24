@@ -114,11 +114,6 @@ export const UpcomingTasks = () => {
                       <div className="font-mono font-bold text-blue-600 dark:text-blue-400 text-xs">
                         {formatTaskId(task.task_id)}
                         <span className="text-[10px] text-slate-400 font-normal ml-1 font-sans">({task.task_id})</span>
-                        {isHero && (
-                          <span className="ml-1.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-900 dark:bg-amber-900/60 dark:text-amber-200">
-                            DEMO HERO
-                          </span>
-                        )}
                       </div>
                       <div className="font-medium text-slate-900 dark:text-white text-xs mt-0.5">
                         {task.maintenance_type}

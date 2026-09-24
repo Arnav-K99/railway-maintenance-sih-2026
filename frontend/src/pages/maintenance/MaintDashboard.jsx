@@ -33,6 +33,11 @@ export const MaintDashboard = ({ onNavigate }) => {
     let completed = 0;
 
     tasksInventory.forEach((task) => {
+      // Filter KPIs by selected department
+      if (selectedDept && selectedDept !== 'All Departments') {
+        if (task.department !== selectedDept) return;
+      }
+
       const s = String(task.status || '').toLowerCase();
       const r = Number(task.risk_score || 0);
 
@@ -43,7 +48,7 @@ export const MaintDashboard = ({ onNavigate }) => {
     });
 
     return { pending, highCritical, active, completed };
-  }, [tasksInventory]);
+  }, [tasksInventory, selectedDept]);
 
   // Filtered Tasks
   const filteredTasks = useMemo(() => {
@@ -219,11 +224,6 @@ export const MaintDashboard = ({ onNavigate }) => {
                   <tr key={task.task_id}>
                     <td className="font-mono font-bold text-blue-600 dark:text-blue-400 whitespace-nowrap">
                       {shortTaskId}
-                      {isHero && (
-                        <span className="ml-1.5 px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-100 text-amber-900 dark:bg-amber-950/60 dark:text-amber-200">
-                          DEMO
-                        </span>
-                      )}
                     </td>
                     <td className="font-mono text-slate-500 dark:text-slate-400 font-semibold">
                       {shortAssetId}

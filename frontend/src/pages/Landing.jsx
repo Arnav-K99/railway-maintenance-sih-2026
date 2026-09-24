@@ -9,8 +9,10 @@ export const Landing = ({ onSelectPortal }) => {
   const { t, language, toggleLanguage } = useLanguage();
   const { isDark, toggleTheme } = useTheme();
 
-  const handlePortalSelect = (portal) => {
-    login(portal);
+  const [maintDept, setMaintDept] = React.useState('Electrical / TRD');
+
+  const handlePortalSelect = (portal, dept) => {
+    login(portal, dept || maintDept);
     if (onSelectPortal) onSelectPortal(portal);
   };
 
@@ -112,7 +114,8 @@ export const Landing = ({ onSelectPortal }) => {
                   </label>
                   <select
                     className="w-full bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.10] rounded-lg px-2.5 py-1.5 text-xs text-slate-800 dark:text-slate-200 font-medium focus:outline-hidden"
-                    defaultValue="Electrical / TRD"
+                    value={maintDept}
+                    onChange={(e) => setMaintDept(e.target.value)}
                   >
                     <option value="Electrical / TRD">Electrical / TRD</option>
                     <option value="Track / Civil Engineering">Track / Civil Engineering</option>
@@ -136,7 +139,7 @@ export const Landing = ({ onSelectPortal }) => {
 
             <button
               type="button"
-              onClick={() => handlePortalSelect(PORTALS.MAINTENANCE)}
+              onClick={() => handlePortalSelect(PORTALS.MAINTENANCE, maintDept)}
               className="mt-6 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-slate-950 dark:hover:bg-slate-100 text-xs font-bold uppercase tracking-wider transition-colors shadow-2xs cursor-pointer"
             >
               <span>{t('login', 'SIGN IN TO MAINTENANCE')}</span>

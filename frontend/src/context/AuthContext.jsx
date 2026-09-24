@@ -21,18 +21,21 @@ export const AuthProvider = ({ children }) => {
     return sessionStorage.getItem('sih_portal') || PORTALS.AUTHORITY;
   });
 
-  const [selectedDept, setSelectedDept] = useState('All Departments');
+  const [selectedDept, setSelectedDept] = useState(() => {
+    return sessionStorage.getItem('sih_dept') || 'Electrical / TRD';
+  });
 
   // Default to null so user lands on Login / Portal Selection page first
   const [currentUser, setCurrentUser] = useState(() => {
     const isLoggedIn = sessionStorage.getItem('sih_logged_in');
     const p = sessionStorage.getItem('sih_portal');
+    const savedDept = sessionStorage.getItem('sih_dept') || 'Electrical / TRD';
     if (isLoggedIn === 'true' && p) {
       return p === PORTALS.MAINTENANCE
         ? {
             name: 'Authority B',
             designation: 'Senior Section Engineer (SSE)',
-            department: 'Electrical / TRD',
+            department: savedDept,
             station: 'Delhi Maintenance Division',
           }
         : {
@@ -45,17 +48,19 @@ export const AuthProvider = ({ children }) => {
     return null;
   });
 
-  const login = (portal, department = 'All Departments') => {
+  const login = (portal, department) => {
     setCurrentPortal(portal);
-    setSelectedDept(department);
+    const chosenDept = department || sessionStorage.getItem('sih_dept') || 'Electrical / TRD';
+    setSelectedDept(chosenDept);
     sessionStorage.setItem('sih_portal', portal);
     sessionStorage.setItem('sih_logged_in', 'true');
+    sessionStorage.setItem('sih_dept', chosenDept);
 
     if (portal === PORTALS.MAINTENANCE) {
       setCurrentUser({
         name: 'Authority B',
         designation: 'Senior Section Engineer (SSE)',
-        department: department === 'All Departments' ? 'Electrical / TRD' : department,
+        department: chosenDept,
         station: 'Delhi Maintenance Division',
       });
     } else {
@@ -76,8 +81,10 @@ export const AuthProvider = ({ children }) => {
     setCurrentUser(null);
     sessionStorage.removeItem('sih_portal');
     sessionStorage.removeItem('sih_logged_in');
+    sessionStorage.removeItem('sih_dept');
     localStorage.removeItem('sih_portal');
     localStorage.removeItem('sih_logged_in');
+    localStorage.removeItem('sih_dept');
   };
 
   return (

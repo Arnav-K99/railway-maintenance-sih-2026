@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { usePlan } from '../../context/PlanContext';
+import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { 
@@ -76,10 +77,25 @@ export const NeevPredictions = () => {
     },
   ];
 
-  const [selectedPrediction, setSelectedPrediction] = useState(predictions[0]);
+  const { selectedDept } = useAuth();
+
+  const filteredPredictions = useMemo(() => {
+    if (!selectedDept || selectedDept === 'All Departments') return predictions;
+    const deptPrefix = selectedDept.split('/')[0].trim().toLowerCase();
+    const matched = predictions.filter((p) => p.department.toLowerCase().includes(deptPrefix));
+    return matched.length > 0 ? matched : predictions;
+  }, [selectedDept]);
+
+  const [selectedPrediction, setSelectedPrediction] = useState(filteredPredictions[0]);
+
+  useEffect(() => {
+    if (filteredPredictions.length > 0) {
+      setSelectedPrediction(filteredPredictions[0]);
+    }
+  }, [filteredPredictions]);
 
   // Form state initialized from PlanContext requirements or sensible defaults
-  const currentReq = taskRequirements[selectedPrediction.taskId] || {
+  const currentReq = (selectedPrediction && taskRequirements[selectedPrediction.taskId]) || {
     maintType: 'Rail Grinding',
     duration: 200,
     personnel: 5,
@@ -155,12 +171,12 @@ export const NeevPredictions = () => {
               Diagnostic Queue
             </span>
             <span className="text-[10px] font-mono text-slate-500">
-              {predictions.length} High Risks Flagged
+              {filteredPredictions.length} High Risks Flagged
             </span>
           </div>
 
           <div className="divide-y divide-slate-200 dark:divide-slate-800 overflow-y-auto max-h-[620px]">
-            {predictions.map((p) => {
+            {filteredPredictions.map((p) => {
               const isSelected = p.taskId === selectedPrediction.taskId;
               return (
                 <button

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { usePlan } from '../../context/PlanContext';
+import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { formatTaskId, formatAssetId } from '../../utils/formatters';
@@ -83,10 +84,25 @@ export const TodoWork = () => {
     },
   ];
 
-  const [selectedPrediction, setSelectedPrediction] = useState(predictions[0]);
+  const { selectedDept } = useAuth();
+
+  const filteredPredictions = useMemo(() => {
+    if (!selectedDept || selectedDept === 'All Departments') return predictions;
+    const deptPrefix = selectedDept.split('/')[0].trim().toLowerCase();
+    const matched = predictions.filter((p) => p.department.toLowerCase().includes(deptPrefix));
+    return matched.length > 0 ? matched : predictions;
+  }, [selectedDept]);
+
+  const [selectedPrediction, setSelectedPrediction] = useState(filteredPredictions[0]);
+
+  useEffect(() => {
+    if (filteredPredictions.length > 0) {
+      setSelectedPrediction(filteredPredictions[0]);
+    }
+  }, [filteredPredictions]);
 
   // Form State
-  const currentReq = taskRequirements[selectedPrediction.taskId] || {
+  const currentReq = (selectedPrediction && taskRequirements[selectedPrediction.taskId]) || {
     maintType: 'Rail Grinding',
     duration: 200,
     personnel: 5,
@@ -157,12 +173,12 @@ export const TodoWork = () => {
               Pending Review Queue
             </span>
             <span className="text-[11px] font-mono font-medium text-slate-500">
-              {predictions.length} Items
+              {filteredPredictions.length} Items
             </span>
           </div>
 
           <div className="divide-y divide-slate-100 dark:divide-white/[0.05] overflow-y-auto max-h-[620px]">
-            {predictions.map((p) => {
+            {filteredPredictions.map((p) => {
               const isSelected = p.taskId === selectedPrediction.taskId;
               const shortTaskId = formatTaskId(p.taskId);
               const shortAssetId = formatAssetId(p.assetId);
