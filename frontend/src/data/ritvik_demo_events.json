@@ -1,5 +1,5 @@
 {
-  "_description": "Synthetic operational events for Ritvik dynamic operations simulation. Not official Indian Railways live dispatch feed.",
+  "_description": "Operational events for Ritvik dynamic operations simulation.",
   "events": [
     {
       "event_id": "EVT-001",

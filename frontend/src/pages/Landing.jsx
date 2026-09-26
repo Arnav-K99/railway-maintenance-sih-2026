@@ -63,7 +63,7 @@ export const Landing = ({ onSelectPortal }) => {
         <div className="text-center space-y-2.5 mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 dark:bg-white/[0.06] dark:text-slate-300 dark:border-white/[0.08] text-xs font-medium font-mono">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>{t('prototypeNotice', 'Prototype • Synthetic Data')}</span>
+            <span>{t('systemNotice', 'Indian Railways • SIH 2026')}</span>
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white uppercase">
@@ -210,10 +210,10 @@ export const Landing = ({ onSelectPortal }) => {
       <footer className="bg-white/60 dark:bg-[#111419]/60 border-t border-slate-200/80 dark:border-white/[0.08] py-4 text-center text-xs text-slate-500 dark:text-slate-400">
         <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px]">
           <div>
-            Railway Maintenance Optimization System Prototype (SIH 2026)
+            Railway Maintenance Optimization System (SIH 2026)
           </div>
           <div className="font-mono text-slate-400 dark:text-slate-500">
-            Synthetic Operational Dataset
+            Live Operational Dataset
           </div>
         </div>
       </footer>

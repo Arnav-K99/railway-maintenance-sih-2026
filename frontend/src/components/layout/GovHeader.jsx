@@ -26,7 +26,7 @@ export const GovHeader = () => {
                 {t('systemTitle', 'Railway Maintenance Optimization System')}
               </h1>
               <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-100 text-slate-600 border border-slate-200 dark:bg-white/[0.06] dark:text-slate-400 dark:border-white/[0.08]">
-                {t('prototypeNotice', 'Prototype • SIH • Synthetic Data')}
+                {t('systemNotice', 'Indian Railways • SIH 2026')}
               </span>
             </div>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">

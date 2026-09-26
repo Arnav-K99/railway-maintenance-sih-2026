@@ -5,7 +5,7 @@ export const TRANSLATIONS = {
     // Branding
     systemTitle: "Railway Maintenance Optimization System",
     systemSubtitle: "AI-Powered Automatic Block Planning",
-    prototypeNotice: "Prototype • Synthetic Data",
+    systemNotice: "Indian Railways • SIH 2026",
 
     // Portals & Modes
     maintenancePortal: "Maintenance Portal",
@@ -225,7 +225,7 @@ export const TRANSLATIONS = {
     // Branding
     systemTitle: "रेल रखरखाव अनुकूलन प्रणाली",
     systemSubtitle: "स्वचालित ब्लॉक योजना",
-    prototypeNotice: "प्रारूप • कृत्रिम डेटा",
+    systemNotice: "भारतीय रेल • SIH 2026",
 
     // Portals & Modes
     maintenancePortal: "रखरखाव पोर्टल",

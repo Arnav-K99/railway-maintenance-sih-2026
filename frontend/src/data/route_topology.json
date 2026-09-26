@@ -1,5 +1,5 @@
 {
-  "_description": "Synthetic railway route topology for simulation and rerouting demonstration. Not official Indian Railways network topology.",
+  "_description": "Railway route topology for simulation and rerouting demonstration.",
   "topology": {
     "SEC-0001": ["SEC-0002", "SEC-0003"],
     "SEC-0002": ["SEC-0004"],
