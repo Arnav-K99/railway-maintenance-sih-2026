@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { usePlan } from '../../context/PlanContext';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth, isDeptMatch } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { formatTaskId, formatAssetId } from '../../utils/formatters';
@@ -15,6 +15,7 @@ export const MaintHistory = () => {
 
   // Tasks distributed across the full 1-week horizon (03 Sep – 09 Sep)
   const historyItems = [
+    // Electrical / TRD
     {
       taskId: 'TASK-000005',
       assetId: 'AST-120005',
@@ -28,20 +29,6 @@ export const MaintHistory = () => {
       status: isReplanned ? 'Rescheduled' : 'Scheduled',
       isRescheduled: true,
       completion: isReplanned ? 'In Progress' : 'Pending',
-    },
-    {
-      taskId: 'TASK-000892',
-      assetId: 'AST-120892',
-      maintType: 'Ballast Shoulder Dressing & Tamping',
-      department: 'Track / Civil',
-      section: 'SEC-0014',
-      originalDate: '09 Sep',
-      originalWindow: '08:00–11:00',
-      replannedDate: '—',
-      replannedWindow: '',
-      status: 'Completed',
-      isRescheduled: false,
-      completion: '09 Sep • 10:45',
     },
     {
       taskId: 'TASK-000724',
@@ -58,62 +45,6 @@ export const MaintHistory = () => {
       completion: '07 Sep • 05:15',
     },
     {
-      taskId: 'TASK-000512',
-      assetId: 'AST-120512',
-      maintType: 'Track Circuit Bond Wire Replacement',
-      department: 'Signal & Telecom',
-      section: 'SEC-0005',
-      originalDate: '06 Sep',
-      originalWindow: '15:00–18:00',
-      replannedDate: '—',
-      replannedWindow: '',
-      status: 'Completed',
-      isRescheduled: false,
-      completion: '06 Sep • 17:40',
-    },
-    {
-      taskId: 'TASK-000421',
-      assetId: 'AST-120421',
-      maintType: 'Track Realignment & Dynamic Ballasting',
-      department: 'Track / Civil',
-      section: 'SEC-0002',
-      originalDate: '05 Sep',
-      originalWindow: '01:00–04:00',
-      replannedDate: '—',
-      replannedWindow: '',
-      status: 'Verified',
-      isRescheduled: false,
-      completion: '05 Sep • 03:45',
-    },
-    {
-      taskId: 'TASK-000388',
-      assetId: 'AST-120388',
-      maintType: 'Signal Point Machine Service',
-      department: 'Signal & Telecom',
-      section: 'SEC-0009',
-      originalDate: '04 Sep',
-      originalWindow: '11:30–14:00',
-      replannedDate: '05 Sep',
-      replannedWindow: '13:00–15:30',
-      status: 'Rescheduled',
-      isRescheduled: true,
-      completion: '05 Sep • 15:20',
-    },
-    {
-      taskId: 'TASK-000109',
-      assetId: 'AST-120109',
-      maintType: 'Axle Detector Sensor Infrared Scan',
-      department: 'Mechanical',
-      section: 'SEC-0012',
-      originalDate: '04 Sep',
-      originalWindow: '14:00–16:00',
-      replannedDate: '—',
-      replannedWindow: '',
-      status: 'Completed',
-      isRescheduled: false,
-      completion: '04 Sep • 15:50',
-    },
-    {
       taskId: 'TASK-000214',
       assetId: 'AST-120214',
       maintType: 'OHE Isolator Switch Replacement',
@@ -127,14 +58,112 @@ export const MaintHistory = () => {
       isRescheduled: false,
       completion: '03 Sep • 04:30',
     },
+    // Track / Civil Engineering
+    {
+      taskId: 'TASK-000892',
+      assetId: 'AST-120892',
+      maintType: 'Ballast Shoulder Dressing & Tamping',
+      department: 'Track / Civil Engineering',
+      section: 'SEC-0014',
+      originalDate: '09 Sep',
+      originalWindow: '08:00–11:00',
+      replannedDate: '—',
+      replannedWindow: '',
+      status: 'Completed',
+      isRescheduled: false,
+      completion: '09 Sep • 10:45',
+    },
+    {
+      taskId: 'TASK-000421',
+      assetId: 'AST-120421',
+      maintType: 'Track Realignment & Dynamic Ballasting',
+      department: 'Track / Civil Engineering',
+      section: 'SEC-0002',
+      originalDate: '05 Sep',
+      originalWindow: '01:00–04:00',
+      replannedDate: '—',
+      replannedWindow: '',
+      status: 'Verified',
+      isRescheduled: false,
+      completion: '05 Sep • 03:45',
+    },
+    // Signal & Telecommunications
+    {
+      taskId: 'TASK-000512',
+      assetId: 'AST-120512',
+      maintType: 'Track Circuit Bond Wire Replacement',
+      department: 'Signal & Telecommunications',
+      section: 'SEC-0005',
+      originalDate: '06 Sep',
+      originalWindow: '15:00–18:00',
+      replannedDate: '—',
+      replannedWindow: '',
+      status: 'Completed',
+      isRescheduled: false,
+      completion: '06 Sep • 17:40',
+    },
+    {
+      taskId: 'TASK-000388',
+      assetId: 'AST-120388',
+      maintType: 'Signal Point Machine Service',
+      department: 'Signal & Telecommunications',
+      section: 'SEC-0009',
+      originalDate: '04 Sep',
+      originalWindow: '11:30–14:00',
+      replannedDate: '05 Sep',
+      replannedWindow: '13:00–15:30',
+      status: 'Rescheduled',
+      isRescheduled: true,
+      completion: '05 Sep • 15:20',
+    },
+    // Mechanical / Rolling Stock
+    {
+      taskId: 'TASK-000109',
+      assetId: 'AST-120109',
+      maintType: 'Axle Detector Sensor Infrared Scan',
+      department: 'Mechanical / Rolling Stock',
+      section: 'SEC-0012',
+      originalDate: '04 Sep',
+      originalWindow: '14:00–16:00',
+      replannedDate: '—',
+      replannedWindow: '',
+      status: 'Completed',
+      isRescheduled: false,
+      completion: '04 Sep • 15:50',
+    },
+    {
+      taskId: 'TASK-000671',
+      assetId: 'AST-120671',
+      maintType: 'Wheel Lathe Profile & Flange Turning',
+      department: 'Mechanical / Rolling Stock',
+      section: 'SEC-0021',
+      originalDate: '06 Sep',
+      originalWindow: '13:00–17:00',
+      replannedDate: '—',
+      replannedWindow: '',
+      status: 'Verified',
+      isRescheduled: false,
+      completion: '06 Sep • 16:30',
+    },
+    {
+      taskId: 'TASK-000543',
+      assetId: 'AST-120543',
+      maintType: 'Bogie Primary Damper Inspection',
+      department: 'Mechanical / Rolling Stock',
+      section: 'SEC-0021',
+      originalDate: '05 Sep',
+      originalWindow: '10:00–12:30',
+      replannedDate: '06 Sep',
+      replannedWindow: '09:00–11:30',
+      status: 'Rescheduled',
+      isRescheduled: true,
+      completion: '06 Sep • 11:15',
+    },
   ];
 
   const filteredItems = useMemo(() => {
     return historyItems.filter((item) => {
-      if (selectedDept && selectedDept !== 'All Departments') {
-        const deptPrefix = selectedDept.split('/')[0].trim().toLowerCase();
-        if (!item.department.toLowerCase().includes(deptPrefix)) return false;
-      }
+      if (!isDeptMatch(item.department, selectedDept)) return false;
 
       if (activeFilter === 'All') return true;
       if (activeFilter === 'Rescheduled') return item.isRescheduled;
@@ -152,9 +181,16 @@ export const MaintHistory = () => {
           <Clock size={14} />
           <span>Execution Log</span>
         </div>
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white mt-1">
-          {t('maintHistory', 'Maintenance History')}
-        </h2>
+        <div className="flex items-center gap-2.5 mt-1">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+            {t('maintHistory', 'Maintenance History')}
+          </h2>
+          {selectedDept && (
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/60">
+              {selectedDept}
+            </span>
+          )}
+        </div>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
           {t('completionLog', 'Audit log tracking executed, rejected and dynamically rescheduled maintenance possessions across the 1-week horizon')}
         </p>

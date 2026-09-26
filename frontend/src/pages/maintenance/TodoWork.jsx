@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { usePlan } from '../../context/PlanContext';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth, isDeptMatch } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { formatTaskId, formatAssetId } from '../../utils/formatters';
@@ -19,9 +19,11 @@ import {
 
 export const TodoWork = () => {
   const { taskRequirements, saveTaskRequirement } = usePlan();
+  const { selectedDept } = useAuth();
   const { t } = useLanguage();
 
   const predictions = [
+    // Electrical / TRD
     {
       taskId: 'TASK-000005',
       assetId: 'AST-120005',
@@ -38,6 +40,22 @@ export const TodoWork = () => {
       aiDiagnosis: 'Thermal fatigue & contact wire thinning detected between km 45/2 and 48/6. High risk of wire rupture if rail grinding and tensioning is delayed.',
     },
     {
+      taskId: 'TASK-000072',
+      assetId: 'AST-120072',
+      assetType: 'Catenary Tensioning & Insulator Flashover Inspection',
+      department: 'Electrical / TRD',
+      section: 'SEC-0003',
+      corridor: 'COR-001',
+      horizonDate: '08 Sep (Sat)',
+      deadline: '2026-09-09',
+      riskScore: 68.0,
+      riskLevel: 'HIGH',
+      failureRisk30Day: '68.0% (Elevated)',
+      forecastDegradation: '14.2 mm catenary sag deviation index',
+      aiDiagnosis: 'Thermal expansion sag detected on overhead feeder cables. Requires urgent re-tensioning and ceramic insulator wash.',
+    },
+    // Track / Civil Engineering
+    {
       taskId: 'TASK-000018',
       assetId: 'AST-120018',
       assetType: 'Switch Expansion Joint (SEJ) & Turnout 42B',
@@ -52,6 +70,22 @@ export const TodoWork = () => {
       forecastDegradation: '64.5 mm track geometric deviation',
       aiDiagnosis: 'Elevated gauge face wear and dynamic track modulus anomaly detected by ultrasonic scan.',
     },
+    {
+      taskId: 'TASK-000089',
+      assetId: 'AST-120089',
+      assetType: 'Ballast Tamping & Continuous Welded Rail (CWR)',
+      department: 'Track / Civil Engineering',
+      section: 'SEC-0014',
+      corridor: 'COR-001',
+      horizonDate: '06 Sep (Thu)',
+      deadline: '2026-09-07',
+      riskScore: 76.0,
+      riskLevel: 'HIGH',
+      failureRisk30Day: '76.0% (Elevated)',
+      forecastDegradation: '8.4 mm cross-level differential',
+      aiDiagnosis: 'Track geometry car registered uneven settlement on bridge approach embankment. Heavy tamping and ballast stabilization required.',
+    },
+    // Signal & Telecommunications
     {
       taskId: 'TASK-000031',
       assetId: 'AST-120031',
@@ -68,6 +102,22 @@ export const TodoWork = () => {
       aiDiagnosis: 'Intermittent voltage fluctuation recorded during peak headway traffic.',
     },
     {
+      taskId: 'TASK-000052',
+      assetId: 'AST-120052',
+      assetType: 'Digital Axle Counter (DAC) & Track Circuit Sensor',
+      department: 'Signal & Telecommunications',
+      section: 'SEC-0005',
+      corridor: 'COR-001',
+      horizonDate: '07 Sep (Fri)',
+      deadline: '2026-09-08',
+      riskScore: 70.0,
+      riskLevel: 'HIGH',
+      failureRisk30Day: '70.2% (Elevated)',
+      forecastDegradation: 'Signal attenuation exceeding 4.2 dB threshold',
+      aiDiagnosis: 'Telemetry logs show intermittent pulse dropouts on rail-mounted wheel sensor head at turnout junction.',
+    },
+    // Mechanical / Rolling Stock
+    {
       taskId: 'TASK-000044',
       assetId: 'AST-120044',
       assetType: 'Air Brake Distributor Valve',
@@ -82,18 +132,28 @@ export const TodoWork = () => {
       forecastDegradation: '51.2 kPa/min pressure loss under test',
       aiDiagnosis: 'Wayside acoustic sensor detected partial brake cylinder binding.',
     },
+    {
+      taskId: 'TASK-000063',
+      assetId: 'AST-120063',
+      assetType: 'Wheelset Bearing Acoustic Detection & Flange Profile',
+      department: 'Mechanical / Rolling Stock',
+      section: 'SEC-0021',
+      corridor: 'COR-001',
+      horizonDate: '05 Sep (Wed)',
+      deadline: '2026-09-06',
+      riskScore: 66.0,
+      riskLevel: 'HIGH',
+      failureRisk30Day: '66.5% (Elevated)',
+      forecastDegradation: 'High-frequency vibration spike > 2.8 kHz',
+      aiDiagnosis: 'Wayside roller bearing sensor identified localized inner-race spalling anomaly during high-speed transit.',
+    },
   ];
 
-  const { selectedDept } = useAuth();
-
   const filteredPredictions = useMemo(() => {
-    if (!selectedDept || selectedDept === 'All Departments') return predictions;
-    const deptPrefix = selectedDept.split('/')[0].trim().toLowerCase();
-    const matched = predictions.filter((p) => p.department.toLowerCase().includes(deptPrefix));
-    return matched.length > 0 ? matched : predictions;
+    return predictions.filter((p) => isDeptMatch(p.department, selectedDept));
   }, [selectedDept]);
 
-  const [selectedPrediction, setSelectedPrediction] = useState(filteredPredictions[0]);
+  const [selectedPrediction, setSelectedPrediction] = useState(() => filteredPredictions[0] || predictions[0]);
 
   useEffect(() => {
     if (filteredPredictions.length > 0) {
@@ -102,38 +162,47 @@ export const TodoWork = () => {
   }, [filteredPredictions]);
 
   // Form State
-  const currentReq = (selectedPrediction && taskRequirements[selectedPrediction.taskId]) || {
-    maintType: 'Rail Grinding',
-    duration: 200,
+  const [formData, setFormData] = useState({
+    maintType: 'Predictive Service',
+    duration: 180,
     personnel: 5,
-    teamType: 'Electrical / TRD Special Gang',
-    equipment: 'Rail Grinding Train (RGM-02), OHE Tower Car',
+    teamType: 'Specialized Engineering Unit',
+    equipment: 'Standard Division Machinery',
     preferredWindow: '00:00 – 04:00 (Night Possession)',
     deadline: '2026-09-08',
-    canCollaborate: true,
+    canCollaborate: false,
     collaboratingDept: 'Track / Civil Engineering',
     canBundle: true,
-  };
+  });
 
-  const [formData, setFormData] = useState(currentReq);
+  useEffect(() => {
+    if (selectedPrediction) {
+      const saved = taskRequirements[selectedPrediction.taskId];
+      if (saved) {
+        setFormData(saved);
+      } else {
+        const d = selectedPrediction.department || '';
+        const deptPrefix = d.split('/')[0].trim();
+        setFormData({
+          maintType: selectedPrediction.assetType,
+          duration: 180,
+          personnel: 5,
+          teamType: `${deptPrefix} Specialized Crew`,
+          equipment: 'Standard Division Tools & Vehicles',
+          preferredWindow: '00:00 – 04:00 (Night Possession)',
+          deadline: selectedPrediction.deadline || '2026-09-08',
+          canCollaborate: false,
+          collaboratingDept: 'Track / Civil Engineering',
+          canBundle: true,
+        });
+      }
+    }
+  }, [selectedPrediction, taskRequirements]);
+
   const [saveNotification, setSaveNotification] = useState(false);
 
   const handleSelectPrediction = (pred) => {
     setSelectedPrediction(pred);
-    setFormData(
-      taskRequirements[pred.taskId] || {
-        maintType: pred.department.includes('Electrical') ? 'Rail Grinding' : 'Track Inspection & Alignment',
-        duration: 180,
-        personnel: 5,
-        teamType: `${pred.department} Technical Unit`,
-        equipment: 'Standard Testing Machinery',
-        preferredWindow: '00:00 – 04:00',
-        deadline: '2026-09-08',
-        canCollaborate: false,
-        collaboratingDept: 'Track / Civil Engineering',
-        canBundle: false,
-      }
-    );
     setSaveNotification(false);
   };
 
@@ -147,18 +216,27 @@ export const TodoWork = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    saveTaskRequirement(selectedPrediction.taskId, formData);
-    setSaveNotification(true);
-    setTimeout(() => setSaveNotification(false), 4500);
+    if (selectedPrediction) {
+      saveTaskRequirement(selectedPrediction.taskId, formData);
+      setSaveNotification(true);
+      setTimeout(() => setSaveNotification(false), 4500);
+    }
   };
 
   return (
     <div className="space-y-5">
       {/* Header */}
       <div>
-        <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-          {t('todoWorkTitle', 'Maintenance To-Do Queue')}
-        </h2>
+        <div className="flex items-center gap-2.5">
+          <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+            {t('todoWorkTitle', 'Maintenance To-Do Queue')}
+          </h2>
+          {selectedDept && (
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/60">
+              {selectedDept}
+            </span>
+          )}
+        </div>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
           {t('todoWorkSubtitle', 'Review incoming work items and define physical requirements for block planning')}
         </p>

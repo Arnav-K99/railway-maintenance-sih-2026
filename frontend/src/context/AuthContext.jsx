@@ -8,12 +8,24 @@ export const PORTALS = {
 };
 
 export const DEPARTMENTS = [
-  'All Departments',
-  'Track / Civil Engineering',
   'Electrical / TRD',
+  'Track / Civil Engineering',
   'Signal & Telecommunications',
   'Mechanical / Rolling Stock',
 ];
+
+export const isDeptMatch = (taskDept, userDept) => {
+  if (!userDept || userDept === 'All Departments') return true;
+  if (!taskDept) return false;
+  const t = String(taskDept).toLowerCase();
+  const u = String(userDept).toLowerCase();
+  if (t === u) return true;
+  if ((u.includes('electrical') || u.includes('trd')) && (t.includes('electrical') || t.includes('trd'))) return true;
+  if ((u.includes('civil') || u.includes('track')) && (t.includes('civil') || t.includes('track'))) return true;
+  if ((u.includes('signal') || u.includes('telecom') || u.includes('s&t')) && (t.includes('signal') || t.includes('telecom') || t.includes('s&t'))) return true;
+  if ((u.includes('mechanical') || u.includes('rolling')) && (t.includes('mechanical') || t.includes('rolling'))) return true;
+  return false;
+};
 
 export const AuthProvider = ({ children }) => {
   // Read saved portal or default to AUTHORITY

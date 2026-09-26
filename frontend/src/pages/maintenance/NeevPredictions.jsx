@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { usePlan } from '../../context/PlanContext';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth, isDeptMatch } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { 
@@ -19,10 +19,12 @@ import {
 
 export const NeevPredictions = () => {
   const { taskRequirements, saveTaskRequirement } = usePlan();
+  const { selectedDept } = useAuth();
   const { t } = useLanguage();
 
   // Curated list of high-priority predictions from Neev ML
   const predictions = [
+    // Electrical / TRD
     {
       taskId: 'TASK-000005',
       assetId: 'AST-120005',
@@ -37,6 +39,20 @@ export const NeevPredictions = () => {
       aiDiagnosis: 'Accelerated thermal fatigue and contact wire thinning detected between km 45/2 and 48/6. Recommend immediate rail grinding & catenary height adjustment to avert live wire rupture.',
     },
     {
+      taskId: 'TASK-000072',
+      assetId: 'AST-120072',
+      assetType: 'Catenary Tensioning & Insulator Flashover Inspection',
+      department: 'Electrical / TRD',
+      section: 'SEC-0003',
+      corridor: 'COR-001 (Delhi–Agra)',
+      riskScore: 68.0,
+      riskLevel: 'HIGH',
+      failureRisk30Day: '68.0% (Elevated)',
+      forecastDegradation: '14.2 mm catenary sag deviation index',
+      aiDiagnosis: 'Thermal expansion sag detected on overhead feeder cables. Requires urgent re-tensioning and ceramic insulator wash.',
+    },
+    // Track / Civil Engineering
+    {
       taskId: 'TASK-000018',
       assetId: 'AST-120018',
       assetType: 'Switch Expansion Joint (SEJ) & Turnout 42B',
@@ -49,6 +65,20 @@ export const NeevPredictions = () => {
       forecastDegradation: '64.5 mm track geometric deviation index',
       aiDiagnosis: 'High gauge face corner wear and dynamic track modulus anomaly detected by ultrasonic testing vehicle.',
     },
+    {
+      taskId: 'TASK-000089',
+      assetId: 'AST-120089',
+      assetType: 'Ballast Tamping & Continuous Welded Rail (CWR)',
+      department: 'Track / Civil Engineering',
+      section: 'SEC-0014',
+      corridor: 'COR-001 (Delhi–Agra)',
+      riskScore: 76.0,
+      riskLevel: 'HIGH',
+      failureRisk30Day: '76.0% (Elevated)',
+      forecastDegradation: '8.4 mm cross-level differential',
+      aiDiagnosis: 'Track geometry car registered uneven settlement on bridge approach embankment. Heavy tamping and ballast stabilization required.',
+    },
+    // Signal & Telecommunications
     {
       taskId: 'TASK-000031',
       assetId: 'AST-120031',
@@ -63,6 +93,20 @@ export const NeevPredictions = () => {
       aiDiagnosis: 'Relay chatter and intermittent voltage drop recorded during peak headway operations.',
     },
     {
+      taskId: 'TASK-000052',
+      assetId: 'AST-120052',
+      assetType: 'Digital Axle Counter (DAC) & Track Circuit Sensor',
+      department: 'Signal & Telecommunications',
+      section: 'SEC-0005',
+      corridor: 'COR-001 (Delhi–Agra)',
+      riskScore: 70.0,
+      riskLevel: 'HIGH',
+      failureRisk30Day: '70.2% (Elevated)',
+      forecastDegradation: 'Signal attenuation exceeding 4.2 dB threshold',
+      aiDiagnosis: 'Telemetry logs show intermittent pulse dropouts on rail-mounted wheel sensor head at turnout junction.',
+    },
+    // Mechanical / Rolling Stock
+    {
       taskId: 'TASK-000044',
       assetId: 'AST-120044',
       assetType: 'Air Brake Distributor Valve & Brake Cylinders',
@@ -75,18 +119,26 @@ export const NeevPredictions = () => {
       forecastDegradation: '51.2 kPa/min pressure loss under test',
       aiDiagnosis: 'Wayside acoustic sensor detected partial brake binding on freight wagon rake.',
     },
+    {
+      taskId: 'TASK-000063',
+      assetId: 'AST-120063',
+      assetType: 'Wheelset Bearing Acoustic Detection & Flange Profile',
+      department: 'Mechanical / Rolling Stock',
+      section: 'SEC-0021',
+      corridor: 'COR-001 (Delhi–Agra)',
+      riskScore: 66.0,
+      riskLevel: 'HIGH',
+      failureRisk30Day: '66.5% (Elevated)',
+      forecastDegradation: 'High-frequency vibration spike > 2.8 kHz',
+      aiDiagnosis: 'Wayside roller bearing sensor identified localized inner-race spalling anomaly during high-speed transit.',
+    },
   ];
 
-  const { selectedDept } = useAuth();
-
   const filteredPredictions = useMemo(() => {
-    if (!selectedDept || selectedDept === 'All Departments') return predictions;
-    const deptPrefix = selectedDept.split('/')[0].trim().toLowerCase();
-    const matched = predictions.filter((p) => p.department.toLowerCase().includes(deptPrefix));
-    return matched.length > 0 ? matched : predictions;
+    return predictions.filter((p) => isDeptMatch(p.department, selectedDept));
   }, [selectedDept]);
 
-  const [selectedPrediction, setSelectedPrediction] = useState(filteredPredictions[0]);
+  const [selectedPrediction, setSelectedPrediction] = useState(() => filteredPredictions[0] || predictions[0]);
 
   useEffect(() => {
     if (filteredPredictions.length > 0) {
@@ -95,39 +147,48 @@ export const NeevPredictions = () => {
   }, [filteredPredictions]);
 
   // Form state initialized from PlanContext requirements or sensible defaults
-  const currentReq = (selectedPrediction && taskRequirements[selectedPrediction.taskId]) || {
-    maintType: 'Rail Grinding',
-    duration: 200,
+  const [formData, setFormData] = useState({
+    maintType: 'Predictive Work Order',
+    duration: 180,
     personnel: 5,
-    teamType: 'OHE / TRD Special Gang',
-    equipment: 'Rail Grinding Train (RGM-02), OHE Tower Car',
+    teamType: 'Specialized Crew',
+    equipment: 'Standard Tools',
     preferredWindow: '00:00 – 04:00 (Night Possession)',
     deadline: '2026-09-08',
-    canCollaborate: true,
-    collaboratingDept: 'Track / Civil Engineering',
+    canCollaborate: false,
+    collaboratingDept: 'None',
     canBundle: true,
-  };
+  });
 
-  const [formData, setFormData] = useState(currentReq);
+  useEffect(() => {
+    if (selectedPrediction) {
+      const saved = taskRequirements[selectedPrediction.taskId];
+      if (saved) {
+        setFormData(saved);
+      } else {
+        const d = selectedPrediction.department || '';
+        const deptPrefix = d.split('/')[0].trim();
+        setFormData({
+          maintType: selectedPrediction.assetType,
+          duration: 180,
+          personnel: 5,
+          teamType: `${deptPrefix} Technical Crew`,
+          equipment: 'Standard Diagnostic Equipment & Work Car',
+          preferredWindow: '00:00 – 04:00 (Night Possession)',
+          deadline: '2026-09-08',
+          canCollaborate: false,
+          collaboratingDept: 'Track / Civil Engineering',
+          canBundle: true,
+        });
+      }
+    }
+  }, [selectedPrediction, taskRequirements]);
+
   const [saveNotification, setSaveNotification] = useState(false);
 
   // When selected prediction changes, update form data
   const handleSelectPrediction = (pred) => {
     setSelectedPrediction(pred);
-    setFormData(
-      taskRequirements[pred.taskId] || {
-        maintType: pred.department.includes('Electrical') ? 'Rail Grinding' : 'Track Inspection & Alignment',
-        duration: 180,
-        personnel: 5,
-        teamType: `${pred.department} Technical Gang`,
-        equipment: 'Standard Track Testing Equipment',
-        preferredWindow: '00:00 – 04:00',
-        deadline: '2026-09-08',
-        canCollaborate: false,
-        collaboratingDept: 'None',
-        canBundle: false,
-      }
-    );
     setSaveNotification(false);
   };
 
@@ -141,9 +202,11 @@ export const NeevPredictions = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    saveTaskRequirement(selectedPrediction.taskId, formData);
-    setSaveNotification(true);
-    setTimeout(() => setSaveNotification(false), 4500);
+    if (selectedPrediction) {
+      saveTaskRequirement(selectedPrediction.taskId, formData);
+      setSaveNotification(true);
+      setTimeout(() => setSaveNotification(false), 4500);
+    }
   };
 
   return (
@@ -154,9 +217,16 @@ export const NeevPredictions = () => {
           <HeartPulse size={14} />
           <span>{t('predictions', 'Neev Predictive Analytics')}</span>
         </div>
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white mt-0.5">
-          {t('neevInboxTitle', 'Neev AI Diagnostic Inbox')}
-        </h2>
+        <div className="flex items-center gap-2.5 mt-0.5">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+            {t('neevInboxTitle', 'Neev AI Diagnostic Inbox')}
+          </h2>
+          {selectedDept && (
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/60">
+              {selectedDept}
+            </span>
+          )}
+        </div>
         <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
           {t('neevInboxSubtitle', 'AI failure risk forecast inbox. Field engineers inspect diagnostic signals, define physical requirements and submit for block optimization.')}
         </p>

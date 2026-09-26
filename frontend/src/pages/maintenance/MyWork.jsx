@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { usePlan } from '../../context/PlanContext';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth, isDeptMatch } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { BackButton } from '../../components/common/BackButton';
@@ -41,10 +41,7 @@ export const MyWork = () => {
     let rescheduled = 0;
 
     tasksInventory.forEach((task) => {
-      if (selectedDept && selectedDept !== 'All Departments') {
-        const deptPrefix = selectedDept.split('/')[0].trim().toLowerCase();
-        if (!task.department.toLowerCase().includes(deptPrefix)) return;
-      }
+      if (!isDeptMatch(task.department, selectedDept)) return;
 
       all++;
       const s = String(task.status || '').toLowerCase();
@@ -72,10 +69,7 @@ export const MyWork = () => {
 
   const myTasks = useMemo(() => {
     return tasksInventory.filter((task) => {
-      if (selectedDept && selectedDept !== 'All Departments') {
-        const deptPrefix = selectedDept.split('/')[0].trim().toLowerCase();
-        if (!task.department.toLowerCase().includes(deptPrefix)) return false;
-      }
+      if (!isDeptMatch(task.department, selectedDept)) return false;
 
       const s = String(task.status || '').toLowerCase();
       if (activeFilter === 'Scheduled') {
@@ -297,8 +291,8 @@ export const MyWork = () => {
           <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
             {t('myWorkTitle', 'Assigned Maintenance Work Orders')}
           </h2>
-          {selectedDept && selectedDept !== 'All Departments' && (
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300">
+          {selectedDept && (
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-blue-100 text-blue-800 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/60">
               {selectedDept}
             </span>
           )}

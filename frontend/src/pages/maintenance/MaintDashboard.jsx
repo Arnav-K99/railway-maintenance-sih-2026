@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { usePlan } from '../../context/PlanContext';
-import { useAuth, DEPARTMENTS } from '../../context/AuthContext';
+import { useAuth, isDeptMatch } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { formatTaskId, formatAssetId } from '../../utils/formatters';
@@ -14,12 +14,13 @@ import {
   Filter, 
   Eye, 
   X,
-  Layers
+  Layers,
+  Wrench
 } from 'lucide-react';
 
 export const MaintDashboard = ({ onNavigate }) => {
   const { tasksInventory } = usePlan();
-  const { selectedDept, setSelectedDept } = useAuth();
+  const { selectedDept } = useAuth();
   const { t } = useLanguage();
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -33,10 +34,8 @@ export const MaintDashboard = ({ onNavigate }) => {
     let completed = 0;
 
     tasksInventory.forEach((task) => {
-      // Filter KPIs by selected department
-      if (selectedDept && selectedDept !== 'All Departments') {
-        if (task.department !== selectedDept) return;
-      }
+      // Filter KPIs strictly by active department
+      if (!isDeptMatch(task.department, selectedDept)) return;
 
       const s = String(task.status || '').toLowerCase();
       const r = Number(task.risk_score || 0);
@@ -50,13 +49,11 @@ export const MaintDashboard = ({ onNavigate }) => {
     return { pending, highCritical, active, completed };
   }, [tasksInventory, selectedDept]);
 
-  // Filtered Tasks
+  // Filtered Tasks (Strictly for active department)
   const filteredTasks = useMemo(() => {
     return tasksInventory.filter((task) => {
       // Department filter
-      if (selectedDept && selectedDept !== 'All Departments') {
-        if (task.department !== selectedDept) return false;
-      }
+      if (!isDeptMatch(task.department, selectedDept)) return false;
 
       // Search Query
       if (searchQuery.trim()) {
@@ -78,11 +75,16 @@ export const MaintDashboard = ({ onNavigate }) => {
     <div className="space-y-5">
       {/* Page Header */}
       <div>
-        <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-          {t('maintDashboard', 'Maintenance Dashboard')}
-        </h2>
+        <div className="flex items-center gap-2.5">
+          <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+            {t('maintDashboard', 'Maintenance Dashboard')}
+          </h2>
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/60">
+            {selectedDept}
+          </span>
+        </div>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-          {t('workInventoryDesc', 'Consolidated work order demands across all engineering divisions')}
+          Dedicated division console for {selectedDept}. Real-time work inventory, health indices, and execution schedule.
         </p>
       </div>
 
@@ -147,29 +149,18 @@ export const MaintDashboard = ({ onNavigate }) => {
 
       {/* Filter and Search Bar */}
       <div className="mac-panel p-3 flex flex-col sm:flex-row items-center justify-between gap-3">
-        {/* Department Filter Tabs */}
-        <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0 custom-scrollbar">
-          <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1 shrink-0 mr-1">
-            <Filter size={12} />
-            <span>{t('filter', 'Filter')}:</span>
+        {/* Active Division Indicator (Exclusively locked to chosen department) */}
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+            Division:
           </span>
-          {DEPARTMENTS.map((dept) => {
-            const isSelected = selectedDept === dept;
-            return (
-              <button
-                key={dept}
-                type="button"
-                onClick={() => setSelectedDept(dept)}
-                className={`px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap transition-colors ${
-                  isSelected
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-semibold shadow-2xs'
-                    : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.06] dark:text-slate-300 dark:hover:bg-white/[0.12]'
-                }`}
-              >
-                {dept === 'All Departments' ? t('allDepartments', 'All') : dept.split('/')[0].trim()}
-              </button>
-            );
-          })}
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold font-mono bg-slate-900 text-white dark:bg-white dark:text-slate-950 shadow-2xs">
+            <Wrench size={12} className="text-macblue-400 dark:text-macblue-600" />
+            <span>{selectedDept}</span>
+          </span>
+          <span className="text-[11px] font-mono text-slate-400">
+            ({filteredTasks.length} work orders)
+          </span>
         </div>
 
         {/* Search Input */}
