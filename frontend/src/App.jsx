@@ -21,6 +21,7 @@ import { Replanning } from './pages/authority/Replanning';
 import { WorkVerification } from './pages/authority/WorkVerification';
 import { UpcomingTasks } from './pages/authority/UpcomingTasks';
 import { AuthHistory } from './pages/authority/AuthHistory';
+import { CorridorTransitSimulation } from './components/operations/CorridorTransitSimulation';
 
 const MAINT_TABS = [
   'maint-dashboard',
@@ -33,6 +34,7 @@ const MAINT_TABS = [
 const AUTH_TABS = [
   'auth-dashboard',
   'operations',
+  'corridor-demo',
   'replanning',
   'verification',
   'upcoming',
@@ -48,6 +50,7 @@ const PAGE_TITLES = {
   'maint-history': { title: 'History', subtitle: 'Execution & rescheduling log' },
   'auth-dashboard': { title: 'Dashboard', subtitle: 'Operations control overview' },
   'operations': { title: 'Operations', subtitle: 'Weekly block calendar & live operations' },
+  'corridor-demo': { title: 'Corridor Demo', subtitle: 'Interactive train transit, yard switching & maintenance bypass simulation' },
   'replanning': { title: 'Replanning', subtitle: 'Operational disruptions & re-optimization' },
   'verification': { title: 'Work Verification', subtitle: 'Accept, reject, or report false closure' },
   'upcoming': { title: 'Upcoming', subtitle: 'Master possession schedule' },
@@ -57,7 +60,7 @@ const PAGE_TITLES = {
 function MainApp() {
   const { currentPortal, currentUser, login } = useAuth();
   const [activeTab, setActiveTab] = useState(() => {
-    return currentPortal === PORTALS.MAINTENANCE ? 'maint-dashboard' : 'operations';
+    return currentPortal === PORTALS.MAINTENANCE ? 'maint-dashboard' : 'auth-dashboard';
   });
 
   // Keep active tab synchronized with active portal
@@ -68,7 +71,7 @@ function MainApp() {
       }
     } else {
       if (!AUTH_TABS.includes(activeTab)) {
-        setActiveTab('operations');
+        setActiveTab('auth-dashboard');
       }
     }
   }, [currentPortal]);
@@ -77,7 +80,7 @@ function MainApp() {
     if (nextPortal === PORTALS.MAINTENANCE) {
       setActiveTab('maint-dashboard');
     } else {
-      setActiveTab('operations');
+      setActiveTab('auth-dashboard');
     }
   };
 
@@ -95,7 +98,7 @@ function MainApp() {
           if (portal === PORTALS.MAINTENANCE) {
             setActiveTab('maint-dashboard');
           } else {
-            setActiveTab('operations');
+            setActiveTab('auth-dashboard');
           }
         }}
       />
@@ -124,6 +127,7 @@ function MainApp() {
         <>
           {activeTab === 'auth-dashboard' && <AuthDashboard onNavigate={handleTabChange} />}
           {activeTab === 'operations' && <Operations />}
+          {activeTab === 'corridor-demo' && <CorridorTransitSimulation />}
           {activeTab === 'replanning' && <Replanning />}
           {activeTab === 'verification' && <WorkVerification />}
           {activeTab === 'upcoming' && <UpcomingTasks />}

@@ -59,6 +59,7 @@ export const TRANSLATIONS = {
     // Authority Mode Navigation
     authDashboard: "Dashboard",
     operations: "Operations",
+    corridorDemo: "Corridor Demo",
     replanning: "Replanning",
     workVerification: "Work Verification",
     upcomingTasks: "Upcoming Tasks",
@@ -279,6 +280,7 @@ export const TRANSLATIONS = {
     // Authority Mode Navigation
     authDashboard: "डैशबोर्ड",
     operations: "परिचालन",
+    corridorDemo: "कॉरिडोर डेमो",
     replanning: "पुनर्निर्धारण",
     workVerification: "कार्य सत्यापन",
     upcomingTasks: "आगामी कार्य",

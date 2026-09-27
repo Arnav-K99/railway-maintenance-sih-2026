@@ -29,7 +29,8 @@ export const GovSidebar = ({ activeTab, onTabChange }) => {
   // Authority Navigation Items
   const authNavItems = [
     { id: 'auth-dashboard', label: t('authDashboard', 'Dashboard'), icon: LayoutDashboard },
-    { id: 'operations', label: t('operations', 'Operations'), icon: Radio, highlight: true },
+    { id: 'operations', label: t('operations', 'Operations'), icon: Radio },
+    { id: 'corridor-demo', label: t('corridorDemo', 'Corridor Demo'), icon: TrainTrack, countBadge: 'LIVE' },
     { id: 'replanning', label: t('replanning', 'Replanning'), icon: RefreshCw, countBadge: 3 },
     { id: 'verification', label: t('workVerification', 'Work Verification'), icon: CheckSquare, countBadge: 2 },
     { id: 'upcoming', label: t('upcomingTasks', 'Upcoming Tasks'), icon: CalendarDays },
