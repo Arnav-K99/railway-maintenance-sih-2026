@@ -1,4 +1,7 @@
 // Simulation and decision trace data for demonstration
+import { getHeroDates } from '../utils/dateUtils';
+
+const heroDates = getHeroDates();
 
 export const INITIAL_PLAN_TASK_5 = {
   task_id: "TASK-000005",
@@ -7,7 +10,7 @@ export const INITIAL_PLAN_TASK_5 = {
   maintenance_type: "Rail Grinding",
   corridor_id: "COR-001",
   section_id: "SEC-0004",
-  date: "2026-09-07",
+  date: heroDates.originalFullDate,
   start_minute: 0,
   end_minute: 200,
   duration_minutes: 200,
@@ -27,7 +30,7 @@ export const REPLANNED_PLAN_TASK_5 = {
   maintenance_type: "Rail Grinding",
   corridor_id: "COR-001",
   section_id: "SEC-0004",
-  date: "2026-09-08",
+  date: heroDates.replannedFullDate,
   start_minute: 1080,
   end_minute: 1280,
   duration_minutes: 200,
@@ -48,7 +51,7 @@ export const DAY_7_TIMELINE_TASKS = [
     maintenance_type: "Track Maintenance",
     corridor_id: "COR-001",
     section_id: "SEC-0002",
-    date: "2026-09-07",
+    date: heroDates.originalFullDate,
     start_minute: 120, // 02:00
     end_minute: 330,   // 05:30
     duration_minutes: 210,
@@ -67,7 +70,7 @@ export const DAY_7_TIMELINE_TASKS = [
     maintenance_type: "Electrical Maintenance",
     corridor_id: "COR-001",
     section_id: "SEC-0003",
-    date: "2026-09-07",
+    date: heroDates.originalFullDate,
     start_minute: 360, // 06:00
     end_minute: 540,   // 09:00
     duration_minutes: 180,
@@ -86,7 +89,7 @@ export const DAY_7_TIMELINE_TASKS = [
     maintenance_type: "Track Inspection & Renewal",
     corridor_id: "COR-001",
     section_id: "SEC-0004",
-    date: "2026-09-07",
+    date: heroDates.originalFullDate,
     start_minute: 0,   // 00:00
     end_minute: 200,   // 03:20
     duration_minutes: 200,
@@ -105,7 +108,7 @@ export const DAY_7_TIMELINE_TASKS = [
     maintenance_type: "S&T Signal Maintenance",
     corridor_id: "COR-001",
     section_id: "SEC-0005",
-    date: "2026-09-07",
+    date: heroDates.originalFullDate,
     start_minute: 900,  // 15:00
     end_minute: 1080, // 18:00
     duration_minutes: 180,
@@ -146,7 +149,7 @@ export const WHY_ARNAV_TRACE_TASK_5 = {
         { label: "Required Duration", value: "200 minutes (3h 20m) -> Requires 2 Consecutive Blocks" },
         { label: "Required Team Size", value: "5 specialists" },
         { label: "Preferred Window", value: "00:00 (Night maintenance preference)" },
-        { label: "Earliest Date / Deadline", value: "2026-09-07 to 2026-09-08" },
+        { label: "Earliest Date / Deadline", value: `${heroDates.originalFullDate} to ${heroDates.replannedFullDate}` },
       ],
       badge: "200 MIN DURATION",
       badgeColor: "blue",
@@ -251,7 +254,7 @@ export const SIMULATION_EVENTS = [
     conflictsWith: "TASK-000005 (00:00 - 03:20)",
     outcomeType: "REPLAN_REQUEST",
     outcomeTitle: "No Safe Alternate Route — Replan Request Sent to Arnav",
-    details: "Ritvik detected high-priority military movement colliding with TASK-000005. Both SEC-0005 and SEC-0007 bypasses at capacity limit (0 headroom). Ritvik emitted replan_request.json; Arnav CP-SAT re-optimized task to 08 Sep (18:00 - 21:20); Ritvik validated new plan as PLAN_APPROVED.",
+    details: `Ritvik detected high-priority military movement colliding with TASK-000005. Both SEC-0005 and SEC-0007 bypasses at capacity limit (0 headroom). Ritvik emitted replan_request.json; Arnav CP-SAT re-optimized task to ${heroDates.replannedDate} (18:00 - 21:20); Ritvik validated new plan as PLAN_APPROVED.`,
   },
   {
     id: "BLOCK_UNAVAILABLE",

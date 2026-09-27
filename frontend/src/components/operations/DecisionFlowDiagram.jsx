@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+import { getHeroDates } from '../../utils/dateUtils';
 import { 
   CheckCircle2, 
   AlertCircle, 
@@ -13,6 +14,7 @@ import {
 
 export const DecisionFlowDiagram = () => {
   const { t } = useLanguage();
+  const heroDates = getHeroDates();
 
   return (
     <div className="mac-panel p-5 space-y-5">
@@ -97,7 +99,7 @@ export const DecisionFlowDiagram = () => {
             <span>5. {t('newBlockScheduled', 'CP-SAT SOLVER RE-OPTIMIZATION')}</span>
           </div>
           <p className="text-[11px] text-slate-600 dark:text-slate-400">
-            Blacklists blocked slots &rarr; assigns 08 Sep (18:00–21:20) with TEAM-018
+            Blacklists blocked slots &rarr; assigns {heroDates.replannedDate} (18:00–21:20) with TEAM-018
           </p>
           <div className="pt-1.5 text-[11px] font-bold text-emerald-700 dark:text-emerald-400 flex items-center justify-center gap-1.5">
             <ShieldCheck size={15} />

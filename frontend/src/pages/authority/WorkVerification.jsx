@@ -4,6 +4,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { BackButton } from '../../components/common/BackButton';
 import { formatTaskId, formatAssetId } from '../../utils/formatters';
+import { PLANNING_HORIZON_DAYS, getHeroDates } from '../../utils/dateUtils';
 import { 
   CheckSquare, 
   CheckCircle2, 
@@ -32,6 +33,8 @@ export const WorkVerification = () => {
     falseClosureReports 
   } = usePlan();
   const { t } = useLanguage();
+  const days = PLANNING_HORIZON_DAYS;
+  const heroDates = getHeroDates();
 
   const [activeTab, setActiveTab] = useState('Pending'); // 'Pending' | 'Upcoming' | 'History'
   const [selectedTaskForReview, setSelectedTaskForReview] = useState(null);
@@ -49,7 +52,7 @@ export const WorkVerification = () => {
       assetId: 'AST-120109',
       section: 'SEC-0012 (Kosi Kalan)',
       scheduledBlock: 'BLK-002891',
-      completionTime: '04 Sep 2026, 15:50',
+      completionTime: `${days[1].date} ${days[1].year}, 15:50`,
       crewLeader: 'Maintenance Crew Unit 1',
       toleranceRecorded: 'Infrared offset: 0.2°C (Limit: ±0.5°C)',
       photoProofUrl: 'Thermal calibrator benchmark scan report (GEO-LOC: 27.91°N, 77.43°E)',
@@ -62,7 +65,7 @@ export const WorkVerification = () => {
       assetId: 'AST-120388',
       section: 'SEC-0009 (Agra Cantt Yard)',
       scheduledBlock: 'BLK-005912',
-      completionTime: '05 Sep 2026, 11:45',
+      completionTime: `${days[2].date} ${days[2].year}, 11:45`,
       crewLeader: 'Maintenance Crew Unit 2',
       toleranceRecorded: 'Throw force 450 kg (Standard range: 400–500 kg)',
       photoProofUrl: 'Point detector micro-switch multimeter trace log & video inspection',
@@ -75,7 +78,7 @@ export const WorkVerification = () => {
       assetId: 'AST-120724',
       section: 'SEC-0004 (Delhi–Agra)',
       scheduledBlock: 'BLK-004312',
-      completionTime: '07 Sep 2026, 04:30',
+      completionTime: `${days[4].date} ${days[4].year}, 04:30`,
       crewLeader: 'Maintenance Crew Unit 3',
       toleranceRecorded: 'Wire height 5.58 m (Permissible: 5.50–5.60 m)',
       photoProofUrl: 'Optical pantograph laser gauge calibration dataset & timestamp',
@@ -496,7 +499,7 @@ export const WorkVerification = () => {
         <div className="bg-white dark:bg-[#14171d] rounded-xl border border-slate-200 dark:border-white/[0.08] shadow-sm p-5 space-y-4">
           <div className="border-b border-slate-100 dark:border-white/[0.06] pb-3">
             <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-              Upcoming Possessions for Sign-Off (07 Sep – 09 Sep Horizon)
+              Upcoming Possessions for Sign-Off ({days[4].date} – {days[6].date} Horizon)
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               These possessions are scheduled or in progress and will appear in the verification queue upon crew clearance submission.
@@ -512,7 +515,7 @@ export const WorkVerification = () => {
                   <span className="font-semibold text-slate-900 dark:text-white">Rail Grinding & OHE Adjust (SEC-0004)</span>
                 </div>
                 <div className="text-[11px] text-slate-400 font-mono mt-0.5">
-                  Scheduled: 08 Sep 18:00–21:20 (BLK-012046+47) • Crew: TEAM-018
+                  Scheduled: {heroDates.replannedDate} 18:00–21:20 (BLK-012046+47) • Crew: TEAM-018
                 </div>
               </div>
               <GovBadge status="Scheduled" />
@@ -526,7 +529,7 @@ export const WorkVerification = () => {
                   <span className="font-semibold text-slate-900 dark:text-white">Track Inspection & Ultrasonic Testing (SEC-0004)</span>
                 </div>
                 <div className="text-[11px] text-slate-400 font-mono mt-0.5">
-                  Scheduled: 07 Sep 00:00–03:20 (BLK-009637+38) • Joint Possession
+                  Scheduled: {heroDates.originalDate} 00:00–03:20 (BLK-009637+38) • Joint Possession
                 </div>
               </div>
               <GovBadge status="Scheduled" />

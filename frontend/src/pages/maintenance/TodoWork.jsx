@@ -4,6 +4,7 @@ import { useAuth, isDeptMatch } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { formatTaskId, formatAssetId } from '../../utils/formatters';
+import { PLANNING_HORIZON_DAYS } from '../../utils/dateUtils';
 import { 
   CheckSquare, 
   Save, 
@@ -21,6 +22,7 @@ export const TodoWork = () => {
   const { taskRequirements, saveTaskRequirement } = usePlan();
   const { selectedDept } = useAuth();
   const { t } = useLanguage();
+  const days = PLANNING_HORIZON_DAYS;
 
   const predictions = [
     // Electrical / TRD
@@ -31,8 +33,8 @@ export const TodoWork = () => {
       department: 'Electrical / TRD',
       section: 'SEC-0004',
       corridor: 'COR-001',
-      horizonDate: '07 Sep (Fri)',
-      deadline: '2026-09-08',
+      horizonDate: `${days[4].date} (${days[4].shortDay})`,
+      deadline: days[5].fullDate,
       riskScore: 81.0,
       riskLevel: 'CRITICAL',
       failureRisk30Day: '81.0% (Severe)',
@@ -46,8 +48,8 @@ export const TodoWork = () => {
       department: 'Electrical / TRD',
       section: 'SEC-0003',
       corridor: 'COR-001',
-      horizonDate: '08 Sep (Sat)',
-      deadline: '2026-09-09',
+      horizonDate: `${days[5].date} (${days[5].shortDay})`,
+      deadline: days[6].fullDate,
       riskScore: 68.0,
       riskLevel: 'HIGH',
       failureRisk30Day: '68.0% (Elevated)',
@@ -62,8 +64,8 @@ export const TodoWork = () => {
       department: 'Track / Civil Engineering',
       section: 'SEC-0012',
       corridor: 'COR-001',
-      horizonDate: '04 Sep (Tue)',
-      deadline: '2026-09-05',
+      horizonDate: `${days[1].date} (${days[1].shortDay})`,
+      deadline: days[2].fullDate,
       riskScore: 72.0,
       riskLevel: 'HIGH',
       failureRisk30Day: '72.4% (Elevated)',
@@ -77,8 +79,8 @@ export const TodoWork = () => {
       department: 'Track / Civil Engineering',
       section: 'SEC-0014',
       corridor: 'COR-001',
-      horizonDate: '06 Sep (Thu)',
-      deadline: '2026-09-07',
+      horizonDate: `${days[3].date} (${days[3].shortDay})`,
+      deadline: days[4].fullDate,
       riskScore: 76.0,
       riskLevel: 'HIGH',
       failureRisk30Day: '76.0% (Elevated)',
@@ -93,8 +95,8 @@ export const TodoWork = () => {
       department: 'Signal & Telecommunications',
       section: 'SEC-0041',
       corridor: 'COR-001',
-      horizonDate: '05 Sep (Wed)',
-      deadline: '2026-09-06',
+      horizonDate: `${days[2].date} (${days[2].shortDay})`,
+      deadline: days[3].fullDate,
       riskScore: 64.0,
       riskLevel: 'HIGH',
       failureRisk30Day: '64.0% (Elevated)',
@@ -108,8 +110,8 @@ export const TodoWork = () => {
       department: 'Signal & Telecommunications',
       section: 'SEC-0005',
       corridor: 'COR-001',
-      horizonDate: '07 Sep (Fri)',
-      deadline: '2026-09-08',
+      horizonDate: `${days[4].date} (${days[4].shortDay})`,
+      deadline: days[5].fullDate,
       riskScore: 70.0,
       riskLevel: 'HIGH',
       failureRisk30Day: '70.2% (Elevated)',
@@ -124,8 +126,8 @@ export const TodoWork = () => {
       department: 'Mechanical / Rolling Stock',
       section: 'SEC-0021',
       corridor: 'COR-001',
-      horizonDate: '06 Sep (Thu)',
-      deadline: '2026-09-07',
+      horizonDate: `${days[3].date} (${days[3].shortDay})`,
+      deadline: days[4].fullDate,
       riskScore: 58.0,
       riskLevel: 'MODERATE',
       failureRisk30Day: '58.0% (Medium)',
@@ -139,8 +141,8 @@ export const TodoWork = () => {
       department: 'Mechanical / Rolling Stock',
       section: 'SEC-0021',
       corridor: 'COR-001',
-      horizonDate: '05 Sep (Wed)',
-      deadline: '2026-09-06',
+      horizonDate: `${days[2].date} (${days[2].shortDay})`,
+      deadline: days[3].fullDate,
       riskScore: 66.0,
       riskLevel: 'HIGH',
       failureRisk30Day: '66.5% (Elevated)',
@@ -169,7 +171,7 @@ export const TodoWork = () => {
     teamType: 'Specialized Engineering Unit',
     equipment: 'Standard Division Machinery',
     preferredWindow: '00:00 – 04:00 (Night Possession)',
-    deadline: '2026-09-08',
+    deadline: days[5].fullDate,
     canCollaborate: false,
     collaboratingDept: 'Track / Civil Engineering',
     canBundle: true,
@@ -190,14 +192,14 @@ export const TodoWork = () => {
           teamType: `${deptPrefix} Specialized Crew`,
           equipment: 'Standard Division Tools & Vehicles',
           preferredWindow: '00:00 – 04:00 (Night Possession)',
-          deadline: selectedPrediction.deadline || '2026-09-08',
+          deadline: selectedPrediction.deadline || days[5].fullDate,
           canCollaborate: false,
           collaboratingDept: 'Track / Civil Engineering',
           canBundle: true,
         });
       }
     }
-  }, [selectedPrediction, taskRequirements]);
+  }, [selectedPrediction, taskRequirements, days]);
 
   const [saveNotification, setSaveNotification] = useState(false);
 

@@ -3,6 +3,7 @@ import { usePlan } from '../../context/PlanContext';
 import { useAuth, isDeptMatch } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
+import { PLANNING_HORIZON_DAYS } from '../../utils/dateUtils';
 import { 
   HeartPulse, 
   Send, 
@@ -21,6 +22,7 @@ export const NeevPredictions = () => {
   const { taskRequirements, saveTaskRequirement } = usePlan();
   const { selectedDept } = useAuth();
   const { t } = useLanguage();
+  const days = PLANNING_HORIZON_DAYS;
 
   // Curated list of high-priority predictions from Neev ML
   const predictions = [
@@ -154,7 +156,7 @@ export const NeevPredictions = () => {
     teamType: 'Specialized Crew',
     equipment: 'Standard Tools',
     preferredWindow: '00:00 – 04:00 (Night Possession)',
-    deadline: '2026-09-08',
+    deadline: days[5].fullDate,
     canCollaborate: false,
     collaboratingDept: 'None',
     canBundle: true,
@@ -175,14 +177,14 @@ export const NeevPredictions = () => {
           teamType: `${deptPrefix} Technical Crew`,
           equipment: 'Standard Diagnostic Equipment & Work Car',
           preferredWindow: '00:00 – 04:00 (Night Possession)',
-          deadline: '2026-09-08',
+          deadline: days[5].fullDate,
           canCollaborate: false,
           collaboratingDept: 'Track / Civil Engineering',
           canBundle: true,
         });
       }
     }
-  }, [selectedPrediction, taskRequirements]);
+  }, [selectedPrediction, taskRequirements, days]);
 
   const [saveNotification, setSaveNotification] = useState(false);
 

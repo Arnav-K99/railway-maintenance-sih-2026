@@ -3,6 +3,7 @@ import { BlockHoverPopover } from './BlockHoverPopover';
 import { useLanguage } from '../../context/LanguageContext';
 import { usePlan } from '../../context/PlanContext';
 import { formatTaskId } from '../../utils/formatters';
+import { PLANNING_HORIZON_DAYS, getHorizonRange, getHeroDates } from '../../utils/dateUtils';
 import { Calendar, Clock, Layers, RefreshCw, CheckCircle2 } from 'lucide-react';
 
 export const WeeklyBlockCalendar = () => {
@@ -12,16 +13,10 @@ export const WeeklyBlockCalendar = () => {
   const [hoveredBlock, setHoveredBlock] = useState(null);
   const [popoverPos, setPopoverPos] = useState({ x: 0, y: 0 });
 
-  // 7 Days of the Planning Horizon
-  const days = [
-    { key: 'mon', date: '03 Sep', dayName: 'Monday', fullDate: '2026-09-03' },
-    { key: 'tue', date: '04 Sep', dayName: 'Tuesday', fullDate: '2026-09-04' },
-    { key: 'wed', date: '05 Sep', dayName: 'Wednesday', fullDate: '2026-09-05' },
-    { key: 'thu', date: '06 Sep', dayName: 'Thursday', fullDate: '2026-09-06' },
-    { key: 'fri', date: '07 Sep', dayName: 'Friday', fullDate: '2026-09-07' },
-    { key: 'sat', date: '08 Sep', dayName: 'Saturday', fullDate: '2026-09-08' },
-    { key: 'sun', date: '09 Sep', dayName: 'Sunday', fullDate: '2026-09-09' },
-  ];
+  // 7 Days of the Dynamic Planning Horizon (Anchored to current week)
+  const days = PLANNING_HORIZON_DAYS;
+  const horizonRange = getHorizonRange();
+  const heroDates = getHeroDates();
 
   // 2-Hour Time Slots
   const timeSlots = [
@@ -40,11 +35,9 @@ export const WeeklyBlockCalendar = () => {
   ];
 
   // Master possessions placed directly onto calendar grid
-  // Notice the dynamic replanning of TASK-000005:
-  // When !isReplanned: Placed on Friday 07 Sep (00-02 and 02-04)
-  // When isReplanned: Placed on Saturday 08 Sep (18-20 and 20-22)
+  // Dynamically anchored to current week's Friday and Saturday
   const calendarBlocks = [
-    // 07 Sep (Friday)
+    // Friday - Original slot for TASK-000005
     ...(!isReplanned
       ? [
           {
@@ -55,7 +48,7 @@ export const WeeklyBlockCalendar = () => {
             blockId: 'BLK-009637+38',
             taskId: 'TASK-000005',
             section: 'SEC-0004',
-            date: '07 Sep',
+            date: days[4].date,
             time: '00:00 – 03:20',
             maintenanceType: 'Rail Grinding (Bundled)',
             department: 'Electrical / TRD',
@@ -72,7 +65,7 @@ export const WeeklyBlockCalendar = () => {
             blockId: 'BLK-009637+38',
             taskId: 'TASK-000004',
             section: 'SEC-0004',
-            date: '07 Sep',
+            date: days[4].date,
             time: '00:00 – 03:20',
             maintenanceType: 'Track Inspection (Joint)',
             department: 'Track / Civil Engineering',
@@ -85,7 +78,7 @@ export const WeeklyBlockCalendar = () => {
         ]
       : []),
 
-    // 08 Sep (Saturday) - Replanned slot for TASK-000005
+    // Saturday - Replanned slot for TASK-000005
     ...(isReplanned
       ? [
           {
@@ -96,14 +89,14 @@ export const WeeklyBlockCalendar = () => {
             blockId: 'BLK-012046+47',
             taskId: 'TASK-000005',
             section: 'SEC-0004',
-            date: '08 Sep',
+            date: days[5].date,
             time: '18:00 – 21:20',
             maintenanceType: 'Rail Grinding',
             department: 'Electrical / TRD',
             risk: 'CRITICAL',
             status: 'Rescheduled',
             isRescheduled: true,
-            previousBlock: '07 Sep • 00:00–03:20 (BLK-009637+38)',
+            previousBlock: `${days[4].date} • 00:00–03:20 (BLK-009637+38)`,
           },
         ]
       : []),
@@ -116,7 +109,7 @@ export const WeeklyBlockCalendar = () => {
       blockId: 'BLK-001042',
       taskId: 'TASK-000109',
       section: 'SEC-0012',
-      date: '03 Sep',
+      date: days[0].date,
       time: '02:00 – 04:00',
       maintenanceType: 'Axle Detector Scan',
       department: 'Mechanical',
@@ -131,7 +124,7 @@ export const WeeklyBlockCalendar = () => {
       blockId: 'BLK-002891',
       taskId: 'TASK-000214',
       section: 'SEC-0003',
-      date: '04 Sep',
+      date: days[1].date,
       time: '12:00 – 14:00',
       maintenanceType: 'OHE Isolator Test',
       department: 'Electrical / TRD',
@@ -146,7 +139,7 @@ export const WeeklyBlockCalendar = () => {
       blockId: 'BLK-007120',
       taskId: 'TASK-000421',
       section: 'SEC-0002',
-      date: '05 Sep',
+      date: days[2].date,
       time: '01:00 – 04:00',
       maintenanceType: 'Track Realignment',
       department: 'Track / Civil',
@@ -161,7 +154,7 @@ export const WeeklyBlockCalendar = () => {
       blockId: 'BLK-005912',
       taskId: 'TASK-000388',
       section: 'SEC-0009',
-      date: '06 Sep',
+      date: days[3].date,
       time: '10:00 – 12:00',
       maintenanceType: 'Point Machine Service',
       department: 'Signal & Telecom',
@@ -176,7 +169,7 @@ export const WeeklyBlockCalendar = () => {
       blockId: 'BLK-009630',
       taskId: 'TASK-000210',
       section: 'SEC-0002',
-      date: '07 Sep',
+      date: days[4].date,
       time: '04:00 – 05:30',
       maintenanceType: 'Ballast Tamp Gang',
       department: 'Track / Civil',
@@ -191,7 +184,7 @@ export const WeeklyBlockCalendar = () => {
       blockId: 'BLK-014201',
       taskId: 'TASK-000951',
       section: 'SEC-0001',
-      date: '09 Sep',
+      date: days[6].date,
       time: '00:30 – 02:30',
       maintenanceType: 'Catenary Wire Pull',
       department: 'Electrical / TRD',
@@ -269,7 +262,7 @@ export const WeeklyBlockCalendar = () => {
         </div>
 
         <div className="font-mono text-[11px] text-slate-500 dark:text-slate-400">
-          Horizon: <strong>03 Sep – 09 Sep 2026</strong>
+          Horizon: <strong className="text-slate-700 dark:text-slate-300">{horizonRange.label}</strong>
         </div>
       </div>
 
@@ -290,15 +283,22 @@ export const WeeklyBlockCalendar = () => {
                   <th
                     key={d.key}
                     className={`p-2.5 text-center border-r border-slate-200 dark:border-slate-800 last:border-r-0 ${
-                      d.date === '07 Sep' && !isReplanned
+                      d.key === 'fri' && !isReplanned
                         ? 'bg-blue-50/70 dark:bg-blue-950/30'
-                        : d.date === '08 Sep' && isReplanned
+                        : d.key === 'sat' && isReplanned
                         ? 'bg-orange-50/70 dark:bg-orange-950/30'
                         : ''
                     }`}
                   >
-                    <div className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                      {d.dayName}
+                    <div className="flex items-center justify-center gap-1.5">
+                      <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                        {d.dayName}
+                      </span>
+                      {d.isToday && (
+                        <span className="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-blue-600 text-white uppercase shadow-2xs">
+                          Today
+                        </span>
+                      )}
                     </div>
                     <div className="text-[11px] font-mono font-semibold text-blue-600 dark:text-blue-400 mt-0.5">
                       {d.date}
@@ -321,7 +321,7 @@ export const WeeklyBlockCalendar = () => {
                   {days.map((day) => {
                     const block = calendarBlocks.find((b) => b.day === day.key && b.slot === slot.id);
                     const isHighlightDay =
-                      (day.date === '07 Sep' && !isReplanned) || (day.date === '08 Sep' && isReplanned);
+                      (day.key === 'fri' && !isReplanned) || (day.key === 'sat' && isReplanned);
 
                     return (
                       <td

@@ -5,6 +5,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { BackButton } from '../../components/common/BackButton';
 import { formatTaskId, formatAssetId } from '../../utils/formatters';
+import { getHeroDates } from '../../utils/dateUtils';
 import { 
   Wrench, 
   Clock, 
@@ -21,6 +22,7 @@ export const MyWork = () => {
   const { tasksInventory, updateTaskStatus, isReplanned } = usePlan();
   const { selectedDept } = useAuth();
   const { t } = useLanguage();
+  const heroDates = getHeroDates();
 
   const [activeFilter, setActiveFilter] = useState('All');
   const [selectedTaskId, setSelectedTaskId] = useState(null);
@@ -170,7 +172,7 @@ export const MyWork = () => {
                 <tr>
                   <td className="text-slate-500 font-medium">Possession Window</td>
                   <td className="font-mono font-semibold text-slate-900 dark:text-white">
-                    {isReplanned && isHero ? '08 Sep • 18:00–21:20' : '07 Sep • 00:00–03:20'}
+                    {isReplanned && isHero ? heroDates.replannedDateTime : heroDates.originalDateTime}
                   </td>
                 </tr>
                 <tr>
@@ -401,7 +403,7 @@ export const MyWork = () => {
                         {isReplanned && isHero ? 'BLK-012046+47' : task.block_ids?.join('+') || 'BLK-009637+38'}
                       </td>
                       <td className="font-mono text-slate-600 dark:text-slate-400 text-[11px]">
-                        {isReplanned && isHero ? '08 Sep • 18:00–21:20' : '07 Sep • 00:00–03:20'}
+                        {isReplanned && isHero ? heroDates.replannedDateTime : heroDates.originalDateTime}
                       </td>
                       <td>
                         <GovBadge status={task.status || 'Scheduled'} />

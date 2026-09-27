@@ -4,6 +4,7 @@ import { usePlan } from '../../context/PlanContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { BackButton } from '../../components/common/BackButton';
 import { formatTaskId } from '../../utils/formatters';
+import { getHeroDates } from '../../utils/dateUtils';
 import { 
   RefreshCw, 
   AlertTriangle, 
@@ -21,6 +22,7 @@ import {
 export const Replanning = () => {
   const { isReplanned, executeReplanFlow } = usePlan();
   const { t } = useLanguage();
+  const heroDates = getHeroDates();
 
   const [selectedEventId, setSelectedEventId] = useState(null);
 
@@ -40,12 +42,12 @@ export const Replanning = () => {
       severity: 'HIGH',
       alternateRouteEval: 'SEC-0007 siding has 5 clear headway slots. Train diverted with +75m operational delay. Maintenance window preserved without disruption to track possessions.',
       originalSchedule: {
-        date: '07 Sep 2026',
+        date: `${heroDates.originalDate} ${heroDates.year}`,
         time: '00:00 – 03:20',
         blocks: 'BLK-009637 + BLK-009638'
       },
       replannedSchedule: {
-        date: '07 Sep 2026',
+        date: `${heroDates.originalDate} ${heroDates.year}`,
         time: '00:00 – 03:20',
         blocks: 'Preserved (Bypass active)'
       },
@@ -62,21 +64,21 @@ export const Replanning = () => {
       conflictTime: '01:50 – 02:20',
       overlapDuration: '30 min direct collision',
       status: 'REPLAN REQUIRED',
-      decision: 'All Bypasses Saturated → Rescheduled to 08 Sep',
+      decision: `All Bypasses Saturated → Rescheduled to ${heroDates.replannedDate}`,
       severity: 'CRITICAL',
       alternateRouteEval: 'SEC-0005 loop line capacity exhausted (6/6 slots). SEC-0007 siding congested. Topological search returned 0 safe bypasses without hazardous headways.',
       originalSchedule: {
-        date: '07 Sep 2026',
+        date: `${heroDates.originalDate} ${heroDates.year}`,
         time: '00:00 – 03:20',
         blocks: 'BLK-009637 + BLK-009638'
       },
       replannedSchedule: {
-        date: '08 Sep 2026',
+        date: `${heroDates.replannedDate} ${heroDates.year}`,
         time: '18:00 – 21:20',
         blocks: 'BLK-012046 + BLK-012047'
       },
       validationStatus: 'Plan Approved',
-      validationDetails: 'CP-SAT solver generated optimal assignment in 0.86s. Automated safety audit confirmed 0 collisions on 08 Sep.',
+      validationDetails: `CP-SAT solver generated optimal assignment in 0.86s. Automated safety audit confirmed 0 collisions on ${heroDates.replannedDate}.`,
     },
     {
       id: 'TRN-SIM-003',
@@ -92,12 +94,12 @@ export const Replanning = () => {
       severity: 'MODERATE',
       alternateRouteEval: 'Available section capacity reduced from 6 to 2 slots. Automated dispatch weights updated to throttle entry headway while keeping the maintenance window intact.',
       originalSchedule: {
-        date: '07 Sep 2026',
+        date: `${heroDates.originalDate} ${heroDates.year}`,
         time: '15:00 – 18:00',
         blocks: 'BLK-009650'
       },
       replannedSchedule: {
-        date: '07 Sep 2026',
+        date: `${heroDates.originalDate} ${heroDates.year}`,
         time: '15:00 – 18:00',
         blocks: 'Preserved (Throttled dispatch)'
       },

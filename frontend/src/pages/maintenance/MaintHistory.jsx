@@ -4,16 +4,20 @@ import { useAuth, isDeptMatch } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { formatTaskId, formatAssetId } from '../../utils/formatters';
+import { PLANNING_HORIZON_DAYS, getHeroDates, getHorizonRange } from '../../utils/dateUtils';
 import { Clock, ArrowRight, Calendar } from 'lucide-react';
 
 export const MaintHistory = () => {
   const { isReplanned } = usePlan();
   const { selectedDept } = useAuth();
   const { t } = useLanguage();
+  const days = PLANNING_HORIZON_DAYS;
+  const heroDates = getHeroDates();
+  const horizonRange = getHorizonRange();
 
   const [activeFilter, setActiveFilter] = useState('All');
 
-  // Tasks distributed across the full 1-week horizon (03 Sep – 09 Sep)
+  // Tasks distributed across the full 1-week horizon
   const historyItems = [
     // Electrical / TRD
     {
@@ -22,9 +26,9 @@ export const MaintHistory = () => {
       maintType: 'Rail Grinding & Surface Profile',
       department: 'Electrical / TRD',
       section: 'SEC-0004',
-      originalDate: '07 Sep',
+      originalDate: heroDates.originalDate,
       originalWindow: '00:00–03:20',
-      replannedDate: isReplanned ? '08 Sep' : '—',
+      replannedDate: isReplanned ? heroDates.replannedDate : '—',
       replannedWindow: isReplanned ? '18:00–21:20' : '',
       status: isReplanned ? 'Rescheduled' : 'Scheduled',
       isRescheduled: true,
@@ -36,13 +40,13 @@ export const MaintHistory = () => {
       maintType: 'Overhead Contact Wire Height Adjust',
       department: 'Electrical / TRD',
       section: 'SEC-0004',
-      originalDate: '07 Sep',
+      originalDate: heroDates.originalDate,
       originalWindow: '02:30–05:30',
       replannedDate: '—',
       replannedWindow: '',
       status: 'Completed',
       isRescheduled: false,
-      completion: '07 Sep • 05:15',
+      completion: `${heroDates.originalDate} • 05:15`,
     },
     {
       taskId: 'TASK-000214',
@@ -50,13 +54,13 @@ export const MaintHistory = () => {
       maintType: 'OHE Isolator Switch Replacement',
       department: 'Electrical / TRD',
       section: 'SEC-0003',
-      originalDate: '03 Sep',
+      originalDate: days[0].date,
       originalWindow: '02:00–05:00',
       replannedDate: '—',
       replannedWindow: '',
       status: 'Rejected',
       isRescheduled: false,
-      completion: '03 Sep • 04:30',
+      completion: `${days[0].date} • 04:30`,
     },
     // Track / Civil Engineering
     {
@@ -65,13 +69,13 @@ export const MaintHistory = () => {
       maintType: 'Ballast Shoulder Dressing & Tamping',
       department: 'Track / Civil Engineering',
       section: 'SEC-0014',
-      originalDate: '09 Sep',
+      originalDate: days[6].date,
       originalWindow: '08:00–11:00',
       replannedDate: '—',
       replannedWindow: '',
       status: 'Completed',
       isRescheduled: false,
-      completion: '09 Sep • 10:45',
+      completion: `${days[6].date} • 10:45`,
     },
     {
       taskId: 'TASK-000421',
@@ -79,13 +83,13 @@ export const MaintHistory = () => {
       maintType: 'Track Realignment & Dynamic Ballasting',
       department: 'Track / Civil Engineering',
       section: 'SEC-0002',
-      originalDate: '05 Sep',
+      originalDate: days[2].date,
       originalWindow: '01:00–04:00',
       replannedDate: '—',
       replannedWindow: '',
       status: 'Verified',
       isRescheduled: false,
-      completion: '05 Sep • 03:45',
+      completion: `${days[2].date} • 03:45`,
     },
     // Signal & Telecommunications
     {
@@ -94,13 +98,13 @@ export const MaintHistory = () => {
       maintType: 'Track Circuit Bond Wire Replacement',
       department: 'Signal & Telecommunications',
       section: 'SEC-0005',
-      originalDate: '06 Sep',
+      originalDate: days[3].date,
       originalWindow: '15:00–18:00',
       replannedDate: '—',
       replannedWindow: '',
       status: 'Completed',
       isRescheduled: false,
-      completion: '06 Sep • 17:40',
+      completion: `${days[3].date} • 17:40`,
     },
     {
       taskId: 'TASK-000388',
@@ -108,13 +112,13 @@ export const MaintHistory = () => {
       maintType: 'Signal Point Machine Service',
       department: 'Signal & Telecommunications',
       section: 'SEC-0009',
-      originalDate: '04 Sep',
+      originalDate: days[1].date,
       originalWindow: '11:30–14:00',
-      replannedDate: '05 Sep',
+      replannedDate: days[2].date,
       replannedWindow: '13:00–15:30',
       status: 'Rescheduled',
       isRescheduled: true,
-      completion: '05 Sep • 15:20',
+      completion: `${days[2].date} • 15:20`,
     },
     // Mechanical / Rolling Stock
     {
@@ -123,13 +127,13 @@ export const MaintHistory = () => {
       maintType: 'Axle Detector Sensor Infrared Scan',
       department: 'Mechanical / Rolling Stock',
       section: 'SEC-0012',
-      originalDate: '04 Sep',
+      originalDate: days[1].date,
       originalWindow: '14:00–16:00',
       replannedDate: '—',
       replannedWindow: '',
       status: 'Completed',
       isRescheduled: false,
-      completion: '04 Sep • 15:50',
+      completion: `${days[1].date} • 15:50`,
     },
     {
       taskId: 'TASK-000671',
@@ -137,13 +141,13 @@ export const MaintHistory = () => {
       maintType: 'Wheel Lathe Profile & Flange Turning',
       department: 'Mechanical / Rolling Stock',
       section: 'SEC-0021',
-      originalDate: '06 Sep',
+      originalDate: days[3].date,
       originalWindow: '13:00–17:00',
       replannedDate: '—',
       replannedWindow: '',
       status: 'Verified',
       isRescheduled: false,
-      completion: '06 Sep • 16:30',
+      completion: `${days[3].date} • 16:30`,
     },
     {
       taskId: 'TASK-000543',
@@ -151,13 +155,13 @@ export const MaintHistory = () => {
       maintType: 'Bogie Primary Damper Inspection',
       department: 'Mechanical / Rolling Stock',
       section: 'SEC-0021',
-      originalDate: '05 Sep',
+      originalDate: days[2].date,
       originalWindow: '10:00–12:30',
-      replannedDate: '06 Sep',
+      replannedDate: days[3].date,
       replannedWindow: '09:00–11:30',
       status: 'Rescheduled',
       isRescheduled: true,
-      completion: '06 Sep • 11:15',
+      completion: `${days[3].date} • 11:15`,
     },
   ];
 
@@ -216,7 +220,7 @@ export const MaintHistory = () => {
         </div>
 
         <span className="text-[11px] font-mono font-medium text-slate-400 px-2 shrink-0">
-          {filteredItems.length} {t('all', 'Records')} • Horizon: 03–09 Sep
+          {filteredItems.length} {t('all', 'Records')} • Horizon: {horizonRange.shortLabel}
         </span>
       </div>
 

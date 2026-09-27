@@ -3,12 +3,14 @@ import { usePlan } from '../../context/PlanContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { formatTaskId, formatAssetId } from '../../utils/formatters';
-import { getTaskHorizonDay, getTaskTimeWindow, minutesToTimeString } from '../../utils/dateUtils';
+import { getTaskHorizonDay, getTaskTimeWindow, minutesToTimeString, getHorizonRange, getHeroDates } from '../../utils/dateUtils';
 import { CalendarDays, Filter, Search, Clock, TrainTrack } from 'lucide-react';
 
 export const UpcomingTasks = () => {
   const { scheduledTasks = [], isReplanned } = usePlan();
   const { t } = useLanguage();
+  const horizonRange = getHorizonRange();
+  const heroDates = getHeroDates();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDept, setSelectedDept] = useState('ALL');
@@ -40,7 +42,7 @@ export const UpcomingTasks = () => {
           Master Upcoming Maintenance Possessions
         </h2>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-          Authorized track possessions across all corridors for the rolling 7-day operational horizon (03 Sep – 09 Sep).
+          Authorized track possessions across all corridors for the rolling 7-day operational horizon ({horizonRange.shortLabel}).
         </p>
       </div>
 
@@ -81,7 +83,7 @@ export const UpcomingTasks = () => {
             Conflict-Free Scheduled Possessions
           </span>
           <span className="text-[11px] text-slate-400 font-mono">
-            {filteredScheduled.length} Possessions Authorized • Dynamic 1-Week Horizon
+            {filteredScheduled.length} Possessions Authorized • Dynamic 1-Week Horizon ({horizonRange.shortLabel})
           </span>
         </div>
 
@@ -102,8 +104,8 @@ export const UpcomingTasks = () => {
               {filteredScheduled.map((task, idx) => {
                 const isHero = task.task_id === 'TASK-000005';
                 const horizonDay = getTaskHorizonDay(task, idx);
-                const taskDate = isReplanned && isHero ? '2026-09-08' : (task.date || horizonDay.fullDate);
-                const dayLabel = isReplanned && isHero ? 'Saturday' : horizonDay.dayName;
+                const taskDate = isReplanned && isHero ? heroDates.replannedFullDate : (task.date || horizonDay.fullDate);
+                const dayLabel = isReplanned && isHero ? heroDates.replannedDay : horizonDay.dayName;
                 const timeWindow = isReplanned && isHero
                   ? '18:00 – 21:20'
                   : getTaskTimeWindow(task.start_minute, task.duration_minutes, `${minutesToTimeString((idx * 165) % 1440)} – ${minutesToTimeString(((idx * 165) + 180) % 1440)}`);

@@ -14,9 +14,12 @@ import {
   RefreshCw
 } from 'lucide-react';
 
+import { getHeroDates } from '../../utils/dateUtils';
+
 export const Operations = () => {
   const { t } = useLanguage();
   const { isReplanned, toggleReplan } = usePlan();
+  const heroDates = getHeroDates();
 
   const [activeTab, setActiveTab] = useState('calendar'); // 'calendar' | 'rerouting' | 'decision-flow'
 
@@ -49,7 +52,7 @@ export const Operations = () => {
                 : 'bg-blue-50 text-blue-900 border-blue-300 dark:bg-blue-950/60 dark:text-blue-200 dark:border-blue-800'
             }`}
           >
-            {isReplanned ? 'Replanned State (08 Sep)' : 'Original State (07 Sep)'}
+            {isReplanned ? `Replanned State (${heroDates.replannedDate})` : `Original State (${heroDates.originalDate})`}
           </button>
         </div>
       </div>

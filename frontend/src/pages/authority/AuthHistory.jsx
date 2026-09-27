@@ -3,16 +3,18 @@ import { usePlan } from '../../context/PlanContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { GovBadge } from '../../components/common/GovBadge';
 import { formatTaskId } from '../../utils/formatters';
+import { PLANNING_HORIZON_DAYS, getHorizonRange } from '../../utils/dateUtils';
 import { Clock, Filter, CheckCircle2, XCircle, ShieldAlert, RefreshCw } from 'lucide-react';
 
 export const AuthHistory = () => {
   const { isReplanned, verifications, falseClosureReports } = usePlan();
   const { t } = useLanguage();
+  const days = PLANNING_HORIZON_DAYS;
+  const horizonRange = getHorizonRange();
 
   const [activeFilter, setActiveFilter] = useState('All');
 
-  // Complete Authority Audit History items across 1-week horizon (03 Sep - 09 Sep)
-  // Names of people removed and replaced with Authority A, Authority B, etc. as requested
+  // Complete Authority Audit History items across current rolling horizon
   const masterHistory = [
     {
       id: 'AUD-2026-941',
@@ -21,10 +23,10 @@ export const AuthHistory = () => {
       maintName: 'Rail Grinding (Bundled)',
       department: 'Electrical / TRD',
       section: 'SEC-0004',
-      date: '08 Sep 2026',
+      date: `${days[5].date} ${days[5].year}`,
       time: '18:00',
       actionOfficial: 'Authority A',
-      details: 'Shifted from 07 Sep (00:00–03:20) to 08 Sep (18:00–21:20) following collision with military emergency movement TRN-SIM-002.',
+      details: `Shifted from ${days[4].date} (00:00–03:20) to ${days[5].date} (18:00–21:20) following collision with military emergency movement TRN-SIM-002.`,
       status: 'Rescheduled',
     },
     {
@@ -34,7 +36,7 @@ export const AuthHistory = () => {
       maintName: 'Ballast Shoulder Dressing & Tamping',
       department: 'Track / Civil Engineering',
       section: 'SEC-0014',
-      date: '09 Sep 2026',
+      date: `${days[6].date} ${days[6].year}`,
       time: '10:45',
       actionOfficial: 'Authority B',
       details: 'Work verified compliant with tolerance limits. Possession cleared with full safety headway restored.',
@@ -47,7 +49,7 @@ export const AuthHistory = () => {
       maintName: 'Track Realignment & Dynamic Ballasting',
       department: 'Track / Civil Engineering',
       section: 'SEC-0002',
-      date: '07 Sep 2026',
+      date: `${days[4].date} ${days[4].year}`,
       time: '14:30',
       actionOfficial: 'Authority C',
       details: 'Work officially certified and accepted. Track cross-level within ±1.0mm tolerance standard.',
@@ -60,7 +62,7 @@ export const AuthHistory = () => {
       maintName: 'Track Circuit Bond Wire Replacement',
       department: 'Signal & Telecommunications',
       section: 'SEC-0005',
-      date: '06 Sep 2026',
+      date: `${days[3].date} ${days[3].year}`,
       time: '17:40',
       actionOfficial: 'Authority D',
       details: 'Mainline speed restriction eased; track circuit signal voltage normalized.',
@@ -73,7 +75,7 @@ export const AuthHistory = () => {
       maintName: 'OHE Isolator Test & Contact Inspection',
       department: 'Electrical / TRD',
       section: 'SEC-0003',
-      date: '05 Sep 2026',
+      date: `${days[2].date} ${days[2].year}`,
       time: '04:30',
       actionOfficial: 'Authority E',
       details: 'Rejected due to substandard insulation resistance (8.2MΩ vs mandatory 10.0MΩ). Rectification work order issued.',
@@ -86,7 +88,7 @@ export const AuthHistory = () => {
       maintName: 'Ballast Dressing Audit Inquiry',
       department: 'Track / Civil Engineering',
       section: 'SEC-0014',
-      date: '04 Sep 2026',
+      date: `${days[1].date} ${days[1].year}`,
       time: '16:45',
       actionOfficial: 'Authority F',
       details: 'Site audit confirmed possession closed without physical dressing. Incident escalated to Safety Commission.',
@@ -99,7 +101,7 @@ export const AuthHistory = () => {
       maintName: 'Hot Axle Sensor Scan & Calibration',
       department: 'Mechanical / Rolling Stock',
       section: 'SEC-0012',
-      date: '03 Sep 2026',
+      date: `${days[0].date} ${days[0].year}`,
       time: '15:50',
       actionOfficial: 'Authority G',
       details: 'Routine periodic infrared scan calibration completed on wayside detector head.',
@@ -133,7 +135,7 @@ export const AuthHistory = () => {
           Authority Possession & Verification Audit Log
         </h2>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-          Permanent audit register documenting all accepted, rejected, false-closure reported, and dynamically rescheduled decisions across the 1-week horizon.
+          Permanent audit register documenting all accepted, rejected, false-closure reported, and dynamically rescheduled decisions across the 1-week horizon ({horizonRange.shortLabel}).
         </p>
       </div>
 
@@ -160,7 +162,7 @@ export const AuthHistory = () => {
         </div>
 
         <span className="text-[11px] font-mono text-slate-400 px-2 shrink-0">
-          {filteredHistory.length} Records • 03 Sep – 09 Sep Horizon
+          {filteredHistory.length} Records • {horizonRange.shortLabel} Horizon
         </span>
       </div>
 

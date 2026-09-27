@@ -1,17 +1,80 @@
 /**
  * Dynamic 1-Week Horizon Date & Time Helpers
- * Distributes tasks and possessions across the 7-day operational window (Mon 03 Sep - Sun 09 Sep)
+ * Automatically anchors the 7-day operational window to the CURRENT present week (Monday to Sunday)
+ * so that whenever judges or evaluators view the platform, dates always reflect present live dates!
  */
 
-export const PLANNING_HORIZON_DAYS = [
-  { dayIndex: 0, dayName: 'Monday', shortDay: 'Mon', date: '03 Sep', fullDate: '2026-09-03' },
-  { dayIndex: 1, dayName: 'Tuesday', shortDay: 'Tue', date: '04 Sep', fullDate: '2026-09-04' },
-  { dayIndex: 2, dayName: 'Wednesday', shortDay: 'Wed', date: '05 Sep', fullDate: '2026-09-05' },
-  { dayIndex: 3, dayName: 'Thursday', shortDay: 'Thu', date: '06 Sep', fullDate: '2026-09-06' },
-  { dayIndex: 4, dayName: 'Friday', shortDay: 'Fri', date: '07 Sep', fullDate: '2026-09-07' },
-  { dayIndex: 5, dayName: 'Saturday', shortDay: 'Sat', date: '08 Sep', fullDate: '2026-09-08' },
-  { dayIndex: 6, dayName: 'Sunday', shortDay: 'Sun', date: '09 Sep', fullDate: '2026-09-09' },
-];
+const calculateHorizonDays = () => {
+  const now = new Date();
+  const currentDayOfWeek = now.getDay(); // 0 is Sun, 1 is Mon ... 6 is Sat
+  const distToMonday = (currentDayOfWeek + 6) % 7;
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - distToMonday);
+  monday.setHours(0, 0, 0, 0);
+
+  const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const shortDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const keys = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+  return dayNames.map((name, index) => {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + index);
+
+    const year = d.getFullYear();
+    const month = d.toLocaleDateString('en-US', { month: 'short' });
+    const fullMonth = d.toLocaleDateString('en-US', { month: 'long' });
+    const dayNum = String(d.getDate()).padStart(2, '0');
+    const monthNum = String(d.getMonth() + 1).padStart(2, '0');
+    const fullDate = `${year}-${monthNum}-${dayNum}`;
+    const date = `${dayNum} ${month}`;
+
+    const isToday = d.toDateString() === now.toDateString();
+
+    return {
+      dayIndex: index,
+      key: keys[index],
+      dayName: name,
+      shortDay: shortDays[index],
+      date,
+      fullDate,
+      year,
+      month,
+      fullMonth,
+      dayNum: d.getDate(),
+      isToday,
+    };
+  });
+};
+
+export const PLANNING_HORIZON_DAYS = calculateHorizonDays();
+
+export const getHorizonRange = () => {
+  const start = PLANNING_HORIZON_DAYS[0];
+  const end = PLANNING_HORIZON_DAYS[6];
+  return {
+    start: start.date,
+    end: end.date,
+    year: end.year,
+    label: `${start.date} – ${end.date} ${end.year}`,
+    shortLabel: `${start.date} – ${end.date}`,
+  };
+};
+
+export const getHeroDates = () => {
+  const fri = PLANNING_HORIZON_DAYS[4];
+  const sat = PLANNING_HORIZON_DAYS[5];
+  return {
+    originalDate: fri.date,
+    originalDay: fri.dayName,
+    originalFullDate: fri.fullDate,
+    originalDateTime: `${fri.date} • 00:00–03:20`,
+    replannedDate: sat.date,
+    replannedDay: sat.dayName,
+    replannedFullDate: sat.fullDate,
+    replannedDateTime: `${sat.date} • 18:00–21:20`,
+    year: fri.year,
+  };
+};
 
 /**
  * Returns a deterministic day object for a task index or task ID

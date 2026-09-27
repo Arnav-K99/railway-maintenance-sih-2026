@@ -13,9 +13,12 @@ import {
   CheckSquare
 } from 'lucide-react';
 
+import { PLANNING_HORIZON_DAYS } from '../../utils/dateUtils';
+
 export const AuthDashboard = ({ onNavigate }) => {
   const { metrics, isReplanned } = usePlan();
   const { t } = useLanguage();
+  const days = PLANNING_HORIZON_DAYS;
 
   // Simplified Upcoming Maintenance List across 1-Week Horizon
   const upcomingMaintenance = [
@@ -23,35 +26,35 @@ export const AuthDashboard = ({ onNavigate }) => {
       taskId: 'TASK-000004',
       dept: 'Track / Civil',
       work: 'Joint Track Ultrasonic Inspection',
-      date: '03 Sep (Mon)',
+      date: `${days[0].date} (${days[0].shortDay})`,
       status: 'Scheduled',
     },
     {
       taskId: 'TASK-000210',
       dept: 'Track / Civil',
       work: 'Track Tamping & Dynamic Ballasting',
-      date: '04 Sep (Tue)',
+      date: `${days[1].date} (${days[1].shortDay})`,
       status: 'Scheduled',
     },
     {
       taskId: 'TASK-000315',
       dept: 'Electrical / TRD',
       work: 'Catenary Wire Pull & Stagger Check',
-      date: '05 Sep (Wed)',
+      date: `${days[2].date} (${days[2].shortDay})`,
       status: 'Scheduled',
     },
     {
       taskId: 'TASK-000512',
       dept: 'Signal & Telecom',
       work: 'Track Circuit Relay Overhaul',
-      date: '06 Sep (Thu)',
+      date: `${days[3].date} (${days[3].shortDay})`,
       status: 'Scheduled',
     },
     {
       taskId: 'TASK-000005',
       dept: 'Electrical / TRD',
       work: 'Rail Grinding & OHE Adjust',
-      date: isReplanned ? '08 Sep (Sat)' : '07 Sep (Fri)',
+      date: isReplanned ? `${days[5].date} (${days[5].shortDay})` : `${days[4].date} (${days[4].shortDay})`,
       status: isReplanned ? 'Rescheduled' : 'Scheduled',
     },
   ];
@@ -82,28 +85,28 @@ export const AuthDashboard = ({ onNavigate }) => {
       work: 'Track Realignment & Ballast',
       decision: 'Accepted',
       signedBy: 'Authority A',
-      date: '07 Sep',
+      date: days[4].date,
     },
     {
       taskId: 'TASK-000512',
       work: 'Signal Overhaul Inspection',
       decision: 'Accepted',
       signedBy: 'Authority B',
-      date: '06 Sep',
+      date: days[3].date,
     },
     {
       taskId: 'TASK-000214',
       work: 'OHE Isolator Switch Test',
       decision: 'Rejected',
       signedBy: 'Authority C',
-      date: '05 Sep',
+      date: days[2].date,
     },
     {
       taskId: 'TASK-000892',
       work: 'Ballast Dressing Audit Inquiry',
       decision: 'False Closure Reported',
       signedBy: 'Authority D',
-      date: '04 Sep',
+      date: days[1].date,
     },
   ];
 
