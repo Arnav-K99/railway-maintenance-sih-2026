@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { WeeklyBlockCalendar } from '../../components/operations/WeeklyBlockCalendar';
 import { RerouteDiagram } from '../../components/operations/RerouteDiagram';
-import { DecisionFlowDiagram } from '../../components/operations/DecisionFlowDiagram';
 import { useLanguage } from '../../context/LanguageContext';
 import { usePlan } from '../../context/PlanContext';
 import { 
   Radio, 
   CalendarDays, 
   GitFork, 
-  Layers, 
   ShieldCheck, 
   AlertTriangle,
   RefreshCw
@@ -33,10 +31,10 @@ export const Operations = () => {
             <span>{t('operations', 'Operations Command Center')}</span>
           </div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-white mt-1">
-            {t('weeklyBlockCalendar', 'Master Weekly Block Planning & Operations')}
+            {t('masterBlockCalendar', 'Master Block Planning & Operations Calendar')}
           </h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            {t('calendarSubtitle', 'Master 7-day rolling horizon with conflict-free possession allocations and dynamic operational loop.')}
+            {t('calendarSubtitle', 'Interactive weekly & monthly operational horizon with conflict-free possession allocations and past-month audit.')}
           </p>
         </div>
 
@@ -70,7 +68,7 @@ export const Operations = () => {
             }`}
           >
             <CalendarDays size={13} />
-            <span>{t('weeklyBlockCalendar', 'Weekly Block Planning Calendar')}</span>
+            <span>{t('blockPlanningCalendar', 'Block Planning Calendar (Weekly & Monthly)')}</span>
           </button>
 
           <button
@@ -86,18 +84,6 @@ export const Operations = () => {
             <span>{t('rerouteSchematicTitle', 'Train Rerouting Topological Schematic')}</span>
           </button>
 
-          <button
-            type="button"
-            onClick={() => setActiveTab('decision-flow')}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs transition-all ${
-              activeTab === 'decision-flow'
-                ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold shadow-xs'
-                : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.06] dark:text-slate-300 dark:hover:bg-white/[0.12] font-medium'
-            }`}
-          >
-            <Layers size={13} />
-            <span>{t('operationalDecisionFlow', 'Operational Decision Closed Loop')}</span>
-          </button>
         </div>
       </div>
 
@@ -110,7 +96,6 @@ export const Operations = () => {
             <RerouteDiagram trainId="TRN-SIM-002" section="SEC-0004" isBlocked={true} />
           </div>
         )}
-        {activeTab === 'decision-flow' && <DecisionFlowDiagram />}
       </div>
     </div>
   );

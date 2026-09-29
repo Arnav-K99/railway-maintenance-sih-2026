@@ -148,6 +148,8 @@ export const TRANSLATIONS = {
 
     // Authority Operations Page
     weeklyBlockCalendar: "Weekly Block Planning Calendar",
+    masterBlockCalendar: "Master Block Planning & Operations Calendar",
+    blockPlanningCalendar: "Block Planning Calendar (Weekly & Monthly)",
     calendarSubtitle: "Master 7-day rolling horizon with conflict-free possession allocations",
     sihModeBtn: "▶ SIH MODE",
     sihModeActive: "SIH DEMO MODE ACTIVE",
@@ -369,6 +371,8 @@ export const TRANSLATIONS = {
 
     // Authority Operations Page
     weeklyBlockCalendar: "साप्ताहिक ब्लॉक योजना कैलेंडर",
+    masterBlockCalendar: "मुख्य ब्लॉक योजना एवं परिचालन कैलेंडर",
+    blockPlanningCalendar: "ब्लॉक योजना कैलेंडर (साप्ताहिक एवं मासिक)",
     calendarSubtitle: "टकराव-मुक्त कब्जे आवंटन के साथ 7-दिवसीय रोलिंग क्षितिज",
     sihModeBtn: "▶ एसआईएच मोड",
     sihModeActive: "एसआईएच प्रदर्शन मोड सक्रिय",
