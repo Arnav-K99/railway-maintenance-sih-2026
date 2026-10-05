@@ -5,7 +5,7 @@
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-railway--maintenance.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://railway-maintenance.netlify.app)
 
 > 🌐 **Live Demo Website:** [https://railway-maintenance.netlify.app](https://railway-maintenance.netlify.app)  
-> *(Mirror URL: [https://railway-maintenance-sih-2026.netlify.app](https://railway-maintenance-sih-2026.netlify.app))*
+
 
 ---
 
